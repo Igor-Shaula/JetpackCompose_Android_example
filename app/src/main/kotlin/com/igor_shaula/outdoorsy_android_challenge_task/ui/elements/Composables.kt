@@ -19,17 +19,26 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.igor_shaula.outdoorsy_android_challenge_task.ui.models.VehicleModel
 import com.igor_shaula.outdoorsy_android_challenge_task.ui.theme.OutdoorsyAndroidChallengeTaskTheme
+
+// temporary here - later the data will be moved on its own layer
+val fakeVehiclesList = listOf(
+    VehicleModel("image-address-1", "name-1"),
+    VehicleModel("image-address-2", "name-2"),
+    VehicleModel("image-address-3", "name-3"),
+    VehicleModel("image-address-4", "name-4"),
+    VehicleModel("image-address-5", "name-5"),
+)
 
 @Preview(showBackground = true)
 @Composable
 fun GreetingPreview() {
-    val theList = listOf("1", "2", "3")
-    TheAppUI(theList)
+    TheAppUI(fakeVehiclesList)
 }
 
 @Composable
-fun TheAppUI(vehicleList: List<String>) {
+fun TheAppUI(vehicleList: List<VehicleModel>) {
     OutdoorsyAndroidChallengeTaskTheme {
         Surface(
             modifier = Modifier.fillMaxSize(),
@@ -41,7 +50,7 @@ fun TheAppUI(vehicleList: List<String>) {
 }
 
 @Composable
-fun VehiclesList(vehicleList: List<String>, modifier: Modifier) {
+fun VehiclesList(vehicleList: List<VehicleModel>, modifier: Modifier) {
     LazyColumn(
         modifier = modifier.fillMaxWidth() // this does not work properly -> modifying Card item
     ) {
@@ -52,7 +61,7 @@ fun VehiclesList(vehicleList: List<String>, modifier: Modifier) {
 }
 
 @Composable
-fun VehicleCard(vehicle: String, modifier: Modifier) {
+fun VehicleCard(vehicle: VehicleModel, modifier: Modifier) {
     Card(
         modifier = modifier.padding(8.dp),
         elevation = CardDefaults.cardElevation(defaultElevation = 8.dp)
@@ -65,7 +74,7 @@ fun VehicleCard(vehicle: String, modifier: Modifier) {
                 contentDescription = stringResource(id = com.igor_shaula.outdoorsy_android_challenge_task.R.string.app_name)
             )
             Text(
-                text = LocalContext.current.getString(com.igor_shaula.outdoorsy_android_challenge_task.R.string.app_name) + vehicle,
+                text = LocalContext.current.getString(com.igor_shaula.outdoorsy_android_challenge_task.R.string.app_name) + vehicle.vehicleName,
                 modifier = modifier.padding(16.dp),
                 style = MaterialTheme.typography.bodyLarge
             )
