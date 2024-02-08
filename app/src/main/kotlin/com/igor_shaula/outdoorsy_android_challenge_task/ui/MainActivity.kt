@@ -1,11 +1,10 @@
-package com.igor_shaula.outdoorsy_android_challenge_task
+package com.igor_shaula.outdoorsy_android_challenge_task.ui
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import com.igor_shaula.outdoorsy_android_challenge_task.data.FakeDataSource.Companion.fakeVehiclesList
-import com.igor_shaula.outdoorsy_android_challenge_task.ui.MainViewModel
 import com.igor_shaula.outdoorsy_android_challenge_task.ui.elements.TheAppUI
 
 class MainActivity : ComponentActivity() {
