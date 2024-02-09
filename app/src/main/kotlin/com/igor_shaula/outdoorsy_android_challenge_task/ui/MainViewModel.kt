@@ -6,9 +6,9 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.igor_shaula.outdoorsy_android_challenge_task.data.VehiclesRepositoryImpl
 import com.igor_shaula.outdoorsy_android_challenge_task.data.local.FakeDataSource
 import com.igor_shaula.outdoorsy_android_challenge_task.domain.VehiclesRepository
-import com.igor_shaula.outdoorsy_android_challenge_task.data.VehiclesRepositoryImpl
 import com.igor_shaula.outdoorsy_android_challenge_task.ui.models.VehicleModel
 import kotlinx.coroutines.CoroutineName
 import kotlinx.coroutines.Job
