@@ -40,11 +40,11 @@ class MainViewModel : ViewModel() {
         super.onCleared()
     }
 
-    fun updateSearchRequest(newText: String) {
+    suspend fun updateSearchRequest(newText: String) {
         println("updateSearchRequest: $newText")
         searchQuery = newText
-        getVehiclesJob = coroutineScope.launch {
-            repository.launchSearchRequestFor(newText)
-        }
+//        getVehiclesJob = coroutineScope.launch {
+        repository.launchSearchRequestFor(newText)
+//        }
     }
 }

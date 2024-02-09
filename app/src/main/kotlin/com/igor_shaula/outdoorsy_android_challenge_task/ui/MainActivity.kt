@@ -30,8 +30,10 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.lifecycleScope
 import com.igor_shaula.outdoorsy_android_challenge_task.ui.elements.TheAppUI
 import com.igor_shaula.outdoorsy_android_challenge_task.ui.models.VehicleModel
+import kotlinx.coroutines.launch
 
 class MainActivity : ComponentActivity() {
 
@@ -81,7 +83,18 @@ class MainActivity : ComponentActivity() {
                                     println("onValueChange: new value = $newText")
                                     // TODO: remove all spaces and blank symbols
 //                                    searchText = newText
-                                    viewModel.updateSearchRequest(newText)
+                                    lifecycleScope.launch {
+                                        kotlin.runCatching {
+                                            viewModel.updateSearchRequest(newText)
+                                        }.onSuccess { items ->
+                                            // TODO show the list
+                                            println("onSuccess: items = $items")
+                                        }.onFailure {
+                                            // TODO show error
+                                            println("onFailure")
+                                        }
+                                    }
+//                                    viewModel.updateSearchRequest(newText)
                                 },
                                 singleLine = true,
 //                                maxLines = 1,
