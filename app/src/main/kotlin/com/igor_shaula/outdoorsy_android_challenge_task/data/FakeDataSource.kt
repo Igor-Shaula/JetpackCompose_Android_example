@@ -13,6 +13,11 @@ class FakeDataSource {
             VehicleModel("image-address-3", "name-3"),
             VehicleModel("image-address-4", "name-4"),
             VehicleModel("image-address-5", "name-5"),
+            VehicleModel("image-address-6", "name-6"),
+            VehicleModel("image-address-7", "name-7"),
+            VehicleModel("image-address-8", "name-8"),
+            VehicleModel("image-address-9", "name-9"),
+            VehicleModel("image-address-0", "name-0")
         )
     }
 }
