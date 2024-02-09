@@ -8,7 +8,7 @@ class NetworkDataSource {
 
     private val vehicleNetworkService: VehicleRetrofitNetworkService =
         Retrofit.Builder()
-            .baseUrl("https://search.outdoorsy.com/")
+            .baseUrl("https://search.outdoorsy.com")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
             .create(VehicleRetrofitNetworkService::class.java)
@@ -20,8 +20,13 @@ class NetworkDataSource {
 //        .create(TestBeerService::class.java)
 
     suspend fun launchSearchRequestFor(searchQuery: String) {
-        val response = vehicleNetworkService.getVehiclesList(searchQuery)
-        println(response)
-        println(response.body())
+        println("launchSearchRequestFor Retrofit: $searchQuery")
+
+//        val beers = testBeerService.getBeers() // it does work
+//        println("beers = $beers")
+
+        val vehicleNetworkEntity = vehicleNetworkService.getVehiclesList(searchQuery)
+        println("response: vehicleNetworkEntity = $vehicleNetworkEntity")
+
     }
 }

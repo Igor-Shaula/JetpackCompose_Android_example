@@ -13,7 +13,6 @@ import com.igor_shaula.outdoorsy_android_challenge_task.ui.models.VehicleModel
 import kotlinx.coroutines.CoroutineName
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.MainScope
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.plus
 
 class MainViewModel : ViewModel() {
