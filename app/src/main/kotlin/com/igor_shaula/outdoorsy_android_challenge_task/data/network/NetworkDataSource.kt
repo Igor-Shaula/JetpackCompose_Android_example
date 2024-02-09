@@ -13,6 +13,12 @@ class NetworkDataSource {
             .build()
             .create(VehicleRetrofitNetworkService::class.java)
 
+//    private val testBeerService: TestBeerService = Retrofit.Builder()
+//        .baseUrl("https://api.punkapi.com/")
+//        .addConverterFactory(GsonConverterFactory.create())
+//        .build()
+//        .create(TestBeerService::class.java)
+
     suspend fun launchSearchRequestFor(searchQuery: String) {
         val response = vehicleNetworkService.getVehiclesList(searchQuery)
         println(response)
