@@ -22,7 +22,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.igor_shaula.outdoorsy_android_challenge_task.data.FakeDataSource.Companion.fakeVehiclesList
+import com.igor_shaula.outdoorsy_android_challenge_task.data.local.FakeDataSource.Companion.fakeVehiclesList
 import com.igor_shaula.outdoorsy_android_challenge_task.ui.models.VehicleModel
 import com.igor_shaula.outdoorsy_android_challenge_task.ui.theme.OutdoorsyAndroidChallengeTaskTheme
 
