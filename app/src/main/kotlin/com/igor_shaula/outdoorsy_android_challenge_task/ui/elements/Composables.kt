@@ -47,7 +47,10 @@ fun TheAppUI(vehicleList: List<VehicleModel>) {
 @Composable
 fun VehiclesList(vehicleList: List<VehicleModel>, modifier: Modifier) {
     LazyColumn(
-        modifier = modifier.fillMaxWidth() // this does not work properly -> modifying Card item
+//        verticalArrangement = Arrangement.spacedBy(8.dp),
+        modifier = modifier
+            .fillMaxWidth() // this does not work properly -> modifying Card item
+            .padding(top = 64.dp)
     ) {
         items(vehicleList) { vehicle ->
             VehicleCard(vehicle, modifier)
