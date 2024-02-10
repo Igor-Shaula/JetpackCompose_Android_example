@@ -17,7 +17,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -50,7 +49,7 @@ fun VehiclesList(vehicleList: List<VehicleModel>, modifier: Modifier) {
 //        verticalArrangement = Arrangement.spacedBy(8.dp),
         modifier = modifier
             .fillMaxWidth() // this does not work properly -> modifying Card item
-            .padding(top = 64.dp)
+            .padding(top = 80.dp)
     ) {
         items(vehicleList) { vehicle ->
             VehicleCard(vehicle, modifier)
@@ -76,7 +75,7 @@ fun VehicleCard(vehicle: VehicleModel, modifier: Modifier) {
                     .width(80.dp)
             )
             Text(
-                text = LocalContext.current.getString(com.igor_shaula.outdoorsy_android_challenge_task.R.string.app_name) + vehicle.vehicleName,
+                text = vehicle.vehicleName,
                 style = MaterialTheme.typography.bodyLarge,
                 modifier = modifier.padding(16.dp)
             )
