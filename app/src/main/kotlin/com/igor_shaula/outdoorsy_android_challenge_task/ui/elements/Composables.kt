@@ -1,6 +1,5 @@
 package com.igor_shaula.outdoorsy_android_challenge_task.ui.elements
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
@@ -21,6 +20,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import coil.compose.AsyncImage
 import com.igor_shaula.outdoorsy_android_challenge_task.data.local.FakeDataSource.Companion.fakeVehiclesList
 import com.igor_shaula.outdoorsy_android_challenge_task.ui.models.VehicleModel
 import com.igor_shaula.outdoorsy_android_challenge_task.ui.theme.OutdoorsyAndroidChallengeTaskTheme
@@ -66,8 +66,9 @@ fun VehicleCard(vehicle: VehicleModel, modifier: Modifier) {
         Row(
             modifier = modifier.fillMaxWidth()
         ) {
-            Image(
-                painter = painterResource(id = android.R.drawable.ic_media_play),
+            AsyncImage(
+                model = vehicle.vehicleImage,
+                placeholder = painterResource(id = android.R.drawable.ic_menu_report_image),
                 contentDescription = stringResource(id = com.igor_shaula.outdoorsy_android_challenge_task.R.string.app_name),
                 contentScale = ContentScale.FillWidth,
                 modifier = modifier
