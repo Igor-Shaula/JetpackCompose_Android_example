@@ -1,9 +1,9 @@
 package com.igor_shaula.outdoorsy_android_challenge_task.ui.elements
 
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
@@ -14,6 +14,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
@@ -64,20 +65,22 @@ fun VehicleCard(vehicle: VehicleModel, modifier: Modifier) {
         modifier = modifier.padding(8.dp)
     ) {
         Row(
+            verticalAlignment = Alignment.CenterVertically,
             modifier = modifier.fillMaxWidth()
         ) {
             AsyncImage(
                 model = vehicle.vehicleImage,
                 placeholder = painterResource(id = android.R.drawable.ic_menu_report_image),
                 contentDescription = stringResource(id = com.igor_shaula.outdoorsy_android_challenge_task.R.string.app_name),
-                contentScale = ContentScale.FillWidth,
+                contentScale = ContentScale.Crop,
                 modifier = modifier
-                    .fillMaxHeight()
-                    .width(80.dp)
+                    .height(80.dp)
+                    .width(120.dp)
             )
             Text(
                 text = vehicle.vehicleName,
                 style = MaterialTheme.typography.bodyLarge,
+                maxLines = 3,
                 modifier = modifier.padding(16.dp)
             )
         }
