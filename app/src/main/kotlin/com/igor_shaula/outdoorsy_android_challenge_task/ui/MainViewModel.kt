@@ -11,6 +11,7 @@ import com.igor_shaula.outdoorsy_android_challenge_task.data.local.FakeDataSourc
 import com.igor_shaula.outdoorsy_android_challenge_task.data.network.OneVehicleData
 import com.igor_shaula.outdoorsy_android_challenge_task.domain.VehiclesRepository
 import com.igor_shaula.outdoorsy_android_challenge_task.ui.models.VehicleModel
+import com.igor_shaula.outdoorsy_android_challenge_task.ui.models.toVehicleModels
 import kotlinx.coroutines.CoroutineName
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.MainScope
@@ -49,12 +50,4 @@ class MainViewModel : ViewModel() {
         mldVehiclesList.value = resultList.toVehicleModels()
 //        }
     }
-}
-
-private fun List<OneVehicleData>.toVehicleModels(): List<VehicleModel> {
-    val result = mutableListOf<VehicleModel>()
-    forEach {
-        result.add(VehicleModel(vehicleImage = it.imageUrl, vehicleName = it.name))
-    }
-    return result
 }
