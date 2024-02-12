@@ -20,8 +20,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontStyle
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import com.igor_shaula.outdoorsy_android_challenge_task.data.local.FakeDataSource.Companion.fakeVehiclesList
 import com.igor_shaula.outdoorsy_android_challenge_task.ui.models.VehicleModel
@@ -87,3 +92,15 @@ fun VehicleCard(vehicle: VehicleModel, modifier: Modifier) {
         }
     }
 }
+
+@Composable
+fun CustomizedSearchBarPlaceholderText() = Text(
+    text = "Search",
+    textAlign = TextAlign.Start,
+    maxLines = 1,
+    fontSize = 18.sp,
+    fontStyle = FontStyle.Normal,
+    fontWeight = FontWeight.Bold,
+    fontFamily = FontFamily.Cursive,
+//    style = MaterialTheme.typography.bodyLarge
+)
