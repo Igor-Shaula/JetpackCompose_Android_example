@@ -13,16 +13,25 @@ import com.igor_shaula.outdoorsy_android_challenge_task.ui.models.toVehicleModel
 import kotlinx.coroutines.CoroutineName
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.MainScope
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.plus
 
 class MainViewModel : ViewModel() {
 
-    private val mldVehiclesList = MutableLiveData<List<VehicleModel>>()
+    // LiveData is shown in the description of androidx.lifecycle.ViewModel
+    private val mldVehiclesList = MutableLiveData<List<VehicleModel>>() // classic approach
     val vehiclesList: LiveData<List<VehicleModel>> get() = mldVehiclesList
 
     var searchQuery by mutableStateOf("")
         private set
+
+    var isBusyState by mutableStateOf(false) // this approach seems easier and will also work
+        private set
+    private val _isBusyStateFlow = MutableStateFlow(false) // using this for diversity :)
+    val isBusyStateFlow = _isBusyStateFlow.asStateFlow()
 
     private val coroutineScope = MainScope() + CoroutineName(this.javaClass.simpleName)
 
@@ -42,12 +51,12 @@ class MainViewModel : ViewModel() {
         getVehiclesJob = null // because in JVM we trust :) good old ways...
         searchQuery = newText // to show on UI what the user is actually typed in the Search field
         getVehiclesJob = coroutineScope.launch {
-//            _isBusyStateFlow.update { true }
+            _isBusyStateFlow.update { true }
 //            isBusyState = true
             val resultList = repository.launchSearchRequestFor(newText.trim())
             println("updateSearchRequest: resultList = $resultList")
             mldVehiclesList.value = resultList.toVehicleModels()
-//            _isBusyStateFlow.update { false }
+            _isBusyStateFlow.update { false }
 //            isBusyState = false
         }
     }

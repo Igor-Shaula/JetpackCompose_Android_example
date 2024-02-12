@@ -3,14 +3,19 @@ package com.igor_shaula.outdoorsy_android_challenge_task.ui
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.unit.dp
@@ -40,6 +45,7 @@ class MainActivity : ComponentActivity() {
     @Composable
     fun MainScreenWithTopBarAndList(vehicles: List<VehicleModel>? = null) {
         OutdoorsyAndroidChallengeTaskTheme {
+            val isSearching by viewModel.isBusyStateFlow.collectAsState()
             Surface(
                 color = MaterialTheme.colorScheme.background,
                 modifier = Modifier.fillMaxSize()
@@ -57,6 +63,14 @@ class MainActivity : ComponentActivity() {
                     }
                 ) { innerPadding -> // use this thing somehow - because warning emerges if it's not used
                     println("innerPadding = $innerPadding")
+//                    if (viewModel.isBusyState) { // this approach also works, no new variables required
+                    if (isSearching) {
+                        Box(modifier = Modifier.fillMaxSize()) {
+                            CircularProgressIndicator(
+                                modifier = Modifier.align(Alignment.Center)
+                            )
+                        }
+                    }
                     if (vehicles == null) {
                         CustomizedExplanation(theText = "Please use the Search box to obtain a list of Recreational Vehicles you are interested in.")
                     } else if (vehicles.isEmpty()) {
