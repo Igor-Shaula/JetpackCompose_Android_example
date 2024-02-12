@@ -9,9 +9,15 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.FavoriteBorder
+import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.SearchBar
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -92,6 +98,46 @@ fun VehicleCard(vehicle: VehicleModel, modifier: Modifier) {
         }
     }
 }
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun CustomizedSearchBar(
+    searchQuery: String, handleSearchQuery: (String) -> Unit
+) = SearchBar(
+    query = searchQuery,
+    onQueryChange = { newQuery ->
+        handleSearchQuery(newQuery)
+    },
+    onSearch = {
+        println("onSearch: it = $it")
+    },
+    active = false,
+    onActiveChange = {
+        println("onActiveChange: it = $it")
+    },
+    placeholder = {
+        CustomizedSearchBarPlaceholderText()
+    },
+    leadingIcon = {
+        Icon(
+            imageVector = Icons.Default.Search,
+            contentDescription = "search icon"
+        )
+    },
+    trailingIcon = {
+        // later - if this query was added to favourites - set correct icon here
+        Icon(
+            imageVector = Icons.Filled.FavoriteBorder,
+            contentDescription = "favourites icon"
+        )
+    },
+    shape = RoundedCornerShape(8.dp),
+    enabled = true,
+    content = {
+        println("content = $this")
+    },
+    modifier = Modifier.padding(top = 8.dp, end = 16.dp)
+)
 
 @Composable
 fun CustomizedSearchBarPlaceholderText() = Text(
