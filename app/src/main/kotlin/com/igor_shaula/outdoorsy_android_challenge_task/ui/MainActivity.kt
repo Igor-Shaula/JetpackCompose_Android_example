@@ -16,18 +16,13 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SearchBar
 import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
-import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.text.font.FontStyle
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.lifecycle.lifecycleScope
+import com.igor_shaula.outdoorsy_android_challenge_task.ui.elements.CustomizedSearchBarPlaceholderText
 import com.igor_shaula.outdoorsy_android_challenge_task.ui.elements.VehiclesList
 import com.igor_shaula.outdoorsy_android_challenge_task.ui.models.VehicleModel
 import com.igor_shaula.outdoorsy_android_challenge_task.ui.theme.OutdoorsyAndroidChallengeTaskTheme
@@ -66,53 +61,7 @@ class MainActivity : ComponentActivity() {
                                 .height(88.dp)
                                 .shadow(elevation = 8.dp),
                             title = {
-                                SearchBar(
-                                    query = viewModel.searchQuery,
-                                    onQueryChange = { newQuery ->
-                                        handleSearchQuery(newQuery)
-                                    },
-                                    onSearch = {
-                                        println("onSearch: it = $it")
-                                    },
-                                    active = false,
-                                    onActiveChange = {
-                                        println("onActiveChange: it = $it")
-                                    },
-                                    placeholder = {
-                                        Text(
-                                            text = "Search",
-                                            textAlign = TextAlign.Start,
-                                            maxLines = 1,
-                                            fontSize = 18.sp,
-                                            fontStyle = FontStyle.Normal,
-                                            fontWeight = FontWeight.Bold,
-                                            fontFamily = FontFamily.Cursive,
-//                                            style = MaterialTheme.typography.bodyLarge
-                                        )
-                                    },
-                                    leadingIcon = {
-                                        Icon(
-                                            imageVector = Icons.Default.Search,
-                                            contentDescription = "search icon"
-                                        )
-                                    },
-                                    trailingIcon = {
-                                        // later - if this query was added to favourites - set correct icon here
-                                        Icon(
-                                            imageVector = Icons.Filled.FavoriteBorder,
-                                            contentDescription = "favourites icon"
-                                        )
-                                    },
-                                    shape = RoundedCornerShape(8.dp),
-                                    enabled = true,
-                                    content = {
-                                        println("content = ${this.toString()}")
-                                    },
-                                    modifier = Modifier.padding(top = 8.dp, end = 16.dp)
-                                )/* {
-                                    // maybe later utilize this ColumnScope
-
-                                }*/
+                                CustomizedSearchBar()
                             }
                         )
                     }
@@ -123,6 +72,44 @@ class MainActivity : ComponentActivity() {
             }
         }
     }
+
+    @OptIn(ExperimentalMaterial3Api::class)
+    @Composable
+    private fun CustomizedSearchBar() = SearchBar(
+        query = viewModel.searchQuery,
+        onQueryChange = { newQuery ->
+            handleSearchQuery(newQuery)
+        },
+        onSearch = {
+            println("onSearch: it = $it")
+        },
+        active = false,
+        onActiveChange = {
+            println("onActiveChange: it = $it")
+        },
+        placeholder = {
+            CustomizedSearchBarPlaceholderText()
+        },
+        leadingIcon = {
+            Icon(
+                imageVector = Icons.Default.Search,
+                contentDescription = "search icon"
+            )
+        },
+        trailingIcon = {
+            // later - if this query was added to favourites - set correct icon here
+            Icon(
+                imageVector = Icons.Filled.FavoriteBorder,
+                contentDescription = "favourites icon"
+            )
+        },
+        shape = RoundedCornerShape(8.dp),
+        enabled = true,
+        content = {
+            println("content = $this")
+        },
+        modifier = Modifier.padding(top = 8.dp, end = 16.dp)
+    )
 
     private fun handleSearchQuery(query: String) {
         println("onQueryChange: new query = $query")
