@@ -32,13 +32,11 @@ class MainActivity : ComponentActivity() {
 
     private val viewModel: MainViewModel by viewModels()
 
-//    override fun onCreate(savedInstanceState: Bundle?) {
-//        super.onCreate(savedInstanceState)
-//        setContentView(ProgressBar(this))
-//    }
-
     override fun onStart() {
         super.onStart()
+        setContent {
+            MainScreenWithTopBarAndList()
+        }
         viewModel.vehiclesList.observe(this) { vehicles ->
             setContent {
                 MainScreenWithTopBarAndList(vehicles)
