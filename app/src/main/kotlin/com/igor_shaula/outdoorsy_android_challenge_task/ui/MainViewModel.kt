@@ -8,7 +8,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.igor_shaula.outdoorsy_android_challenge_task.data.VehiclesRepositoryImpl
 import com.igor_shaula.outdoorsy_android_challenge_task.data.local.FakeDataSource
-import com.igor_shaula.outdoorsy_android_challenge_task.data.network.OneVehicleData
 import com.igor_shaula.outdoorsy_android_challenge_task.domain.VehiclesRepository
 import com.igor_shaula.outdoorsy_android_challenge_task.ui.models.VehicleModel
 import com.igor_shaula.outdoorsy_android_challenge_task.ui.models.toVehicleModels
@@ -45,7 +44,7 @@ class MainViewModel : ViewModel() {
         println("updateSearchRequest: newText = $newText")
         searchQuery = newText
 //        getVehiclesJob = coroutineScope.launch {
-        val resultList = repository.launchSearchRequestFor(newText)
+        val resultList = repository.launchSearchRequestFor(newText.trim())
         println("updateSearchRequest: resultList = $resultList")
         mldVehiclesList.value = resultList.toVehicleModels()
 //        }
