@@ -44,18 +44,13 @@ import com.igor_shaula.outdoorsy_android_challenge_task.ui.theme.OutdoorsyAndroi
 
 @Preview(showBackground = true)
 @Composable
-fun GreetingPreview() {
-    TheAppUI(fakeVehiclesList)
-}
-
-@Composable
-fun TheAppUI(vehicleList: List<VehicleModel>) {
+fun TheAppUiPreview() {
     OutdoorsyAndroidChallengeTaskTheme {
         Surface(
             color = MaterialTheme.colorScheme.background,
             modifier = Modifier.fillMaxSize()
         ) {
-            VehiclesList(vehicleList, modifier = Modifier)
+            VehiclesList(fakeVehiclesList, modifier = Modifier)
         }
     }
 }
