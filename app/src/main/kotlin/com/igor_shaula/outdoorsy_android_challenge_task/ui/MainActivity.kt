@@ -40,7 +40,7 @@ class MainActivity : ComponentActivity() {
 
     @OptIn(ExperimentalMaterial3Api::class)
     @Composable
-    fun MainScreenWithTopBarAndList(vehicles: List<VehicleModel>) {
+    fun MainScreenWithTopBarAndList(vehicles: List<VehicleModel>? = null) {
         OutdoorsyAndroidChallengeTaskTheme {
             Surface(
                 color = MaterialTheme.colorScheme.background,
@@ -59,7 +59,13 @@ class MainActivity : ComponentActivity() {
                     }
                 ) { innerPadding -> // use this thing somehow - because warning emerges if it's not used
                     println("innerPadding = $innerPadding")
-                    VehiclesList(vehicles, modifier = Modifier)
+                    if (vehicles == null) {
+                        CustomizedExplanation(theText = "Please use the Search box to obtain a list of Recreational Vehicles you are interested in.")
+                    } else if (vehicles.isEmpty()) {
+                        CustomizedExplanation(theText = "Nothing found for the given query.\nPlease try something different.")
+                    } else {
+                        VehiclesList(vehicles, modifier = Modifier)
+                    }
                 }
             }
         }
