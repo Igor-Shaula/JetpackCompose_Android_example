@@ -64,6 +64,9 @@ class MainActivity : ComponentActivity() {
                 Scaffold(
                     topBar = {
                         TopAppBar(
+                            modifier = Modifier
+                                .height(88.dp)
+                                .shadow(elevation = 8.dp),
                             title = {
                                 Row(
                                     verticalAlignment = Alignment.CenterVertically,
