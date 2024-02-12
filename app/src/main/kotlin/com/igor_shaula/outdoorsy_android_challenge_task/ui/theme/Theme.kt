@@ -2,7 +2,6 @@ package com.igor_shaula.outdoorsy_android_challenge_task.ui.theme
 
 import android.app.Activity
 import android.os.Build
-import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.dynamicDarkColorScheme
@@ -39,9 +38,10 @@ private val LightColorScheme = lightColorScheme(
 
 @Composable
 fun OutdoorsyAndroidChallengeTaskTheme(
-    darkTheme: Boolean = isSystemInDarkTheme(),
+    darkTheme: Boolean = false, // because in the task's preview there is only one screen - in LIGHT THEME
+//    darkTheme: Boolean = isSystemInDarkTheme(),
     // Dynamic color is available on Android 12+
-    dynamicColor: Boolean = true,
+    dynamicColor: Boolean = false,
     content: @Composable () -> Unit
 ) {
     val colorScheme = when {
