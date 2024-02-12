@@ -49,7 +49,7 @@ fun VehiclesList(vehicleList: List<VehicleModel>, modifier: Modifier) {
     LazyColumn(
         modifier = modifier
             .fillMaxWidth() // this does not work properly -> modifying Card item
-            .padding(top = 80.dp)
+            .padding(top = 88.dp + 16.dp, start = 16.dp, end = 16.dp)
     ) {
         items(vehicleList) { vehicle ->
             VehicleCard(vehicle, modifier)
