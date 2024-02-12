@@ -150,3 +150,16 @@ fun CustomizedSearchBarPlaceholderText() = Text(
     fontFamily = FontFamily.Cursive,
 //    style = MaterialTheme.typography.bodyLarge
 )
+
+@Composable
+fun CustomizedExplanation(theText: String) = Text(
+    text = theText,
+    textAlign = TextAlign.Center,
+    fontFamily = FontFamily.Cursive,
+    fontWeight = FontWeight.Bold,
+    fontStyle = FontStyle.Normal,
+    fontSize = 24.sp,
+    modifier = Modifier
+        .fillMaxSize()
+        .padding(top = 88.dp + 16.dp, start = 16.dp, end = 16.dp)
+)
