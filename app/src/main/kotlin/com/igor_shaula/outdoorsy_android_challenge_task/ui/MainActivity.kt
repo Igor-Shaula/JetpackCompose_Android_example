@@ -55,12 +55,12 @@ class MainActivity : ComponentActivity() {
                 Scaffold(
                     topBar = {
                         TopAppBar(
+                            title = {
+                                CustomizedSearchBar(viewModel.searchQuery, ::handleSearchQuery)
+                            },
                             modifier = Modifier
                                 .height(88.dp)
-                                .shadow(elevation = 8.dp),
-                            title = {
-                                CustomizedSearchBar()
-                            }
+                                .shadow(elevation = 8.dp)
                         )
                     }
                 ) { innerPadding ->
@@ -73,8 +73,10 @@ class MainActivity : ComponentActivity() {
 
     @OptIn(ExperimentalMaterial3Api::class)
     @Composable
-    private fun CustomizedSearchBar() = SearchBar(
-        query = viewModel.searchQuery,
+    private fun CustomizedSearchBar(
+        searchQuery: String, handleSearchQuery: (String) -> Unit
+    ) = SearchBar(
+        query = searchQuery,
         onQueryChange = { newQuery ->
             handleSearchQuery(newQuery)
         },
