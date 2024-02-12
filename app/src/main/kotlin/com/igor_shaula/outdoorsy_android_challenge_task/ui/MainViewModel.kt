@@ -13,6 +13,7 @@ import com.igor_shaula.outdoorsy_android_challenge_task.ui.models.toVehicleModel
 import kotlinx.coroutines.CoroutineName
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.MainScope
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.plus
 
 class MainViewModel : ViewModel() {
@@ -30,18 +31,24 @@ class MainViewModel : ViewModel() {
     private val repository: VehiclesRepository = VehiclesRepositoryImpl()
 
     override fun onCleared() {
-        println("MainViewModel:onCleared")
         getVehiclesJob?.cancel()
         super.onCleared()
     }
 
-    suspend fun updateSearchRequest(newText: String) {
+    fun updateSearchRequest(newText: String) {
         println("updateSearchRequest: newText = $newText")
-        searchQuery = newText
-//        getVehiclesJob = coroutineScope.launch {
-        val resultList = repository.launchSearchRequestFor(newText.trim())
-        println("updateSearchRequest: resultList = $resultList")
-        mldVehiclesList.value = resultList.toVehicleModels()
-//        }
+        // at first we have to stop possible previous request - because user launched a new query
+        getVehiclesJob?.cancel()
+        getVehiclesJob = null // because in JVM we trust :) good old ways...
+        searchQuery = newText // to show on UI what the user is actually typed in the Search field
+        getVehiclesJob = coroutineScope.launch {
+//            _isBusyStateFlow.update { true }
+//            isBusyState = true
+            val resultList = repository.launchSearchRequestFor(newText.trim())
+            println("updateSearchRequest: resultList = $resultList")
+            mldVehiclesList.value = resultList.toVehicleModels()
+//            _isBusyStateFlow.update { false }
+//            isBusyState = false
+        }
     }
 }

@@ -14,13 +14,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.lifecycleScope
 import com.igor_shaula.outdoorsy_android_challenge_task.ui.elements.CustomizedExplanation
 import com.igor_shaula.outdoorsy_android_challenge_task.ui.elements.CustomizedSearchBar
 import com.igor_shaula.outdoorsy_android_challenge_task.ui.elements.VehiclesList
 import com.igor_shaula.outdoorsy_android_challenge_task.ui.models.VehicleModel
 import com.igor_shaula.outdoorsy_android_challenge_task.ui.theme.OutdoorsyAndroidChallengeTaskTheme
-import kotlinx.coroutines.launch
 
 class MainActivity : ComponentActivity() {
 
@@ -73,16 +71,6 @@ class MainActivity : ComponentActivity() {
 
     private fun handleSearchQuery(query: String) {
         println("onQueryChange: new query = $query")
-        lifecycleScope.launch {
-            kotlin.runCatching {
-                viewModel.updateSearchRequest(query)
-            }.onSuccess { items ->
-                // TODO show the list
-                println("onSuccess: items = $items")
-            }.onFailure {
-                // TODO show error
-                println("onFailure")
-            }
-        }
+        viewModel.updateSearchRequest(query)
     }
 }
