@@ -13,6 +13,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.FavoriteBorder
 import androidx.compose.material.icons.filled.Search
+import androidx.compose.material.icons.twotone.Done
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
@@ -25,8 +26,9 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontStyle
@@ -84,12 +86,14 @@ fun VehicleCard(vehicle: VehicleModel, modifier: Modifier) {
         ) {
             AsyncImage(
                 model = vehicle.vehicleImage,
-                placeholder = painterResource(id = android.R.drawable.ic_menu_report_image),
+                placeholder = rememberVectorPainter(image = Icons.TwoTone.Done), // replace by proper SVG placeholder
                 contentDescription = stringResource(id = com.igor_shaula.outdoorsy_android_challenge_task.R.string.app_name),
                 contentScale = ContentScale.Crop,
                 modifier = modifier
-                    .height(80.dp)
-                    .width(120.dp)
+                    .height(96.dp)
+                    .width(128.dp)
+                    .padding(all = 4.dp)
+                    .shadow(shape = RoundedCornerShape(4.dp), elevation = 2.dp)
             )
             Text(
                 text = vehicle.vehicleName,

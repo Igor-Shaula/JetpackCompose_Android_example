@@ -62,7 +62,7 @@ class MainActivity : ComponentActivity() {
                 ) { innerPadding -> // use this thing somehow - because warning emerges if it's not used
                     println("innerPadding = $innerPadding")
 //                    if (viewModel.isBusyState) { // this approach also works, no new variables required
-                    if (isSearching) {
+                    if (isSearching) { // decided to not to use "when" statement as it takes more space
                         CustomizedBusyIndicator()
                     } else if (vehicles == null) {
                         CustomizedExplanation(theText = "Please use the Search box to obtain a list of Recreational Vehicles you are interested in.")
