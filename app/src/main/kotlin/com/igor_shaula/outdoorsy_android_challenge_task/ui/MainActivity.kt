@@ -1,31 +1,30 @@
 package com.igor_shaula.outdoorsy_android_challenge_task.ui
 
-import android.os.Bundle
-import android.widget.ProgressBar
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.FavoriteBorder
+import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SearchBar
 import androidx.compose.material3.Surface
-import androidx.compose.material3.TextField
+import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.lifecycleScope
@@ -50,7 +49,6 @@ class MainActivity : ComponentActivity() {
                 MainScreenWithTopBarAndList(vehicles)
             }
         }
-        // TODO:
     }
 
     @OptIn(ExperimentalMaterial3Api::class)
@@ -68,52 +66,75 @@ class MainActivity : ComponentActivity() {
                                 .height(88.dp)
                                 .shadow(elevation = 8.dp),
                             title = {
-                                Row(
-                                    verticalAlignment = Alignment.CenterVertically,
-                                ) {
-                                    Image(
-                                        painter = painterResource(id = android.R.drawable.ic_menu_search),
-                                        contentDescription = "search icon",
-                                        alignment = Alignment.Center
-                                    )
-                                    TextField(
-                                        value = viewModel.searchQuery,
-                                        onValueChange = { newText ->
-                                            println("onValueChange: new value = $newText")
-                                            // TODO: remove all spaces and blank symbols
-                                            lifecycleScope.launch {
-                                                kotlin.runCatching {
-                                                    viewModel.updateSearchRequest(newText)
-                                                }.onSuccess { items ->
-                                                    // TODO show the list
-                                                    println("onSuccess: items = $items")
-                                                }.onFailure {
-                                                    // TODO show error
-                                                    println("onFailure")
-                                                }
-                                            }
-                                        },
-                                        singleLine = true,
-                                        textStyle = TextStyle(
-                                            fontSize = 20.sp,
+                                SearchBar(
+                                    query = viewModel.searchQuery,
+                                    onQueryChange = { newQuery ->
+                                        handleSearchQuery(newQuery)
+                                    },
+                                    onSearch = {
+                                        println("onSearch: it = $it")
+                                    },
+                                    active = false,
+                                    onActiveChange = {
+                                        println("onActiveChange: it = $it")
+                                    },
+                                    placeholder = {
+                                        Text(
+                                            text = "Search",
+                                            textAlign = TextAlign.Start,
+                                            maxLines = 1,
+                                            fontSize = 18.sp,
+                                            fontStyle = FontStyle.Normal,
                                             fontWeight = FontWeight.Bold,
-                                            color = Color.DarkGray,
-                                        ),
-                                        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
-                                        modifier = Modifier
-                                            .fillMaxWidth()
-                                            .padding(all = 16.dp)
-                                            .background(color = Color.White)
-                                    )
-                                }
+                                            fontFamily = FontFamily.Cursive,
+//                                            style = MaterialTheme.typography.bodyLarge
+                                        )
+                                    },
+                                    leadingIcon = {
+                                        Icon(
+                                            imageVector = Icons.Default.Search,
+                                            contentDescription = "search icon"
+                                        )
+                                    },
+                                    trailingIcon = {
+                                        // later - if this query was added to favourites - set correct icon here
+                                        Icon(
+                                            imageVector = Icons.Filled.FavoriteBorder,
+                                            contentDescription = "favourites icon"
+                                        )
+                                    },
+                                    shape = RoundedCornerShape(8.dp),
+                                    enabled = true,
+                                    content = {
+                                        println("content = ${this.toString()}")
+                                    },
+                                    modifier = Modifier.padding(top = 8.dp, end = 16.dp)
+                                )/* {
+                                    // maybe later utilize this ColumnScope
+
+                                }*/
                             }
                         )
                     }
                 ) { innerPadding ->
                     println("innerPadding = $innerPadding")
                     VehiclesList(vehicles, modifier = Modifier)
-//                    TheAppUI(vehicles)
                 }
+            }
+        }
+    }
+
+    private fun handleSearchQuery(query: String) {
+        println("onQueryChange: new query = $query")
+        lifecycleScope.launch {
+            kotlin.runCatching {
+                viewModel.updateSearchRequest(query)
+            }.onSuccess { items ->
+                // TODO show the list
+                println("onSuccess: items = $items")
+            }.onFailure {
+                // TODO show error
+                println("onFailure")
             }
         }
     }
