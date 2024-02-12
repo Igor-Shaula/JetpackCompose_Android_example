@@ -52,7 +52,7 @@ class MainActivity : ComponentActivity() {
                     topBar = {
                         TopAppBar(
                             title = {
-                                CustomizedSearchBar(viewModel.searchQuery, ::handleSearchQuery)
+                                CustomizedSearchBar(viewModel.searchQueryForUI, ::handleSearchQuery)
                             },
                             modifier = Modifier
                                 .height(88.dp)

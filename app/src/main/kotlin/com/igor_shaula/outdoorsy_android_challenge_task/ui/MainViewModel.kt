@@ -25,7 +25,8 @@ class MainViewModel : ViewModel() {
     private val mldVehiclesList = MutableLiveData<List<VehicleModel>>() // classic approach
     val vehiclesList: LiveData<List<VehicleModel>> get() = mldVehiclesList
 
-    var searchQuery by mutableStateOf("")
+    private var searchQuery = ""
+    var searchQueryForUI by mutableStateOf("")
         private set
 
     var isBusyState by mutableStateOf(false) // this approach seems easier and will also work
@@ -46,14 +47,25 @@ class MainViewModel : ViewModel() {
 
     fun updateSearchRequest(newText: String) {
         println("updateSearchRequest: newText = $newText")
-        // at first we have to stop possible previous request - because user launched a new query
+
+        // before any logic is started - users have to see what they are typing at the moment
+        searchQueryForUI =
+            newText // to show on UI what the user is actually typed in the Search field
+
+        // at first it would be wise to check if the user typed spaces - in fact that would be the same query
+        if (newText.trim() == searchQuery) {
+            return // just let the previous possibly running query to finish its work
+        }
+        // if the query is really different - we have to stop possible previous request
         getVehiclesJob?.cancel()
         getVehiclesJob = null // because in JVM we trust :) good old ways...
-        searchQuery = newText // to show on UI what the user is actually typed in the Search field
+
+        // now we can update the real query data and launch the real network job
+        searchQuery = newText.trim()
         getVehiclesJob = coroutineScope.launch {
             _isBusyStateFlow.update { true }
 //            isBusyState = true
-            val resultList = repository.launchSearchRequestFor(newText.trim())
+            val resultList = repository.launchSearchRequestFor(searchQuery)
             println("updateSearchRequest: resultList = $resultList")
             mldVehiclesList.value = resultList.toVehicleModels()
             _isBusyStateFlow.update { false }
