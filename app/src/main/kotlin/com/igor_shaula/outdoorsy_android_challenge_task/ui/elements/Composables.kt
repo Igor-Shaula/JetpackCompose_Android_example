@@ -93,7 +93,11 @@ private fun VehicleCard(vehicle: VehicleModel) {
             )
             Text(
                 text = vehicle.vehicleName,
-                style = MaterialTheme.typography.bodyLarge,
+                color = Color.DarkGray,
+                fontSize = 16.sp,
+                fontStyle = FontStyle.Normal,
+                fontWeight = FontWeight.Black,
+                fontFamily = FontFamily.SansSerif,
                 maxLines = 3,
                 modifier = Modifier.padding(start = 16.dp, end = 16.dp)
             )
