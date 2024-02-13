@@ -75,7 +75,7 @@ private fun VehicleCard(vehicle: VehicleModel) {
     Card(
         elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
         shape = RoundedCornerShape(8.dp),
-        modifier = Modifier.padding(bottom = 16.dp)
+        modifier = Modifier.padding(bottom = 14.dp, top = 2.dp) // 2dp - for shadow, white on white!
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
@@ -155,7 +155,7 @@ private fun CustomizedSearchBarPlaceholderText() = Text(
     fontStyle = FontStyle.Normal,
     fontWeight = FontWeight.Black,
     fontFamily = FontFamily.SansSerif,
-    color = Color.Gray
+    color = Color.DarkGray
 )
 
 @Composable

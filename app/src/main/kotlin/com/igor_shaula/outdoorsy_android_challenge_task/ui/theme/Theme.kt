@@ -28,15 +28,30 @@ import androidx.core.view.WindowCompat
 
 private val GivenColorScheme = lightColorScheme(
     primary = DarkGreen,
-    secondary = Green,
-    tertiary = Color.White,
-    background = Color.White,
-    surface = Color.White,
     onPrimary = Color.DarkGray,
+    secondary = Color.White,
     onSecondary = Color.DarkGray,
+    tertiary = Color.White,
     onTertiary = Color.DarkGray,
+    background = Color.White,
     onBackground = Color.DarkGray,
-    onSurface = Color.DarkGray
+    surface = Green,
+    onSurface = Color.DarkGray,
+    surfaceTint = Color.White,
+    surfaceVariant = Color.White,
+    onSurfaceVariant = Color.DarkGray,
+    inverseSurface = Color.White,
+    inverseOnSurface = Color.DarkGray,
+    onPrimaryContainer = Color.DarkGray,
+    onSecondaryContainer = Color.DarkGray,
+    onTertiaryContainer = Color.DarkGray,
+    primaryContainer = Color.White,
+    secondaryContainer = Color.White,
+    tertiaryContainer = Color.White,
+    inversePrimary = Color.White,
+    outline = Color.Cyan,
+    outlineVariant = Color.Blue,
+    scrim = Color.Red
 )
 
 @Composable
