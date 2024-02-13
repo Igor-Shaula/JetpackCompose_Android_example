@@ -13,7 +13,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.FavoriteBorder
 import androidx.compose.material.icons.filled.Search
-import androidx.compose.material.icons.sharp.Done
+import androidx.compose.material.icons.rounded.Done
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
@@ -24,11 +24,16 @@ import androidx.compose.material3.SearchBar
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
+import androidx.compose.ui.input.nestedscroll.NestedScrollConnection
+import androidx.compose.ui.input.nestedscroll.NestedScrollSource
+import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontFamily
@@ -58,11 +63,24 @@ fun TheAppUiPreview() {
 }
 
 @Composable
-fun VehiclesList(vehicleList: List<VehicleModel>) {
+fun VehiclesList(
+    vehicleList: List<VehicleModel>,
+    hideKeyboard: (() -> Unit)? = null // nullable for absence in preview invocations
+) {
+    val nestedScrollConnection = remember {
+        object : NestedScrollConnection {
+            override fun onPreScroll(available: Offset, source: NestedScrollSource): Offset {
+                // called when you scroll the content - happens pretty often -> optimize this somehow
+                hideKeyboard?.invoke()
+                return Offset.Zero
+            }
+        }
+    }
     LazyColumn(
         modifier = Modifier
             .fillMaxWidth() // this does not work properly -> modifying Card item
             .padding(top = 88.dp + 16.dp, start = 16.dp, end = 16.dp)
+            .nestedScroll(nestedScrollConnection)
     ) {
         items(vehicleList) { vehicle ->
             VehicleCard(vehicle)
@@ -83,7 +101,7 @@ private fun VehicleCard(vehicle: VehicleModel) {
         ) {
             AsyncImage(
                 model = vehicle.vehicleImage,
-                placeholder = rememberVectorPainter(image = Icons.Sharp.Done), // replace by proper SVG placeholder
+                placeholder = rememberVectorPainter(image = Icons.Rounded.Done), // replace by proper SVG placeholder
                 contentDescription = stringResource(id = R.string.vehicleImageDescription),
                 contentScale = ContentScale.Crop,
                 modifier = Modifier

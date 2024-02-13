@@ -1,5 +1,8 @@
 package com.igor_shaula.outdoorsy_android_challenge_task.ui
 
+import android.app.Activity
+import android.view.View
+import android.view.inputmethod.InputMethodManager
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
@@ -70,7 +73,7 @@ class MainActivity : ComponentActivity() {
                     } else if (vehicles.isEmpty()) {
                         CustomizedExplanation(theText = getString(R.string.emptyListExplanation))
                     } else {
-                        VehiclesList(vehicles)
+                        VehiclesList(vehicles, ::hideKeyboard) // to hide keyboard on scroll events
                     }
                 }
             }
@@ -80,5 +83,15 @@ class MainActivity : ComponentActivity() {
     private fun handleSearchQuery(query: String) {
         println("onQueryChange: new query = $query")
         viewModel.updateSearchRequest(query)
+    }
+
+    private fun hideKeyboard() {
+        val imm: InputMethodManager =
+            getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+        var view = currentFocus
+        if (view == null) {
+            view = View(this)
+        }
+        imm.hideSoftInputFromWindow(view.windowToken, 0)
     }
 }
