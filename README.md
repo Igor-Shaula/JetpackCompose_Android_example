@@ -1,4 +1,4 @@
-**initial requirements**
+**Initial requirements**
 
 The task was to develop a single-page app that provides the ability to search Outdoorsy listings
 (very simple data about Recreational Vehicles available in region of your IP) - by user's query.
@@ -10,8 +10,8 @@ The keyboard should hide when the user starts to scroll.
 * reference design: https://github.com/outdoorsy/interview-challenge-android/blob/main/Challenge-Design.png
 * the API details: https://github.com/outdoorsy/interview-challenge-android/blob/main/API.md
 
-All these requirements are met, the code is able to build and you're very welcome to do it and check
-the app on your device.
+All these requirements are met. The project is intended to be developed further, so it will stay alive.
+The code is able to build and you're very welcome to do it and check the app on your device.
 
 -----------------------------
 **Technical solutions used:**
@@ -19,7 +19,7 @@ the app on your device.
 - **Kotlin** as the only coding language.
 - **Coroutines & Flows** for all async work.
 - **Jetpack Compose** as implementation of all UI.
-- **Moder Android Architecture** approach as a sceleton for nanming/placing packages & classes.
+- **Moder Android Architecture** approach as a skeleton for naming/placing packages & classes.
 - **Retrofit 2** as a REST network client.
 - **Coil** for downloading images.
 
