@@ -151,11 +151,11 @@ private fun CustomizedSearchBarPlaceholderText() = Text(
     text = stringResource(id = R.string.searchFieldHint),
     textAlign = TextAlign.Start,
     maxLines = 1,
-    fontSize = 18.sp,
+    fontSize = 16.sp,
     fontStyle = FontStyle.Normal,
-    fontWeight = FontWeight.Bold,
-    fontFamily = FontFamily.Cursive,
-//    style = MaterialTheme.typography.bodyLarge
+    fontWeight = FontWeight.Black,
+    fontFamily = FontFamily.SansSerif,
+    color = Color.Gray
 )
 
 @Composable
