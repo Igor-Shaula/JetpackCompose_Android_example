@@ -13,7 +13,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.FavoriteBorder
 import androidx.compose.material.icons.filled.Search
-import androidx.compose.material.icons.twotone.Done
+import androidx.compose.material.icons.sharp.Done
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
@@ -27,6 +27,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.stringResource
@@ -50,41 +51,41 @@ fun TheAppUiPreview() {
             color = MaterialTheme.colorScheme.background,
             modifier = Modifier.fillMaxSize()
         ) {
-            VehiclesList(fakeVehiclesList, modifier = Modifier)
+            VehiclesList(fakeVehiclesList)
         }
     }
 }
 
 @Composable
-fun VehiclesList(vehicleList: List<VehicleModel>, modifier: Modifier) {
+fun VehiclesList(vehicleList: List<VehicleModel>) {
     LazyColumn(
-        modifier = modifier
+        modifier = Modifier
             .fillMaxWidth() // this does not work properly -> modifying Card item
             .padding(top = 88.dp + 16.dp, start = 16.dp, end = 16.dp)
     ) {
         items(vehicleList) { vehicle ->
-            VehicleCard(vehicle, modifier)
+            VehicleCard(vehicle)
         }
     }
 }
 
 @Composable
-fun VehicleCard(vehicle: VehicleModel, modifier: Modifier) {
+private fun VehicleCard(vehicle: VehicleModel) {
     Card(
         elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
         shape = RoundedCornerShape(8.dp),
-        modifier = modifier.padding(bottom = 16.dp)
+        modifier = Modifier.padding(bottom = 16.dp)
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
-            modifier = modifier.fillMaxWidth()
+            modifier = Modifier.fillMaxWidth()
         ) {
             AsyncImage(
                 model = vehicle.vehicleImage,
-                placeholder = rememberVectorPainter(image = Icons.TwoTone.Done), // replace by proper SVG placeholder
+                placeholder = rememberVectorPainter(image = Icons.Sharp.Done), // replace by proper SVG placeholder
                 contentDescription = stringResource(id = com.igor_shaula.outdoorsy_android_challenge_task.R.string.app_name),
                 contentScale = ContentScale.Crop,
-                modifier = modifier
+                modifier = Modifier
                     .height(96.dp)
                     .width(128.dp)
                     .padding(all = 4.dp)
@@ -94,7 +95,7 @@ fun VehicleCard(vehicle: VehicleModel, modifier: Modifier) {
                 text = vehicle.vehicleName,
                 style = MaterialTheme.typography.bodyLarge,
                 maxLines = 3,
-                modifier = modifier.padding(16.dp)
+                modifier = Modifier.padding(start = 16.dp, end = 16.dp)
             )
         }
     }
@@ -141,7 +142,7 @@ fun CustomizedSearchBar(
 )
 
 @Composable
-fun CustomizedSearchBarPlaceholderText() = Text(
+private fun CustomizedSearchBarPlaceholderText() = Text(
     text = "Search",
     textAlign = TextAlign.Start,
     maxLines = 1,

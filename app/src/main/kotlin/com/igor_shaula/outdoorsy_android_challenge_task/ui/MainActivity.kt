@@ -69,7 +69,7 @@ class MainActivity : ComponentActivity() {
                     } else if (vehicles.isEmpty()) {
                         CustomizedExplanation(theText = "Nothing found for the given query.\nPlease try something different.")
                     } else {
-                        VehiclesList(vehicles, modifier = Modifier)
+                        VehiclesList(vehicles)
                     }
                 }
             }
