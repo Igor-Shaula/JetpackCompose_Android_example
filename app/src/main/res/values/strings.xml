@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">OutdoorsyAndroidChallengeTask</string>
+    <string name="firstLaunchExplanation">Please use the Search box to obtain a list of Recreational Vehicles you are interested in.</string>
+    <string name="emptyListExplanation">Nothing found for the given query.\nPlease try something different.</string>
+    <string name="searchFieldHint">Search</string>
+    <string name="vehicleImageDescription">vehicle image</string>
+    <string name="leadingSearchIconDescription">search icon</string>
+    <string name="trailingSearchIconDescription">favourites icon</string>
 </resources>

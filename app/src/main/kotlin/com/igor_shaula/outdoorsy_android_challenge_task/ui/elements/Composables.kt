@@ -39,6 +39,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
+import com.igor_shaula.outdoorsy_android_challenge_task.R
 import com.igor_shaula.outdoorsy_android_challenge_task.data.local.FakeDataSource.Companion.fakeVehiclesList
 import com.igor_shaula.outdoorsy_android_challenge_task.ui.models.VehicleModel
 import com.igor_shaula.outdoorsy_android_challenge_task.ui.theme.OutdoorsyAndroidChallengeTaskTheme
@@ -83,7 +84,7 @@ private fun VehicleCard(vehicle: VehicleModel) {
             AsyncImage(
                 model = vehicle.vehicleImage,
                 placeholder = rememberVectorPainter(image = Icons.Sharp.Done), // replace by proper SVG placeholder
-                contentDescription = stringResource(id = com.igor_shaula.outdoorsy_android_challenge_task.R.string.app_name),
+                contentDescription = stringResource(id = R.string.vehicleImageDescription),
                 contentScale = ContentScale.Crop,
                 modifier = Modifier
                     .height(96.dp)
@@ -127,14 +128,14 @@ fun CustomizedSearchBar(
     leadingIcon = {
         Icon(
             imageVector = Icons.Default.Search,
-            contentDescription = "search icon"
+            contentDescription = stringResource(id = R.string.leadingSearchIconDescription)
         )
     },
     trailingIcon = {
         // later - if this query was added to favourites - set correct icon here
         Icon(
             imageVector = Icons.Filled.FavoriteBorder,
-            contentDescription = "favourites icon"
+            contentDescription = stringResource(id = R.string.trailingSearchIconDescription)
         )
     },
     shape = RoundedCornerShape(8.dp),
@@ -147,7 +148,7 @@ fun CustomizedSearchBar(
 
 @Composable
 private fun CustomizedSearchBarPlaceholderText() = Text(
-    text = "Search",
+    text = stringResource(id = R.string.searchFieldHint),
     textAlign = TextAlign.Start,
     maxLines = 1,
     fontSize = 18.sp,

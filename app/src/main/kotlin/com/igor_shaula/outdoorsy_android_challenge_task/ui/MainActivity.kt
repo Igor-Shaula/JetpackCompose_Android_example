@@ -16,6 +16,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.unit.dp
+import com.igor_shaula.outdoorsy_android_challenge_task.R
 import com.igor_shaula.outdoorsy_android_challenge_task.ui.elements.CustomizedBusyIndicator
 import com.igor_shaula.outdoorsy_android_challenge_task.ui.elements.CustomizedExplanation
 import com.igor_shaula.outdoorsy_android_challenge_task.ui.elements.CustomizedSearchBar
@@ -65,9 +66,9 @@ class MainActivity : ComponentActivity() {
                     if (isSearching) { // decided to not to use "when" statement as it takes more space
                         CustomizedBusyIndicator()
                     } else if (vehicles == null) {
-                        CustomizedExplanation(theText = "Please use the Search box to obtain a list of Recreational Vehicles you are interested in.")
+                        CustomizedExplanation(theText = getString(R.string.firstLaunchExplanation))
                     } else if (vehicles.isEmpty()) {
-                        CustomizedExplanation(theText = "Nothing found for the given query.\nPlease try something different.")
+                        CustomizedExplanation(theText = getString(R.string.emptyListExplanation))
                     } else {
                         VehiclesList(vehicles)
                     }
