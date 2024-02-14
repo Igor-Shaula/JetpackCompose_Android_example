@@ -41,13 +41,14 @@ If you like the solution - please give this repository a star on GitHub.
 
 ### What's next (very soon):
 
--[x] fix colors in SearchBar - probably by replacing it with other composables.
--[ ] use Kotlin's Result wrapper for delivering network outcome.
--[ ] adding error state for UI - for beautiful handling of any network cases.
--[ ] fake-data preparation tract with its own DataSource for consuming mock JSON.
--[ ] optimization of NetworkEntity processing (now there are three loops).
--[ ] adding option to remember search queries (at least for a session).
--[ ] would be nice to add pagination for network response.
--[ ] **Hilt** as dependency injection mechanism.
--[ ] **unit tests** for ViewModel and other logic-related code.
--[ ] **UI tests** just to have them :)
+- [x] fix colors in SearchBar - probably by replacing it with other composables.
+- [ ] use Kotlin's Result wrapper for delivering network outcome.
+- [ ] adding error state for UI - for beautiful handling of any network cases.
+- [ ] fake-data preparation tract with its own DataSource for consuming mock JSON.
+- [ ] optimization of NetworkEntity processing (now there are three loops).
+- [ ] adding option to remember search queries (at least for a session).
+- [ ] would be nice to add pagination for network response.
+- [ ] **Hilt** as dependency injection mechanism.
+- [ ] **unit tests** for ViewModel and other logic-related code.
+- [ ] **UI tests** just to have them :)
+- [ ] separate GitHub Project (with tickets & issues) will be good to have.
