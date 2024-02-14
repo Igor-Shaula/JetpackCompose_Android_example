@@ -22,7 +22,7 @@ import androidx.compose.ui.unit.dp
 import com.igor_shaula.outdoorsy_android_challenge_task.R
 import com.igor_shaula.outdoorsy_android_challenge_task.ui.elements.CustomizedBusyIndicator
 import com.igor_shaula.outdoorsy_android_challenge_task.ui.elements.CustomizedExplanation
-import com.igor_shaula.outdoorsy_android_challenge_task.ui.elements.CustomizedSearchBar
+import com.igor_shaula.outdoorsy_android_challenge_task.ui.elements.CustomizedSearchBarAlternative
 import com.igor_shaula.outdoorsy_android_challenge_task.ui.elements.VehiclesList
 import com.igor_shaula.outdoorsy_android_challenge_task.ui.models.VehicleModel
 import com.igor_shaula.outdoorsy_android_challenge_task.ui.theme.OutdoorsyAndroidChallengeTaskTheme
@@ -56,7 +56,7 @@ class MainActivity : ComponentActivity() {
                     topBar = {
                         TopAppBar(
                             title = {
-                                CustomizedSearchBar(viewModel.searchQueryForUI, ::handleSearchQuery)
+                                CustomizedSearchBarAlternative(viewModel.searchQueryForUI, ::handleSearchQuery)
                             },
                             modifier = Modifier
                                 .height(88.dp)

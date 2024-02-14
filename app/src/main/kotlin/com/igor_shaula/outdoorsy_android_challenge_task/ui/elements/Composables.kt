@@ -1,7 +1,10 @@
 package com.igor_shaula.outdoorsy_android_challenge_task.ui.elements
 
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -10,10 +13,13 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.FavoriteBorder
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.rounded.Done
+import androidx.compose.material.icons.rounded.Search
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
@@ -23,6 +29,8 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.SearchBar
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
+import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -39,6 +47,9 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.input.KeyboardCapitalization
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -163,6 +174,50 @@ fun CustomizedSearchBar(
     },
     modifier = Modifier.padding(top = 8.dp, end = 16.dp)
 )
+
+@Composable
+fun CustomizedSearchBarAlternative(
+    searchQuery: String, handleSearchQuery: (String) -> Unit
+) = Row(
+    verticalAlignment = Alignment.CenterVertically,
+    horizontalArrangement = Arrangement.Start,
+    modifier = Modifier
+        .padding(end = 16.dp)
+        .background(color = Color.White)
+        .fillMaxSize()
+) {
+    Icon(
+        imageVector = Icons.Rounded.Search,
+        contentDescription = stringResource(id = R.string.leadingSearchIconDescription),
+        modifier = Modifier
+            .padding(start = 20.dp)
+            .fillMaxHeight()
+    )
+    TextField(
+        placeholder = { CustomizedSearchBarPlaceholderText() },
+        shape = RoundedCornerShape(8.dp),
+        singleLine = true,
+        value = searchQuery,
+        onValueChange = { handleSearchQuery(it) },
+        keyboardActions = KeyboardActions(onSearch = { handleSearchQuery(searchQuery) }), // -> updateSearchRequest
+        keyboardOptions = KeyboardOptions(
+            autoCorrect = false,
+            capitalization = KeyboardCapitalization.None,
+            keyboardType = KeyboardType.Text,
+            imeAction = ImeAction.Search
+        ),
+        colors = TextFieldDefaults.colors(
+            disabledTextColor = Color.Transparent,
+            focusedIndicatorColor = Color.Transparent,
+            unfocusedIndicatorColor = Color.Transparent,
+            disabledIndicatorColor = Color.Transparent,
+            errorIndicatorColor = Color.Red // we are not supposed to see the error state, but let it stay here to be visible
+        ),
+        modifier = Modifier
+            .fillMaxWidth()
+//                .paddingFromBaseline(top = 0.dp, bottom = 0.dp)
+    )
+}
 
 @Composable
 private fun CustomizedSearchBarPlaceholderText() = Text(
