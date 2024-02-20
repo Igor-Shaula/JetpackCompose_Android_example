@@ -1,3 +1,5 @@
+@file:Suppress("UnstableApiUsage")
+
 pluginManagement {
     repositories {
         google()
@@ -13,6 +15,5 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "OutdoorsyAndroidChallengeTask"
+rootProject.name = "ComplexAPI_Android_Client_Sample"
 include(":app")
- 
