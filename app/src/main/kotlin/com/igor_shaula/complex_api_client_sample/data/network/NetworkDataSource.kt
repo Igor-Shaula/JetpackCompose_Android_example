@@ -1,7 +1,7 @@
-package com.igor_shaula.outdoorsy_android_challenge_task.data.network
+package com.igor_shaula.complex_api_client_sample.data.network
 
-import com.igor_shaula.outdoorsy_android_challenge_task.data.entities.VehicleNetworkEntity
-import com.igor_shaula.outdoorsy_android_challenge_task.data.network.retrofit.VehicleRetrofitNetworkService
+import com.igor_shaula.complex_api_client_sample.data.entities.VehicleNetworkEntity
+import com.igor_shaula.complex_api_client_sample.data.network.retrofit.VehicleRetrofitNetworkService
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 

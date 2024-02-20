@@ -1,6 +1,6 @@
-package com.igor_shaula.outdoorsy_android_challenge_task.ui.models
+package com.igor_shaula.complex_api_client_sample.ui.models
 
-import com.igor_shaula.outdoorsy_android_challenge_task.data.network.OneVehicleData
+import com.igor_shaula.complex_api_client_sample.data.network.OneVehicleData
 
 // container of UI-level data for list items on screen
 data class VehicleModel(

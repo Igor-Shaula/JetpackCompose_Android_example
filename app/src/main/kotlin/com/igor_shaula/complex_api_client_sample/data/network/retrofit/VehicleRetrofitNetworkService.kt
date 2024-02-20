@@ -1,6 +1,6 @@
-package com.igor_shaula.outdoorsy_android_challenge_task.data.network.retrofit
+package com.igor_shaula.complex_api_client_sample.data.network.retrofit
 
-import com.igor_shaula.outdoorsy_android_challenge_task.data.entities.VehicleNetworkEntity
+import com.igor_shaula.complex_api_client_sample.data.entities.VehicleNetworkEntity
 import retrofit2.http.GET
 import retrofit2.http.Query
 

@@ -1,4 +1,4 @@
-package com.igor_shaula.outdoorsy_android_challenge_task.ui.elements
+package com.igor_shaula.complex_api_client_sample.ui.elements
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -55,10 +55,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
-import com.igor_shaula.outdoorsy_android_challenge_task.R
-import com.igor_shaula.outdoorsy_android_challenge_task.data.local.FakeDataSource.Companion.fakeVehiclesList
-import com.igor_shaula.outdoorsy_android_challenge_task.ui.models.VehicleModel
-import com.igor_shaula.outdoorsy_android_challenge_task.ui.theme.OutdoorsyAndroidChallengeTaskTheme
+import com.igor_shaula.complex_api_client_sample.R
+import com.igor_shaula.complex_api_client_sample.data.local.FakeDataSource.Companion.fakeVehiclesList
+import com.igor_shaula.complex_api_client_sample.ui.models.VehicleModel
+import com.igor_shaula.complex_api_client_sample.ui.theme.OutdoorsyAndroidChallengeTaskTheme
 
 @Preview(showBackground = true)
 @Composable

@@ -1,4 +1,4 @@
-package com.igor_shaula.outdoorsy_android_challenge_task
+package com.igor_shaula.complex_api_client_sample
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4
@@ -19,6 +19,6 @@ class ExampleInstrumentedTest {
     fun useAppContext() {
         // Context of the app under test.
         val appContext = InstrumentationRegistry.getInstrumentation().targetContext
-        assertEquals("com.igor_shaula.outdoorsy_android_challenge_task", appContext.packageName)
+        assertEquals("com.igor_shaula.complex_api_client_sample", appContext.packageName)
     }
 }

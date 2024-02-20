@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace = "com.igor_shaula.outdoorsy_android_challenge_task"
+    namespace = "com.igor_shaula.complex_api_client_sample"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.igor_shaula.outdoorsy_android_challenge_task"
+        applicationId = "com.igor_shaula.complex_api_client_sample"
         minSdk = 25
         targetSdk = 34
         versionCode = 1

@@ -1,4 +1,4 @@
-package com.igor_shaula.outdoorsy_android_challenge_task.ui
+package com.igor_shaula.complex_api_client_sample.ui
 
 import android.app.Activity
 import android.view.View
@@ -19,13 +19,13 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.unit.dp
-import com.igor_shaula.outdoorsy_android_challenge_task.R
-import com.igor_shaula.outdoorsy_android_challenge_task.ui.elements.CustomizedBusyIndicator
-import com.igor_shaula.outdoorsy_android_challenge_task.ui.elements.CustomizedExplanation
-import com.igor_shaula.outdoorsy_android_challenge_task.ui.elements.CustomizedSearchBarAlternative
-import com.igor_shaula.outdoorsy_android_challenge_task.ui.elements.VehiclesList
-import com.igor_shaula.outdoorsy_android_challenge_task.ui.models.VehicleModel
-import com.igor_shaula.outdoorsy_android_challenge_task.ui.theme.OutdoorsyAndroidChallengeTaskTheme
+import com.igor_shaula.complex_api_client_sample.R
+import com.igor_shaula.complex_api_client_sample.ui.elements.CustomizedBusyIndicator
+import com.igor_shaula.complex_api_client_sample.ui.elements.CustomizedExplanation
+import com.igor_shaula.complex_api_client_sample.ui.elements.CustomizedSearchBarAlternative
+import com.igor_shaula.complex_api_client_sample.ui.elements.VehiclesList
+import com.igor_shaula.complex_api_client_sample.ui.models.VehicleModel
+import com.igor_shaula.complex_api_client_sample.ui.theme.OutdoorsyAndroidChallengeTaskTheme
 
 class MainActivity : ComponentActivity() {
 

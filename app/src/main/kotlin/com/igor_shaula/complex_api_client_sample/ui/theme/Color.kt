@@ -1,4 +1,4 @@
-package com.igor_shaula.outdoorsy_android_challenge_task.ui.theme
+package com.igor_shaula.complex_api_client_sample.ui.theme
 
 import androidx.compose.ui.graphics.Color
 

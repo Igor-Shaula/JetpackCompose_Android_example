@@ -1,8 +1,8 @@
-package com.igor_shaula.outdoorsy_android_challenge_task.data
+package com.igor_shaula.complex_api_client_sample.data
 
-import com.igor_shaula.outdoorsy_android_challenge_task.data.network.NetworkDataSource
-import com.igor_shaula.outdoorsy_android_challenge_task.data.network.OneVehicleData
-import com.igor_shaula.outdoorsy_android_challenge_task.domain.VehiclesRepository
+import com.igor_shaula.complex_api_client_sample.data.network.NetworkDataSource
+import com.igor_shaula.complex_api_client_sample.data.network.OneVehicleData
+import com.igor_shaula.complex_api_client_sample.domain.VehiclesRepository
 
 const val VALID_IMAGE_TYPE = "images"
 
