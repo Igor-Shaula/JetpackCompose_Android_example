@@ -58,12 +58,12 @@ import coil.compose.AsyncImage
 import com.igor_shaula.complex_api_client_sample.R
 import com.igor_shaula.complex_api_client_sample.data.local.FakeDataSource.Companion.fakeVehiclesList
 import com.igor_shaula.complex_api_client_sample.ui.models.VehicleModel
-import com.igor_shaula.complex_api_client_sample.ui.theme.OutdoorsyAndroidChallengeTaskTheme
+import com.igor_shaula.complex_api_client_sample.ui.theme.TheAppTheme
 
 @Preview(showBackground = true)
 @Composable
 fun TheAppUiPreview() {
-    OutdoorsyAndroidChallengeTaskTheme {
+    TheAppTheme {
         Surface(
             color = MaterialTheme.colorScheme.background,
             modifier = Modifier.fillMaxSize()

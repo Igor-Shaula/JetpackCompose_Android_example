@@ -25,7 +25,7 @@ import com.igor_shaula.complex_api_client_sample.ui.elements.CustomizedExplanati
 import com.igor_shaula.complex_api_client_sample.ui.elements.CustomizedSearchBarAlternative
 import com.igor_shaula.complex_api_client_sample.ui.elements.VehiclesList
 import com.igor_shaula.complex_api_client_sample.ui.models.VehicleModel
-import com.igor_shaula.complex_api_client_sample.ui.theme.OutdoorsyAndroidChallengeTaskTheme
+import com.igor_shaula.complex_api_client_sample.ui.theme.TheAppTheme
 
 class MainActivity : ComponentActivity() {
 
@@ -46,7 +46,7 @@ class MainActivity : ComponentActivity() {
     @OptIn(ExperimentalMaterial3Api::class)
     @Composable
     fun MainScreenWithTopBarAndList(vehicles: List<VehicleModel>? = null) {
-        OutdoorsyAndroidChallengeTaskTheme {
+        TheAppTheme {
             val isSearching by viewModel.isBusyStateFlow.collectAsState()
             Surface(
                 color = MaterialTheme.colorScheme.background,

@@ -55,7 +55,7 @@ private val GivenColorScheme = lightColorScheme(
 )
 
 @Composable
-fun OutdoorsyAndroidChallengeTaskTheme(
+fun TheAppTheme(
     darkTheme: Boolean = false, // because in the task's preview there is only one screen - in LIGHT THEME
 //    darkTheme: Boolean = isSystemInDarkTheme(),
     // Dynamic color is available on Android 12+
