@@ -16,7 +16,7 @@ class VehiclesRepositoryImpl : VehiclesRepository {
         println("response: vehicleRawList = $vehicleNetworkEntity")
 
         val resultList = mutableListOf<OneVehicleData>()
-        vehicleNetworkEntity.dataEntities.forEach {
+        vehicleNetworkEntity?.dataEntities?.forEach {
             val imageType = it.relationships.primaryImage.imageData.imageType
             val imageIdFromDataEntity = it.relationships.primaryImage.imageData.imageId
             resultList.add(
@@ -30,7 +30,7 @@ class VehiclesRepositoryImpl : VehiclesRepository {
             )
         }
         resultList.forEach { oneVehicleData ->
-            vehicleNetworkEntity.includedEntities.forEach { includedEntity ->
+            vehicleNetworkEntity?.includedEntities?.forEach { includedEntity ->
                 if (includedEntity.includedImageId == oneVehicleData.imageId) {
                     oneVehicleData.imageUrl = includedEntity.includedAttributesEntity.imageUrl
                 }
