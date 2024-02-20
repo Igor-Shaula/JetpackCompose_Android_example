@@ -17,21 +17,23 @@ class NetworkDataSource {
 
     suspend fun launchSearchRequestFor(searchQuery: String): VehicleNetworkEntity? {
         var response: Response<VehicleNetworkEntity>? = null
+        var result: VehicleNetworkEntity? = null
 
         runCatching {
             response = vehicleNetworkService.getVehiclesList(searchQuery)
         }.onFailure {
             println("updateSearchRequest: onFailure: $it")
+            result = null
         }.onSuccess {
             println("updateSearchRequest: onSuccess")
+            result = if (response?.isSuccessful == true) {
+                println("response.isSuccessful")
+                response?.body()
+            } else {
+                println("response not successful")
+                null
+            }
         }
-
-        return if (response?.isSuccessful == true) {
-            println("response.isSuccessful")
-            response?.body()
-        } else {
-            println("response not successful")
-            null
-        }
+        return result
     }
 }
