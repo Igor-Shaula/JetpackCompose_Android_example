@@ -9,7 +9,7 @@ class NetworkDataSource {
 
     private val vehicleNetworkService: VehicleRetrofitNetworkService =
         Retrofit.Builder()
-            .baseUrl("https://search.outdoorsy.com")
+            .baseUrl(URL)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
             .create(VehicleRetrofitNetworkService::class.java)
