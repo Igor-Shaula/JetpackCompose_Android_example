@@ -25,15 +25,20 @@ class NetworkDataSource {
             response = vehicleNetworkService.getVehiclesList(searchQuery)
         }.onFailure { // here we even do not have the "response" instance, only the error
             println("updateSearchRequest: onFailure: $it")
-            result = Result.failure(it)
+            result = Result.failure(
+                NetworkGeneralFailure(errorMessage = it.message, initialThrowable = it)
+            )
         }.onSuccess {
             println("updateSearchRequest: onSuccess")
             result = if (response?.isSuccessful == true) {
                 println("response.isSuccessful")
-                Result.success(response?.body())
+                Result.success(response?.body()) // all normal data-flow goes here
+            } else if (response == null) {
+                println("response is NULL for some network-agent reason")
+                Result.failure(NetworkGeneralFailure(errorMessage = ABSENT_RESPONSE_MESSAGE))
             } else {
-                println("response is NOT successful")
-                val errorCode = response?.code() ?: -1
+                println("response exists but is NOT successful")
+                val errorCode = response?.code() ?: NetworkGeneralFailure.ABSENT_ERROR_CODE
                 val errorBody = response?.errorBody()?.string()
                 Result.failure(NetworkGeneralFailure(errorCode, errorBody))
             }

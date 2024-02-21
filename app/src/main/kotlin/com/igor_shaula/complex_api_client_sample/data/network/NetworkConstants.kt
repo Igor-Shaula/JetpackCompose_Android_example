@@ -9,3 +9,5 @@ const val PAGE_OFFSET_QUERY = "page[offset]"
 
 const val PAGE_LIMIT_VALUE = 8
 const val PAGE_OFFSET_VALUE = 8
+
+const val ABSENT_RESPONSE_MESSAGE = "response IS null"
