@@ -5,6 +5,7 @@ import com.igor_shaula.complex_api_client_sample.data.network.retrofit.VehicleRe
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.io.IOException
 
 class NetworkDataSource {
 
@@ -15,23 +16,26 @@ class NetworkDataSource {
             .build()
             .create(VehicleRetrofitNetworkService::class.java)
 
-    suspend fun launchSearchRequestFor(searchQuery: String): VehicleNetworkEntity? {
+    suspend fun launchSearchRequestFor(searchQuery: String): Result<VehicleNetworkEntity?> {
+
         var response: Response<VehicleNetworkEntity>? = null
-        var result: VehicleNetworkEntity? = null
+        var result: Result<VehicleNetworkEntity?> = Result.failure(IOException()) // just a stub
 
         runCatching {
             response = vehicleNetworkService.getVehiclesList(searchQuery)
-        }.onFailure {
+        }.onFailure { // here we even do not have the "response" instance, only the error
             println("updateSearchRequest: onFailure: $it")
-            result = null
+            result = Result.failure(it)
         }.onSuccess {
             println("updateSearchRequest: onSuccess")
             result = if (response?.isSuccessful == true) {
                 println("response.isSuccessful")
-                response?.body()
+                Result.success(response?.body())
             } else {
-                println("response not successful")
-                null
+                println("response is NOT successful")
+                val errorCode = response?.code() ?: -1
+                val errorBody = response?.errorBody()?.string()
+                Result.failure(NetworkGeneralFailure(errorCode, errorBody))
             }
         }
         return result
