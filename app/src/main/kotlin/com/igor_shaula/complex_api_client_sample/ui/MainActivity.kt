@@ -30,6 +30,7 @@ class MainActivity : ComponentActivity() {
 
     override fun onStart() {
         super.onStart()
+        viewModel.setFreshStart()
         setContent {
             MainScreenWithTopBarAndList()
         }

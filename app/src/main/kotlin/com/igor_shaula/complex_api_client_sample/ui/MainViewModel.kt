@@ -28,6 +28,9 @@ class MainViewModel : ViewModel() {
     var errorInfo by mutableStateOf("")
         private set
 
+    var isFreshStart by mutableStateOf(true)
+        private set
+
     private val repository: VehiclesRepository = VehiclesRepositoryImpl()
 
     private val coroutineScope = MainScope() + CoroutineName(this.javaClass.simpleName)
@@ -74,5 +77,10 @@ class MainViewModel : ViewModel() {
             vehiclesList = resultList.toVehicleModels()
             isBusyState = false
         }
+        isFreshStart = false
+    }
+
+    fun setFreshStart() {
+        isFreshStart = true
     }
 }
