@@ -5,13 +5,15 @@ import com.igor_shaula.complex_api_client_sample.data.network.NetworkDataSource
 import com.igor_shaula.complex_api_client_sample.data.network.OneVehicleData
 import com.igor_shaula.complex_api_client_sample.domain.VehiclesRepository
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 
 const val VALID_IMAGE_TYPE = "images"
 
 class VehiclesRepositoryImpl : VehiclesRepository {
 
-    override val errorData = MutableStateFlow("")
+    private val _errorData = MutableStateFlow("")
+    override val errorData = _errorData.asStateFlow()
 
     private val dataSource = NetworkDataSource()
 
@@ -20,7 +22,7 @@ class VehiclesRepositoryImpl : VehiclesRepository {
         return if (result.isFailure) {
             val exception = result.exceptionOrNull()
             println("readVehiclesList: exception = $exception")
-            errorData.update { "NEW ERROR" }
+            _errorData.update { "NEW ERROR" }
             emptyList()
         } else {
             assembleFromNetworkEntity(result.getOrNull()) // in fact there will not ever be null here
