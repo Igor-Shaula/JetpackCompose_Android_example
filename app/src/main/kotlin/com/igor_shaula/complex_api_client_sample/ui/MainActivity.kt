@@ -14,8 +14,6 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.unit.dp
@@ -24,7 +22,6 @@ import com.igor_shaula.complex_api_client_sample.ui.elements.CustomizedBusyIndic
 import com.igor_shaula.complex_api_client_sample.ui.elements.CustomizedExplanation
 import com.igor_shaula.complex_api_client_sample.ui.elements.CustomizedSearchBarAlternative
 import com.igor_shaula.complex_api_client_sample.ui.elements.VehiclesList
-import com.igor_shaula.complex_api_client_sample.ui.models.VehicleModel
 import com.igor_shaula.complex_api_client_sample.ui.theme.TheAppTheme
 
 class MainActivity : ComponentActivity() {
@@ -36,18 +33,12 @@ class MainActivity : ComponentActivity() {
         setContent {
             MainScreenWithTopBarAndList()
         }
-        viewModel.vehiclesList.observe(this) { vehicles ->
-            setContent {
-                MainScreenWithTopBarAndList(vehicles)
-            }
-        }
     }
 
     @OptIn(ExperimentalMaterial3Api::class)
     @Composable
-    fun MainScreenWithTopBarAndList(vehicles: List<VehicleModel>? = null) {
+    fun MainScreenWithTopBarAndList() {
         TheAppTheme {
-            val isSearching by viewModel.isBusyStateFlow.collectAsState()
             Surface(
                 color = MaterialTheme.colorScheme.background,
                 modifier = Modifier.fillMaxSize()
@@ -71,15 +62,15 @@ class MainActivity : ComponentActivity() {
                     if (viewModel.errorInfo.isNotBlank()) {
                         println("in Composable: errorInfo has something")
                     }
-//                    if (viewModel.isBusyState) { // this approach also works, no new variables required
-                    if (isSearching) { // decided to not to use "when" statement as it takes more space
+                    // decided to not to use "when" statement as it takes more space
+                    if (viewModel.isBusyState) {
                         CustomizedBusyIndicator()
-                    } else if (vehicles == null) {
+                    } else if (viewModel.isFreshStart) {
                         CustomizedExplanation(theText = getString(R.string.firstLaunchExplanation))
-                    } else if (vehicles.isEmpty()) {
+                    } else if (viewModel.vehiclesList.isEmpty()) {
                         CustomizedExplanation(theText = getString(R.string.emptyListExplanation))
                     } else {
-                        VehiclesList(vehicles, ::hideKeyboard) // to hide keyboard on scroll events
+                        VehiclesList(viewModel.vehiclesList, ::hideKeyboard)
                     }
                 }
             }
@@ -91,6 +82,7 @@ class MainActivity : ComponentActivity() {
         viewModel.updateSearchRequest(query)
     }
 
+    // to hide keyboard on scroll events
     private fun hideKeyboard() {
         val imm: InputMethodManager =
             getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
