@@ -3,8 +3,6 @@ package com.igor_shaula.complex_api_client_sample.ui
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.igor_shaula.complex_api_client_sample.data.VehiclesRepositoryImpl
 import com.igor_shaula.complex_api_client_sample.domain.VehiclesRepository
@@ -13,35 +11,30 @@ import com.igor_shaula.complex_api_client_sample.ui.models.toVehicleModels
 import kotlinx.coroutines.CoroutineName
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.MainScope
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.plus
 
 class MainViewModel : ViewModel() {
 
-    // LiveData is shown in the description of androidx.lifecycle.ViewModel
-    private val mldVehiclesList = MutableLiveData<List<VehicleModel>>() // classic approach
-    val vehiclesList: LiveData<List<VehicleModel>> get() = mldVehiclesList
+    var vehiclesList by mutableStateOf(listOf<VehicleModel>())
+        private set
 
-    private var searchQuery = ""
     var searchQueryForUI by mutableStateOf("")
         private set
 
-    var isBusyState by mutableStateOf(false) // this approach seems easier and will also work
+    var isBusyState by mutableStateOf(false)
         private set
-    private val _isBusyStateFlow = MutableStateFlow(false) // using this for diversity :)
-    val isBusyStateFlow = _isBusyStateFlow.asStateFlow()
+
+    var errorInfo by mutableStateOf("")
+        private set
+
+    private val repository: VehiclesRepository = VehiclesRepositoryImpl()
 
     private val coroutineScope = MainScope() + CoroutineName(this.javaClass.simpleName)
 
     private var getVehiclesJob: Job? = null
 
-    private val repository: VehiclesRepository = VehiclesRepositoryImpl()
-
-    var errorInfo by mutableStateOf("")
-        private set
+    private var searchQuery = ""
 
     init {
         coroutineScope.launch {
@@ -75,13 +68,11 @@ class MainViewModel : ViewModel() {
         // now we can update the real query data and launch the real network job
         searchQuery = newText.trim()
         getVehiclesJob = coroutineScope.launch {
-            _isBusyStateFlow.update { true }
-//            isBusyState = true
+            isBusyState = true
             val resultList = repository.launchSearchRequestFor(searchQuery)
             println("updateSearchRequest: resultList = $resultList")
-            mldVehiclesList.value = resultList.toVehicleModels()
-            _isBusyStateFlow.update { false }
-//            isBusyState = false
+            vehiclesList = resultList.toVehicleModels()
+            isBusyState = false
         }
     }
 }
