@@ -56,7 +56,10 @@ class MainActivity : ComponentActivity() {
                     topBar = {
                         TopAppBar(
                             title = {
-                                CustomizedSearchBarAlternative(viewModel.searchQueryForUI, ::handleSearchQuery)
+                                CustomizedSearchBarAlternative(
+                                    viewModel.searchQueryForUI,
+                                    ::handleSearchQuery
+                                )
                             },
                             modifier = Modifier
                                 .height(88.dp)
@@ -65,6 +68,9 @@ class MainActivity : ComponentActivity() {
                     }
                 ) { innerPadding -> // use this thing somehow - because warning emerges if it's not used
                     println("innerPadding = $innerPadding")
+                    if (viewModel.errorInfo.isNotBlank()) {
+                        println("in Composable: errorInfo has something")
+                    }
 //                    if (viewModel.isBusyState) { // this approach also works, no new variables required
                     if (isSearching) { // decided to not to use "when" statement as it takes more space
                         CustomizedBusyIndicator()
