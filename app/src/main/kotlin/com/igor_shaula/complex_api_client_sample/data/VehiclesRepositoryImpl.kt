@@ -4,10 +4,14 @@ import com.igor_shaula.complex_api_client_sample.data.entities.VehicleNetworkEnt
 import com.igor_shaula.complex_api_client_sample.data.network.NetworkDataSource
 import com.igor_shaula.complex_api_client_sample.data.network.OneVehicleData
 import com.igor_shaula.complex_api_client_sample.domain.VehiclesRepository
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.update
 
 const val VALID_IMAGE_TYPE = "images"
 
 class VehiclesRepositoryImpl : VehiclesRepository {
+
+    override val errorData = MutableStateFlow("")
 
     private val dataSource = NetworkDataSource()
 
@@ -16,7 +20,7 @@ class VehiclesRepositoryImpl : VehiclesRepository {
         return if (result.isFailure) {
             val exception = result.exceptionOrNull()
             println("readVehiclesList: exception = $exception")
-            // TODO: propagate error state for UI layer here
+            errorData.update { "NEW ERROR" }
             emptyList()
         } else {
             assembleFromNetworkEntity(result.getOrNull()) // in fact there will not ever be null here
