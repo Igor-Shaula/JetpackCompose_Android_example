@@ -78,9 +78,9 @@ class MainActivity : ComponentActivity() {
         }
     }
 
-    private fun handleSearchQuery(query: String) {
+    private fun handleSearchQuery(query: String, isForced: Boolean = false) {
         println("onQueryChange: new query = $query")
-        viewModel.updateSearchRequest(query)
+        viewModel.updateSearchRequest(query, isForced)
     }
 
     // to hide keyboard on scroll events

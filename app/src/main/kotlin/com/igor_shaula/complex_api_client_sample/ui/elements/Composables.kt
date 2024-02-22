@@ -177,7 +177,7 @@ fun CustomizedSearchBar(
 
 @Composable
 fun CustomizedSearchBarAlternative(
-    searchQuery: String, handleSearchQuery: (String) -> Unit
+    searchQuery: String, handleSearchQuery: (String, Boolean) -> Unit
 ) = Row(
     verticalAlignment = Alignment.CenterVertically,
     horizontalArrangement = Arrangement.Start,
@@ -198,8 +198,9 @@ fun CustomizedSearchBarAlternative(
         shape = RoundedCornerShape(8.dp),
         singleLine = true,
         value = searchQuery,
-        onValueChange = { handleSearchQuery(it) },
-        keyboardActions = KeyboardActions(onSearch = { handleSearchQuery(searchQuery) }), // -> updateSearchRequest
+        onValueChange = { handleSearchQuery(it, false) }, // optimization logic will handle spaces
+        keyboardActions = KeyboardActions(
+            onSearch = { handleSearchQuery(searchQuery, true) }), // -> forcibly updateSearchRequest
         keyboardOptions = KeyboardOptions(
             autoCorrect = false,
             capitalization = KeyboardCapitalization.None,
