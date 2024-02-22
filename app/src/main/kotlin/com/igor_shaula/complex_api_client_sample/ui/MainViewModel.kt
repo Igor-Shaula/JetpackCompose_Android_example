@@ -40,6 +40,18 @@ class MainViewModel : ViewModel() {
 
     private val repository: VehiclesRepository = VehiclesRepositoryImpl()
 
+    var errorInfo by mutableStateOf("")
+        private set
+
+    init {
+        coroutineScope.launch {
+            repository.errorData.collect {
+                errorInfo = it // time to transport the error state onto UI layer
+                println("repository.errorData.collect: $it")
+            }
+        }
+    }
+
     override fun onCleared() {
         getVehiclesJob?.cancel()
         super.onCleared()
