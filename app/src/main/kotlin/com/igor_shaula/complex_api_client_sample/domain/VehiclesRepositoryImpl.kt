@@ -1,10 +1,11 @@
-package com.igor_shaula.complex_api_client_sample.data
+package com.igor_shaula.complex_api_client_sample.domain
 
+import com.igor_shaula.complex_api_client_sample.data.DataLayerGeneralFailure
 import com.igor_shaula.complex_api_client_sample.data.entities.VehicleNetworkEntity
 import com.igor_shaula.complex_api_client_sample.data.network.NetworkDataSource
 import com.igor_shaula.complex_api_client_sample.data.network.NetworkGeneralFailure
 import com.igor_shaula.complex_api_client_sample.data.network.OneVehicleData
-import com.igor_shaula.complex_api_client_sample.domain.VehiclesRepository
+import com.igor_shaula.complex_api_client_sample.data.prepareExplanation
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asFlow
 import kotlinx.coroutines.flow.asStateFlow

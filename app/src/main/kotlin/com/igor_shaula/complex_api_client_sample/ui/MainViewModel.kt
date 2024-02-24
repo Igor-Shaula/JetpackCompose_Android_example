@@ -4,7 +4,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
-import com.igor_shaula.complex_api_client_sample.data.VehiclesRepositoryImpl
+import com.igor_shaula.complex_api_client_sample.domain.VehiclesRepositoryImpl
 import com.igor_shaula.complex_api_client_sample.domain.VehiclesRepository
 import com.igor_shaula.complex_api_client_sample.ui.models.VehicleModel
 import com.igor_shaula.complex_api_client_sample.ui.models.toVehicleModels
