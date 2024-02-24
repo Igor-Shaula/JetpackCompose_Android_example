@@ -30,6 +30,7 @@ class VehiclesRepositoryImpl : VehiclesRepository {
             _errorData.value = GenericErrorForUI(exception.prepareExplanation())
             emptyList()
         } else {
+            _errorData.value = GenericErrorForUI() // in fact this works to remove the error state
             assembleFromNetworkEntityOptimized(result.getOrNull()) // in fact there will not ever be null here
         }
     }
