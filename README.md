@@ -46,7 +46,7 @@ If you like the solution - please give this repository a star on GitHub.
 - [x] adding error state for UI - for beautiful handling of any network cases.
 - [x] fake-data preparation tract with its own DataSource for consuming mock JSON.
 - [x] eliminate hardcoded values from composables by making order with sizes and colors.
-- [ ] optimize NetworkEntity processing with flows (now there are three loops).
+- [x] optimize NetworkEntity processing with flows (now there are three loops).
 - [ ] add **Hilt** as dependency injection mechanism.
 - [ ] would be nice to add pagination for network response.
 - [ ] add mechanism for checking Network status to have realtime info about offline.

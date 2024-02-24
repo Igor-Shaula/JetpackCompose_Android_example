@@ -6,7 +6,12 @@ import com.igor_shaula.complex_api_client_sample.data.network.NetworkGeneralFail
 import com.igor_shaula.complex_api_client_sample.data.network.OneVehicleData
 import com.igor_shaula.complex_api_client_sample.domain.VehiclesRepository
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.flowOf
+import kotlinx.coroutines.runBlocking
 
 const val VALID_IMAGE_TYPE = "images"
 
@@ -26,11 +31,12 @@ class VehiclesRepositoryImpl : VehiclesRepository {
             _errorData.value = DataLayerGeneralFailure(exception.prepareExplanation())
             emptyList()
         } else {
-            assembleFromNetworkEntity(result.getOrNull()) // in fact there will not ever be null here
+            assembleFromNetworkEntityOptimized(result.getOrNull()) // in fact there will not ever be null here
         }
     }
 
-    private fun assembleFromNetworkEntity(networkEntity: VehicleNetworkEntity?): List<OneVehicleData> {
+    @Suppress("unused")
+    private fun assembleFromNetworkEntity3Loops(networkEntity: VehicleNetworkEntity?): List<OneVehicleData> {
         println("response: vehicleRawList = $networkEntity")
         val resultList = mutableListOf<OneVehicleData>()
         networkEntity?.dataEntities?.forEach {
@@ -55,4 +61,39 @@ class VehiclesRepositoryImpl : VehiclesRepository {
         }
         return resultList
     }
+}
+
+private fun assembleFromNetworkEntityOptimized(networkEntity: VehicleNetworkEntity?): List<OneVehicleData> {
+    println("response: vehicleRawList = $networkEntity")
+    val resultList = mutableListOf<OneVehicleData>()
+
+    val dataEntitiesFlow = networkEntity?.dataEntities?.asFlow() // not a list but flow of instances
+    val includedEntitiesFlow = flowOf(networkEntity?.includedEntities) // non-nullable flow of lists
+
+    runBlocking {
+        // just to save memory on instances creation while working inside the following flow
+        var imageType: String
+        var imageIdFromDataEntity: String
+
+        // every dataEntity has to work with the same includedEntity - this is why we use COMBINE
+        dataEntitiesFlow?.combine(includedEntitiesFlow) { dataEntity, includedEntityList ->
+
+            imageType = dataEntity.relationships.primaryImage.imageData.imageType
+            imageIdFromDataEntity = dataEntity.relationships.primaryImage.imageData.imageId
+
+            resultList.add(
+                OneVehicleData(
+                    imageId = if (imageType == VALID_IMAGE_TYPE && imageIdFromDataEntity.isNotBlank()) {
+                        imageIdFromDataEntity
+                    } else "",
+                    name = dataEntity.dataAttributesEntity.name,
+                    imageUrl = includedEntityList
+                        ?.first { includedEntity -> includedEntity.includedImageId == imageIdFromDataEntity }
+                        ?.includedAttributesEntity?.imageUrl
+                        ?: ""
+                )
+            )
+        }?.collect() // just to launch all of that
+    }
+    return resultList
 }
