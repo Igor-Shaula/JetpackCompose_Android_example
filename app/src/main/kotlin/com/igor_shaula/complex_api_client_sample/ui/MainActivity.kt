@@ -17,12 +17,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.unit.dp
 import com.igor_shaula.complex_api_client_sample.R
 import com.igor_shaula.complex_api_client_sample.ui.elements.CustomizedBusyIndicator
 import com.igor_shaula.complex_api_client_sample.ui.elements.CustomizedExplanation
 import com.igor_shaula.complex_api_client_sample.ui.elements.CustomizedSearchBarAlternative
 import com.igor_shaula.complex_api_client_sample.ui.elements.VehiclesList
+import com.igor_shaula.complex_api_client_sample.ui.theme.APP_BAR_HEIGHT
+import com.igor_shaula.complex_api_client_sample.ui.theme.DEFAULT_ELEVATION
 import com.igor_shaula.complex_api_client_sample.ui.theme.TheAppTheme
 
 class MainActivity : ComponentActivity() {
@@ -55,8 +56,8 @@ class MainActivity : ComponentActivity() {
                                 )
                             },
                             modifier = Modifier
-                                .height(88.dp)
-                                .shadow(elevation = 8.dp)
+                                .height(APP_BAR_HEIGHT)
+                                .shadow(elevation = DEFAULT_ELEVATION)
                         )
                     }
                 ) { innerPadding -> // use this thing somehow - because warning emerges if it's not used

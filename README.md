@@ -45,7 +45,7 @@ If you like the solution - please give this repository a star on GitHub.
 - [x] use Kotlin's Result wrapper for delivering network outcome.
 - [x] adding error state for UI - for beautiful handling of any network cases.
 - [x] fake-data preparation tract with its own DataSource for consuming mock JSON.
-- [ ] eliminate hardcoded values from composables by making order with sizes and colors.
+- [x] eliminate hardcoded values from composables by making order with sizes and colors.
 - [ ] optimize NetworkEntity processing with flows (now there are three loops).
 - [ ] add **Hilt** as dependency injection mechanism.
 - [ ] would be nice to add pagination for network response.

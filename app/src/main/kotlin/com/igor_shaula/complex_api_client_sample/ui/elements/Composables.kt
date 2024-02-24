@@ -52,12 +52,22 @@ import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import com.igor_shaula.complex_api_client_sample.R
 import com.igor_shaula.complex_api_client_sample.data.local.FakeDataSource.Companion.fakeVehiclesList
 import com.igor_shaula.complex_api_client_sample.ui.models.VehicleModel
+import com.igor_shaula.complex_api_client_sample.ui.theme.APP_BAR_HEIGHT
+import com.igor_shaula.complex_api_client_sample.ui.theme.BIG_FONT_SIZE
+import com.igor_shaula.complex_api_client_sample.ui.theme.DEFAULT_FONT_SIZE
+import com.igor_shaula.complex_api_client_sample.ui.theme.DEFAULT_PADDING
+import com.igor_shaula.complex_api_client_sample.ui.theme.DEFAULT_RADIUS
+import com.igor_shaula.complex_api_client_sample.ui.theme.IMAGE_HEIGHT
+import com.igor_shaula.complex_api_client_sample.ui.theme.IMAGE_WIDTH
+import com.igor_shaula.complex_api_client_sample.ui.theme.SMALL_ELEVATION
+import com.igor_shaula.complex_api_client_sample.ui.theme.SMALL_PADDING
+import com.igor_shaula.complex_api_client_sample.ui.theme.SMALL_RADIUS
+import com.igor_shaula.complex_api_client_sample.ui.theme.TINY_ELEVATION
+import com.igor_shaula.complex_api_client_sample.ui.theme.TINY_PADDING
 import com.igor_shaula.complex_api_client_sample.ui.theme.TheAppTheme
 
 @Preview(showBackground = true)
@@ -90,7 +100,10 @@ fun VehiclesList(
     LazyColumn(
         modifier = Modifier
             .fillMaxWidth() // this does not work properly -> modifying Card item
-            .padding(top = 88.dp + 16.dp, start = 16.dp, end = 16.dp)
+            .padding(
+                top = APP_BAR_HEIGHT + DEFAULT_PADDING,
+                start = DEFAULT_PADDING, end = DEFAULT_PADDING
+            )
             .nestedScroll(nestedScrollConnection)
     ) {
         items(vehicleList) { vehicle ->
@@ -102,9 +115,9 @@ fun VehiclesList(
 @Composable
 private fun VehicleCard(vehicle: VehicleModel) {
     Card(
-        elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
-        shape = RoundedCornerShape(8.dp),
-        modifier = Modifier.padding(bottom = 14.dp, top = 2.dp) // 2dp - for shadow, white on white!
+        elevation = CardDefaults.cardElevation(defaultElevation = SMALL_ELEVATION),
+        shape = RoundedCornerShape(size = DEFAULT_RADIUS),
+        modifier = Modifier.padding(bottom = DEFAULT_PADDING) // 2dp - for top shadow, white on white!
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
@@ -116,20 +129,20 @@ private fun VehicleCard(vehicle: VehicleModel) {
                 contentDescription = stringResource(id = R.string.vehicleImageDescription),
                 contentScale = ContentScale.Crop,
                 modifier = Modifier
-                    .height(96.dp)
-                    .width(128.dp)
-                    .padding(all = 4.dp)
-                    .shadow(shape = RoundedCornerShape(4.dp), elevation = 2.dp)
+                    .height(IMAGE_HEIGHT)
+                    .width(IMAGE_WIDTH)
+                    .padding(all = TINY_PADDING)
+                    .shadow(shape = RoundedCornerShape(SMALL_RADIUS), elevation = TINY_ELEVATION)
             )
             Text(
                 text = vehicle.vehicleName,
                 color = Color.DarkGray,
-                fontSize = 16.sp,
+                fontSize = DEFAULT_FONT_SIZE,
                 fontStyle = FontStyle.Normal,
                 fontWeight = FontWeight.Black,
                 fontFamily = FontFamily.SansSerif,
                 maxLines = 3,
-                modifier = Modifier.padding(start = 16.dp, end = 16.dp)
+                modifier = Modifier.padding(start = DEFAULT_PADDING, end = DEFAULT_PADDING)
             )
         }
     }
@@ -167,12 +180,12 @@ fun CustomizedSearchBar(
             contentDescription = stringResource(id = R.string.trailingSearchIconDescription)
         )
     },
-    shape = RoundedCornerShape(8.dp),
+    shape = RoundedCornerShape(DEFAULT_RADIUS),
     enabled = true,
     content = {
         println("content = $this")
     },
-    modifier = Modifier.padding(top = 8.dp, end = 16.dp)
+    modifier = Modifier.padding(top = SMALL_PADDING, end = DEFAULT_PADDING)
 )
 
 @Composable
@@ -182,7 +195,7 @@ fun CustomizedSearchBarAlternative(
     verticalAlignment = Alignment.CenterVertically,
     horizontalArrangement = Arrangement.Start,
     modifier = Modifier
-        .padding(end = 16.dp)
+        .padding(end = DEFAULT_PADDING)
         .background(color = Color.White)
         .fillMaxSize()
 ) {
@@ -190,12 +203,12 @@ fun CustomizedSearchBarAlternative(
         imageVector = Icons.Rounded.Search,
         contentDescription = stringResource(id = R.string.leadingSearchIconDescription),
         modifier = Modifier
-            .padding(start = 20.dp)
+            .padding(start = DEFAULT_PADDING + TINY_PADDING)
             .fillMaxHeight()
     )
     TextField(
         placeholder = { CustomizedSearchBarPlaceholderText() },
-        shape = RoundedCornerShape(8.dp),
+        shape = RoundedCornerShape(DEFAULT_RADIUS),
         singleLine = true,
         value = searchQuery,
         onValueChange = { handleSearchQuery(it, false) }, // optimization logic will handle spaces
@@ -225,7 +238,7 @@ private fun CustomizedSearchBarPlaceholderText() = Text(
     text = stringResource(id = R.string.searchFieldHint),
     textAlign = TextAlign.Start,
     maxLines = 1,
-    fontSize = 16.sp,
+    fontSize = DEFAULT_FONT_SIZE,
     fontStyle = FontStyle.Normal,
     fontWeight = FontWeight.Black,
     fontFamily = FontFamily.SansSerif,
@@ -239,10 +252,13 @@ fun CustomizedExplanation(theText: String) = Text(
     fontFamily = FontFamily.Cursive,
     fontWeight = FontWeight.Bold,
     fontStyle = FontStyle.Normal,
-    fontSize = 24.sp,
+    fontSize = BIG_FONT_SIZE,
     modifier = Modifier
         .fillMaxSize()
-        .padding(top = 88.dp + 16.dp, start = 16.dp, end = 16.dp)
+        .padding(
+            top = APP_BAR_HEIGHT + DEFAULT_PADDING,
+            start = DEFAULT_PADDING, end = DEFAULT_PADDING
+        )
 )
 
 @Composable
