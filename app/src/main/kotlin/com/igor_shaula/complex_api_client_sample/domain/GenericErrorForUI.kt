@@ -1,8 +1,8 @@
-package com.igor_shaula.complex_api_client_sample.data
+package com.igor_shaula.complex_api_client_sample.domain
 
 import com.igor_shaula.complex_api_client_sample.data.network.NetworkGeneralFailure
 
-data class DataLayerGeneralFailure(val explanation: String? = null) : Throwable()
+data class GenericErrorForUI(val explanation: String? = null) : Throwable()
 
 internal fun NetworkGeneralFailure.prepareExplanation(): String {
     val explanation = StringBuilder()

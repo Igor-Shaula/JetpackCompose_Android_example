@@ -1,11 +1,9 @@
 package com.igor_shaula.complex_api_client_sample.domain
 
-import com.igor_shaula.complex_api_client_sample.data.DataLayerGeneralFailure
 import com.igor_shaula.complex_api_client_sample.data.entities.VehicleNetworkEntity
 import com.igor_shaula.complex_api_client_sample.data.network.NetworkDataSource
 import com.igor_shaula.complex_api_client_sample.data.network.NetworkGeneralFailure
 import com.igor_shaula.complex_api_client_sample.data.network.OneVehicleData
-import com.igor_shaula.complex_api_client_sample.data.prepareExplanation
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -18,7 +16,7 @@ const val VALID_IMAGE_TYPE = "images"
 
 class VehiclesRepositoryImpl : VehiclesRepository {
 
-    private val _errorData = MutableStateFlow(DataLayerGeneralFailure())
+    private val _errorData = MutableStateFlow(GenericErrorForUI())
     override val errorData = _errorData.asStateFlow()
 
     private val dataSource = NetworkDataSource()
@@ -29,7 +27,7 @@ class VehiclesRepositoryImpl : VehiclesRepository {
         return if (result.isFailure) {
             val exception = result.exceptionOrNull() as NetworkGeneralFailure // by convention
             println("readVehiclesList: exception = $exception")
-            _errorData.value = DataLayerGeneralFailure(exception.prepareExplanation())
+            _errorData.value = GenericErrorForUI(exception.prepareExplanation())
             emptyList()
         } else {
             assembleFromNetworkEntityOptimized(result.getOrNull()) // in fact there will not ever be null here
