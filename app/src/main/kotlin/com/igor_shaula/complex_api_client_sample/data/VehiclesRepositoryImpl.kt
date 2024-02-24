@@ -16,6 +16,7 @@ class VehiclesRepositoryImpl : VehiclesRepository {
     override val errorData = _errorData.asStateFlow()
 
     private val dataSource = NetworkDataSource()
+//    private val dataSource = FakeDataSource() // also works and is ready for checking API
 
     override suspend fun launchSearchRequestFor(searchQuery: String): List<OneVehicleData> {
         val result = dataSource.launchSearchRequestFor(searchQuery)

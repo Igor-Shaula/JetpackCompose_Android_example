@@ -1,8 +1,16 @@
 package com.igor_shaula.complex_api_client_sample.data.local
 
+import com.google.gson.Gson
+import com.igor_shaula.complex_api_client_sample.data.entities.VehicleNetworkEntity
 import com.igor_shaula.complex_api_client_sample.ui.models.VehicleModel
 
 class FakeDataSource {
+
+    suspend fun launchSearchRequestFor(searchQuery: String): Result<VehicleNetworkEntity?> {
+        println("launchSearchRequestFor in FakeDataSource: searchQuery = $searchQuery")
+        val networkEntity = Gson().fromJson(mockResponse, VehicleNetworkEntity::class.java)
+        return Result.success(networkEntity)
+    }
 
     companion object {
 
