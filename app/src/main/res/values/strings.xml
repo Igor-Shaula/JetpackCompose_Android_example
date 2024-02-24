@@ -4,7 +4,7 @@
         Please use the Search box to obtain a list of Recreational Vehicles you are interested in.</string>
     <string name="emptyListExplanation">This is the empty-list UI-state.\n\n
         Nothing found for the given query.\nPlease try something different.</string>
-    <string name="errorStateInfo">This is the error UI-state.</string>
+    <string name="errorStateInfo">This is the error UI-state:\n\n</string>
     <string name="searchFieldHint">Search</string>
     <string name="vehicleImageDescription">vehicle image</string>
     <string name="leadingSearchIconDescription">search icon</string>

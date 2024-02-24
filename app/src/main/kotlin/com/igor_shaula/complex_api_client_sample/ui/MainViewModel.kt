@@ -42,8 +42,8 @@ class MainViewModel : ViewModel() {
     init {
         coroutineScope.launch {
             repository.errorData.collect {
-                errorInfo = it // time to transport the error state onto UI layer
-                println("repository.errorData.collect: $it")
+                errorInfo = it.explanation.toString() // transports the error state onto UI layer
+                println("repository.errorData.collect: $errorInfo")
             }
         }
     }
