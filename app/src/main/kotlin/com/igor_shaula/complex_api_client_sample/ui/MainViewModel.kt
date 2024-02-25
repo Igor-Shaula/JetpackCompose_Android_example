@@ -4,17 +4,22 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
-import com.igor_shaula.complex_api_client_sample.domain.VehiclesRepositoryImpl
 import com.igor_shaula.complex_api_client_sample.domain.VehiclesRepository
 import com.igor_shaula.complex_api_client_sample.ui.models.VehicleModel
 import com.igor_shaula.complex_api_client_sample.ui.models.toVehicleModels
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineName
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.plus
+import javax.inject.Inject
 
-class MainViewModel : ViewModel() {
+@HiltViewModel
+class MainViewModel @Inject constructor() : ViewModel() {
+
+    @Inject
+    lateinit var repository: VehiclesRepository
 
     var vehiclesList by mutableStateOf(listOf<VehicleModel>())
         private set
@@ -30,8 +35,6 @@ class MainViewModel : ViewModel() {
 
     var isFreshStart by mutableStateOf(true)
         private set
-
-    private val repository: VehiclesRepository = VehiclesRepositoryImpl()
 
     private val coroutineScope = MainScope() + CoroutineName(this.javaClass.simpleName)
 

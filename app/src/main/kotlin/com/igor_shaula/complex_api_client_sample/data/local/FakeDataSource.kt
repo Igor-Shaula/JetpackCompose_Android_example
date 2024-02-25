@@ -3,8 +3,9 @@ package com.igor_shaula.complex_api_client_sample.data.local
 import com.google.gson.Gson
 import com.igor_shaula.complex_api_client_sample.data.entities.VehicleNetworkEntity
 import com.igor_shaula.complex_api_client_sample.ui.models.VehicleModel
+import javax.inject.Inject
 
-class FakeDataSource {
+class FakeDataSource @Inject constructor() {
 
     suspend fun launchSearchRequestFor(searchQuery: String): Result<VehicleNetworkEntity?> {
         println("launchSearchRequestFor in FakeDataSource: searchQuery = $searchQuery")

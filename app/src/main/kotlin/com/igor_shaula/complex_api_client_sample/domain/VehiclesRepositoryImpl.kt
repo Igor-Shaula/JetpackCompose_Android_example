@@ -1,6 +1,7 @@
 package com.igor_shaula.complex_api_client_sample.domain
 
 import com.igor_shaula.complex_api_client_sample.data.entities.VehicleNetworkEntity
+import com.igor_shaula.complex_api_client_sample.data.local.FakeDataSource
 import com.igor_shaula.complex_api_client_sample.data.network.NetworkDataSource
 import com.igor_shaula.complex_api_client_sample.data.network.NetworkGeneralFailure
 import com.igor_shaula.complex_api_client_sample.data.network.OneVehicleData
@@ -11,19 +12,21 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.runBlocking
+import javax.inject.Inject
 
 const val VALID_IMAGE_TYPE = "images"
 
-class VehiclesRepositoryImpl : VehiclesRepository {
+class VehiclesRepositoryImpl @Inject constructor(
+    private val networkDataSource: NetworkDataSource,
+    private val fakeDataSource: FakeDataSource
+) : VehiclesRepository {
 
     private val _errorData = MutableStateFlow(GenericErrorForUI())
     override val errorData = _errorData.asStateFlow()
 
-    private val dataSource = NetworkDataSource()
-//    private val dataSource = FakeDataSource() // also works and is ready for checking API
-
     override suspend fun launchSearchRequestFor(searchQuery: String): List<OneVehicleData> {
-        val result = dataSource.launchSearchRequestFor(searchQuery)
+        val result = networkDataSource.launchSearchRequestFor(searchQuery)
+//        val result = fakeDataSource.launchSearchRequestFor(searchQuery)
         return if (result.isFailure) {
             val exception = result.exceptionOrNull() as NetworkGeneralFailure // by convention
             println("readVehiclesList: exception = $exception")

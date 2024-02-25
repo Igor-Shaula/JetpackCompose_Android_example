@@ -3,18 +3,12 @@ package com.igor_shaula.complex_api_client_sample.data.network
 import com.igor_shaula.complex_api_client_sample.data.entities.VehicleNetworkEntity
 import com.igor_shaula.complex_api_client_sample.data.network.retrofit.VehicleRetrofitNetworkService
 import retrofit2.Response
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 import java.io.IOException
+import javax.inject.Inject
 
-class NetworkDataSource {
-
-    private val vehicleNetworkService: VehicleRetrofitNetworkService =
-        Retrofit.Builder()
-            .baseUrl(URL)
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-            .create(VehicleRetrofitNetworkService::class.java)
+class NetworkDataSource @Inject constructor(
+    private val vehicleNetworkService: VehicleRetrofitNetworkService
+) {
 
     suspend fun launchSearchRequestFor(searchQuery: String): Result<VehicleNetworkEntity?> {
 

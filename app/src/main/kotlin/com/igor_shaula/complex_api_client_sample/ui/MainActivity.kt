@@ -25,7 +25,9 @@ import com.igor_shaula.complex_api_client_sample.ui.elements.VehiclesList
 import com.igor_shaula.complex_api_client_sample.ui.theme.APP_BAR_HEIGHT
 import com.igor_shaula.complex_api_client_sample.ui.theme.DEFAULT_ELEVATION
 import com.igor_shaula.complex_api_client_sample.ui.theme.TheAppTheme
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
     private val viewModel: MainViewModel by viewModels()
