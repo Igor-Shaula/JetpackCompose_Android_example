@@ -1,4 +1,4 @@
-package com.igor_shaula.complex_api_client_sample.di
+package com.igor_shaula.complex_api_client_sample
 
 import com.igor_shaula.complex_api_client_sample.data.network.URL
 import com.igor_shaula.complex_api_client_sample.data.network.retrofit.VehicleRetrofitNetworkService
