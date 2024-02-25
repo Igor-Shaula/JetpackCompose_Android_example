@@ -9,15 +9,15 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ViewModelComponent
+import dagger.hilt.android.scopes.ViewModelScoped
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 @Module
-//@InstallIn(SingletonComponent::class)
 @InstallIn(ViewModelComponent::class)
 abstract class VehiclesRepositoryModule {
 
-    //    @Singleton
+    @ViewModelScoped
     @Binds
     abstract fun bindVehicleRepository(
         vehiclesRepositoryImpl: VehiclesRepositoryImpl
@@ -25,11 +25,10 @@ abstract class VehiclesRepositoryModule {
 }
 
 @Module
-//@InstallIn(SingletonComponent::class)
 @InstallIn(ViewModelComponent::class)
 object RetrofitModule {
 
-    //    @Singleton
+    @ViewModelScoped
     @Provides
     fun provideVehicleRetrofitNetworkService(): VehicleRetrofitNetworkService =
         Retrofit.Builder()
