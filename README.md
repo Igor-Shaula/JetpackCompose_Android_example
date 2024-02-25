@@ -34,10 +34,11 @@ If you like the solution - please give this repository a star on GitHub.
 
 - **Kotlin** - as the only coding language.
 - **Coroutines & Flows** - for all async work.
-- **Jetpack Compose** - as implementation of all UI.
+- **Jetpack Compose** - as an implementation of all UI.
 - **Modern Android Architecture** - as a skeleton for naming/placing packages & classes.
 - **Retrofit 2** - as a REST network client.
 - **Coil** - for downloading images.
+- **Hilt** - as a dependency injection tool.
 
 ### What's next (list of additions):
 
@@ -47,8 +48,10 @@ If you like the solution - please give this repository a star on GitHub.
 - [x] fake-data preparation tract with its own DataSource for consuming mock JSON.
 - [x] eliminate hardcoded values from composables by making order with sizes and colors.
 - [x] optimize NetworkEntity processing with flows (now there are three loops).
-- [ ] add **Hilt** as dependency injection mechanism.
+- [x] add **Hilt** as dependency injection mechanism.
 - [ ] would be nice to add pagination for network response.
+- [ ] add menu with ability to change pagination limit & offset.
+- [ ] add statistics for showing number of downloaded vehicles.
 - [ ] add mechanism for checking Network status to have realtime info about offline.
 - [ ] add **unit tests** for ViewModel and other logic-related code.
 - [ ] add **UI tests** with Espresso.
