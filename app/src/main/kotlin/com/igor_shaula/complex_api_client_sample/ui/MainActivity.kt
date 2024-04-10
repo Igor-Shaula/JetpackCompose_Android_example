@@ -1,6 +1,8 @@
 package com.igor_shaula.complex_api_client_sample.ui
 
 import android.app.Activity
+import android.os.Bundle
+import android.os.PersistableBundle
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import androidx.activity.ComponentActivity
@@ -30,62 +32,71 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
-    private val viewModel: MainViewModel by viewModels()
+    override fun onCreate(savedInstanceState: Bundle?, persistentState: PersistableBundle?) {
+        super.onCreate(savedInstanceState, persistentState)
+        // just to see what happens when this callback is invoked
+        println("savedInstanceState = $savedInstanceState")
+        println("persistentState = $persistentState")
+        // if setContent is invoked in this onCreate - the screen stays blank white and nothing more happens
+    }
 
-    override fun onStart() {
-        super.onStart()
-        viewModel.setFreshStart()
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+//        enableEdgeToEdge() // todo: decide if this is needed here
         setContent {
-            MainScreenWithTopBarAndList()
+            RootAppContent()
+        }
+    }
+
+    @Composable
+    fun RootAppContent() {
+        Surface(
+            color = MaterialTheme.colorScheme.background,
+            modifier = Modifier.fillMaxSize()
+        ) {
+            TheAppTheme {
+                ScreenWithTopBarAndList()
+            }
         }
     }
 
     @OptIn(ExperimentalMaterial3Api::class)
     @Composable
-    fun MainScreenWithTopBarAndList() {
-        TheAppTheme {
-            Surface(
-                color = MaterialTheme.colorScheme.background,
-                modifier = Modifier.fillMaxSize()
-            ) {
-                Scaffold(
-                    topBar = {
-                        TopAppBar(
-                            title = {
-                                CustomizedSearchBarAlternative(
-                                    viewModel.searchQueryForUI,
-                                    ::handleSearchQuery
-                                )
-                            },
-                            modifier = Modifier
-                                .height(APP_BAR_HEIGHT)
-                                .shadow(elevation = DEFAULT_ELEVATION)
-                        )
-                    }
-                ) { innerPadding -> // use this thing somehow - because warning emerges if it's not used
-                    println("innerPadding = $innerPadding")
-                    // decided to not to use "when" statement as it takes more space
-                    if (viewModel.isBusyState) {
-                        CustomizedBusyIndicator()
-                    } else if (viewModel.isFreshStart) {
-                        CustomizedExplanation(theText = getString(R.string.firstLaunchExplanation))
-                    } else if (viewModel.errorInfo.isNotBlank()) {
-                        CustomizedExplanation(
-                            theText = stringResource(id = R.string.errorStateInfo) + viewModel.errorInfo
-                        )
-                    } else if (viewModel.vehiclesList.isEmpty()) {
-                        CustomizedExplanation(theText = getString(R.string.emptyListExplanation))
-                    } else {
-                        VehiclesList(viewModel.vehiclesList, ::hideKeyboard)
-                    }
-                }
+    private fun ScreenWithTopBarAndList() {
+
+        val viewModel: MainViewModel by viewModels()
+        viewModel.setFreshStart()
+
+        Scaffold(
+            topBar = {
+                TopAppBar(
+                    title = {
+                        CustomizedSearchBarAlternative(
+                            viewModel.searchQueryForUI
+                        ) { query, isForced -> viewModel.updateSearchRequest(query, isForced) }
+                    },
+                    modifier = Modifier
+                        .height(APP_BAR_HEIGHT)
+                        .shadow(elevation = DEFAULT_ELEVATION)
+                )
+            }
+        ) { innerPadding -> // use this thing somehow - because warning emerges if it's not used
+            println("innerPadding = $innerPadding")
+            // decided to not to use "when" statement as it takes more space
+            if (viewModel.isBusyState) {
+                CustomizedBusyIndicator()
+            } else if (viewModel.isFreshStart) {
+                CustomizedExplanation(theText = getString(R.string.firstLaunchExplanation))
+            } else if (viewModel.errorInfo.isNotBlank()) {
+                CustomizedExplanation(
+                    theText = stringResource(id = R.string.errorStateInfo) + viewModel.errorInfo
+                )
+            } else if (viewModel.vehiclesList.isEmpty()) {
+                CustomizedExplanation(theText = getString(R.string.emptyListExplanation))
+            } else {
+                VehiclesList(viewModel.vehiclesList, ::hideKeyboard)
             }
         }
-    }
-
-    private fun handleSearchQuery(query: String, isForced: Boolean = false) {
-        println("onQueryChange: new query = $query")
-        viewModel.updateSearchRequest(query, isForced)
     }
 
     // to hide keyboard on scroll events
