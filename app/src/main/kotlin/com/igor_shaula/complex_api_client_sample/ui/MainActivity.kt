@@ -9,9 +9,8 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
-import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import com.igor_shaula.complex_api_client_sample.ui.elements.ScreenWithTopBarAndList
+import com.igor_shaula.complex_api_client_sample.ui.elements.TheAppScreen
 import com.igor_shaula.complex_api_client_sample.ui.theme.TheAppTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -30,18 +29,13 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
 //        enableEdgeToEdge() // no need to enable this - but let it stay here as an option for the future
         setContent {
-            RootAppContent()
-        }
-    }
-
-    @Composable
-    fun RootAppContent() {
-        Surface(
-            color = MaterialTheme.colorScheme.background,
-            modifier = Modifier.fillMaxSize()
-        ) {
-            TheAppTheme {
-                ScreenWithTopBarAndList(::hideKeyboard)
+            Surface(
+                color = MaterialTheme.colorScheme.background,
+                modifier = Modifier.fillMaxSize()
+            ) {
+                TheAppTheme {
+                    TheAppScreen(::hideKeyboard)
+                }
             }
         }
     }

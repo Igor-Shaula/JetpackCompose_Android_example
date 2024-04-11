@@ -8,7 +8,7 @@ import com.igor_shaula.complex_api_client_sample.R
 import com.igor_shaula.complex_api_client_sample.ui.MainViewModel
 
 @Composable
-fun ScreenWithTopBarAndList(hideKeyboard: () -> Unit) {
+fun TheAppScreen(hideKeyboard: () -> Unit) {
 
     val viewModel: MainViewModel = viewModel()
     viewModel.setFreshStart()
