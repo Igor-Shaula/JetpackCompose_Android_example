@@ -12,7 +12,7 @@ import com.igor_shaula.complex_api_client_sample.ui.theme.DEFAULT_ELEVATION
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun TopBarUI(searchQuery: String, onSearchQueryUpdate: (String, Boolean) -> Unit) {
+fun TheAppTopBar(searchQuery: String, onSearchQueryUpdate: (String, Boolean) -> Unit) {
     TopAppBar(
         title = {
             CustomizedSearchBarAlternative(searchQuery, onSearchQueryUpdate)

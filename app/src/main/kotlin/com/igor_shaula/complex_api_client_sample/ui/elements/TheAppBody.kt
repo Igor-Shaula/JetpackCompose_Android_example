@@ -7,7 +7,7 @@ import com.igor_shaula.complex_api_client_sample.R
 import com.igor_shaula.complex_api_client_sample.ui.TheUiState
 
 @Composable
-fun BodyUI(
+fun TheAppBody(
     uiState: TheUiState, hideKeyboard: () -> Unit, paddingValues: PaddingValues
 ) {
     println("paddingValues = $paddingValues") // later decide where to use it appropriately

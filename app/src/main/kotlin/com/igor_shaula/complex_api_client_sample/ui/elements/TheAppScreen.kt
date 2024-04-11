@@ -13,11 +13,11 @@ fun TheAppScreen(hideKeyboard: () -> Unit) {
 
     Scaffold(
         topBar = {
-            TopBarUI(viewModel.searchQueryForUI) { query, isForced ->
+            TheAppTopBar(viewModel.searchQueryForUI) { query, isForced ->
                 viewModel.updateSearchRequest(query, isForced)
             }
         }
     ) { // use this thing somehow - because warning emerges if it's not used
-        BodyUI(viewModel.uiState, hideKeyboard, it)
+        TheAppBody(viewModel.uiState, hideKeyboard, it)
     }
 }
