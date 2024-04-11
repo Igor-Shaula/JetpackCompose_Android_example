@@ -12,14 +12,14 @@ import com.igor_shaula.complex_api_client_sample.ui.theme.DEFAULT_ELEVATION
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun TheAppTopBar(searchQuery: String, onSearchQueryUpdate: (String, Boolean) -> Unit) {
-    TopAppBar(
-        title = {
-            CustomizedSearchBarAlternative(searchQuery, onSearchQueryUpdate)
-        },
-        scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior(),
-        modifier = Modifier
-            .height(APP_BAR_HEIGHT)
-            .shadow(elevation = DEFAULT_ELEVATION)
-    )
-}
+fun TheAppTopBar(
+    searchQuery: String, onSearchQueryUpdate: (String, Boolean) -> Unit
+) = TopAppBar(
+    title = {
+        CustomizedSearchBarAlternative(searchQuery, onSearchQueryUpdate)
+    },
+    scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior(),
+    modifier = Modifier
+        .height(APP_BAR_HEIGHT)
+        .shadow(elevation = DEFAULT_ELEVATION)
+)
