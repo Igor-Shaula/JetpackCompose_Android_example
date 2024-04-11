@@ -2,11 +2,8 @@ package com.igor_shaula.complex_api_client_sample.ui.elements
 
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.igor_shaula.complex_api_client_sample.R
 import com.igor_shaula.complex_api_client_sample.ui.MainViewModel
-import com.igor_shaula.complex_api_client_sample.ui.TheUiState
 
 @Composable
 fun TheAppScreen(hideKeyboard: () -> Unit) {
@@ -20,26 +17,7 @@ fun TheAppScreen(hideKeyboard: () -> Unit) {
                 viewModel.updateSearchRequest(query, isForced)
             }
         }
-    ) { innerPadding -> // use this thing somehow - because warning emerges if it's not used
-        println("innerPadding = $innerPadding")
-
-        when (val uiState: TheUiState = viewModel.uiState) {
-
-            TheUiState.FreshStart -> CustomizedExplanation(
-                theText = stringResource(R.string.firstLaunchExplanation)
-            )
-
-            TheUiState.Loading -> CustomizedBusyIndicator()
-
-            TheUiState.EmptyList -> CustomizedExplanation(
-                theText = stringResource(R.string.emptyListExplanation)
-            )
-
-            is TheUiState.Success -> VehiclesList(uiState.theList, hideKeyboard)
-
-            is TheUiState.Error -> CustomizedExplanation(
-                theText = stringResource(id = R.string.errorStateInfo) + uiState.errorInfo
-            )
-        }
+    ) { // use this thing somehow - because warning emerges if it's not used
+        BodyUI(viewModel.uiState, hideKeyboard, it)
     }
 }
