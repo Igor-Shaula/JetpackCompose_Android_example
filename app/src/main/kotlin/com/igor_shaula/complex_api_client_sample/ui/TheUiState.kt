@@ -10,9 +10,9 @@ sealed interface TheUiState {
     // special UI state for the case if the request is successful but no objects are found in it
     data object EmptyList : TheUiState
 
-    class Success(theList: List<VehicleModel>) : TheUiState
+    class Success(val theList: List<VehicleModel>) : TheUiState
 
-    data object Error : TheUiState
+    class Error(val errorInfo: String) : TheUiState
 
     data object Loading : TheUiState
 }
