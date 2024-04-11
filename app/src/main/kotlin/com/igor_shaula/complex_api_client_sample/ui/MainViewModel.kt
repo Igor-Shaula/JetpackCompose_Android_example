@@ -5,7 +5,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import com.igor_shaula.complex_api_client_sample.domain.VehiclesRepository
-import com.igor_shaula.complex_api_client_sample.ui.models.VehicleModel
 import com.igor_shaula.complex_api_client_sample.ui.models.toVehicleModels
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineName
@@ -21,19 +20,10 @@ class MainViewModel @Inject constructor() : ViewModel() {
     @Inject
     lateinit var repository: VehiclesRepository
 
-    var vehiclesList by mutableStateOf(listOf<VehicleModel>())
+    var uiState: TheUiState by mutableStateOf(TheUiState.FreshStart)
         private set
 
     var searchQueryForUI by mutableStateOf("")
-        private set
-
-    var isBusyState by mutableStateOf(false)
-        private set
-
-    var errorInfo by mutableStateOf("")
-        private set
-
-    var isFreshStart by mutableStateOf(true)
         private set
 
     private val coroutineScope = MainScope() + CoroutineName(this.javaClass.simpleName)
@@ -45,8 +35,10 @@ class MainViewModel @Inject constructor() : ViewModel() {
     init {
         coroutineScope.launch {
             repository.errorData.collect {
-                errorInfo = it.explanation ?: "" // transports the error state onto UI layer
-                println("repository.errorData.collect: $errorInfo")
+                if (it.explanation != null) {
+                    uiState = TheUiState.Error(it.explanation)
+                }
+                println("repository.errorData.collect: ${it.explanation}")
             }
         }
     }
@@ -76,16 +68,15 @@ class MainViewModel @Inject constructor() : ViewModel() {
         // now when the new query is really different - we have to stop possible previous request
         getVehiclesJob?.cancel()
         getVehiclesJob = coroutineScope.launch {
-            isBusyState = true
+            uiState = TheUiState.Loading
             val resultList = repository.launchSearchRequestFor(searchQuery)
             println("updateSearchRequest: resultList = $resultList")
-            vehiclesList = resultList.toVehicleModels()
-            isBusyState = false
+            val vehiclesList = resultList.toVehicleModels()
+            uiState = if (vehiclesList.isEmpty()) {
+                TheUiState.EmptyList
+            } else {
+                TheUiState.Success(vehiclesList)
+            }
         }
-        isFreshStart = false
-    }
-
-    fun setFreshStart() {
-        isFreshStart = true
     }
 }

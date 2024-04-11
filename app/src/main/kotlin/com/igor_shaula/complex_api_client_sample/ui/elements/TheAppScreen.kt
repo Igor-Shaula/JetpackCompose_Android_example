@@ -6,12 +6,13 @@ import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.igor_shaula.complex_api_client_sample.R
 import com.igor_shaula.complex_api_client_sample.ui.MainViewModel
+import com.igor_shaula.complex_api_client_sample.ui.TheUiState
 
 @Composable
 fun TheAppScreen(hideKeyboard: () -> Unit) {
 
+    // top-level composable is the right place of referencing the viewModel as it's needed in topBar as well
     val viewModel: MainViewModel = viewModel()
-    viewModel.setFreshStart()
 
     Scaffold(
         topBar = {
@@ -21,19 +22,24 @@ fun TheAppScreen(hideKeyboard: () -> Unit) {
         }
     ) { innerPadding -> // use this thing somehow - because warning emerges if it's not used
         println("innerPadding = $innerPadding")
-        // decided to not to use "when" statement as it takes more space
-        if (viewModel.isBusyState) {
-            CustomizedBusyIndicator()
-        } else if (viewModel.isFreshStart) {
-            CustomizedExplanation(theText = stringResource(R.string.firstLaunchExplanation))
-        } else if (viewModel.errorInfo.isNotBlank()) {
-            CustomizedExplanation(
-                theText = stringResource(id = R.string.errorStateInfo) + viewModel.errorInfo
+
+        when (val uiState: TheUiState = viewModel.uiState) {
+
+            TheUiState.FreshStart -> CustomizedExplanation(
+                theText = stringResource(R.string.firstLaunchExplanation)
             )
-        } else if (viewModel.vehiclesList.isEmpty()) {
-            CustomizedExplanation(theText = stringResource(R.string.emptyListExplanation))
-        } else {
-            VehiclesList(viewModel.vehiclesList, hideKeyboard)
+
+            TheUiState.Loading -> CustomizedBusyIndicator()
+
+            TheUiState.EmptyList -> CustomizedExplanation(
+                theText = stringResource(R.string.emptyListExplanation)
+            )
+
+            is TheUiState.Success -> VehiclesList(uiState.theList, hideKeyboard)
+
+            is TheUiState.Error -> CustomizedExplanation(
+                theText = stringResource(id = R.string.errorStateInfo) + uiState.errorInfo
+            )
         }
     }
 }
