@@ -14,19 +14,19 @@ fun TheAppBody(
 
     when (uiState) {
 
-        TheUiState.FreshStart -> CustomizedExplanation(
+        TheUiState.FreshStart -> ExplanationScreen(
             theText = stringResource(R.string.firstLaunchExplanation)
         )
 
-        TheUiState.Loading -> CustomizedBusyIndicator()
+        TheUiState.Loading -> LoadingScreen()
 
-        TheUiState.EmptyList -> CustomizedExplanation(
+        TheUiState.EmptyList -> ExplanationScreen(
             theText = stringResource(R.string.emptyListExplanation)
         )
 
-        is TheUiState.Success -> VehiclesList(uiState.theList, hideKeyboard)
+        is TheUiState.Success -> PayloadScreen(uiState.theList, hideKeyboard)
 
-        is TheUiState.Error -> CustomizedExplanation(
+        is TheUiState.Error -> ExplanationScreen(
             theText = stringResource(id = R.string.errorStateInfo) + uiState.errorInfo
         )
     }

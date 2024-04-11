@@ -29,13 +29,13 @@ fun TheAppUiPreview() {
             color = MaterialTheme.colorScheme.background,
             modifier = Modifier.fillMaxSize()
         ) {
-            VehiclesList(FakeDataSource.fakeVehiclesList)
+            PayloadScreen(FakeDataSource.fakeVehiclesList)
         }
     }
 }
 
 @Composable
-fun VehiclesList(
+fun PayloadScreen(
     vehicleList: List<VehicleModel>,
     hideKeyboard: (() -> Unit)? = null // nullable for absence in preview invocations
 ) {
