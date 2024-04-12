@@ -4,14 +4,12 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.igor_shaula.complex_api_client_sample.domain.VehiclesRepository
 import com.igor_shaula.complex_api_client_sample.ui.models.toVehicleModels
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.CoroutineName
 import kotlinx.coroutines.Job
-import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.plus
 import javax.inject.Inject
 
 @HiltViewModel
@@ -26,14 +24,12 @@ class MainViewModel @Inject constructor() : ViewModel() {
     var searchQueryForUI by mutableStateOf("")
         private set
 
-    private val coroutineScope = MainScope() + CoroutineName(this.javaClass.simpleName)
-
     private var getVehiclesJob: Job? = null
 
     private var searchQuery = ""
 
     init {
-        coroutineScope.launch {
+        viewModelScope.launch {
             repository.errorData.collect {
                 if (it.explanation != null) {
                     uiState = TheUiState.Error(it.explanation)
@@ -67,7 +63,7 @@ class MainViewModel @Inject constructor() : ViewModel() {
 
         // now when the new query is really different - we have to stop possible previous request
         getVehiclesJob?.cancel()
-        getVehiclesJob = coroutineScope.launch {
+        getVehiclesJob = viewModelScope.launch {
             uiState = TheUiState.Loading
             val resultList = repository.launchSearchRequestFor(searchQuery)
             println("updateSearchRequest: resultList = $resultList")
