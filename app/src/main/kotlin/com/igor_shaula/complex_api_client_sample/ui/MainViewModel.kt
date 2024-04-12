@@ -20,12 +20,15 @@ class MainViewModel @Inject constructor(
     var uiState: TheUiState by mutableStateOf(TheUiState.FreshStart)
         private set
 
+    // used only in TopBar UI and is needed to make uiState much simpler then if it was a part of uiState
     var searchQueryForUI by mutableStateOf("")
         private set
 
-    private var getVehiclesJob: Job? = null
-
+    // actual data for the network request - clean from blank symbols - may be different from searchQueryForUI
     private var searchQuery = ""
+
+    // we need this reference because the job can be still running when a new request is needed to start
+    private var getVehiclesJob: Job? = null
 
     init {
         viewModelScope.launch {
@@ -40,6 +43,7 @@ class MainViewModel @Inject constructor(
 
     override fun onCleared() {
         getVehiclesJob?.cancel()
+        getVehiclesJob = null
         super.onCleared()
     }
 
@@ -61,7 +65,9 @@ class MainViewModel @Inject constructor(
         }
 
         // now when the new query is really different - we have to stop possible previous request
-        getVehiclesJob?.cancel()
+        if (getVehiclesJob?.isActive == true) {
+            getVehiclesJob?.cancel()
+        }
         getVehiclesJob = viewModelScope.launch {
             uiState = TheUiState.Loading
             val resultList = vehiclesRepository.launchSearchRequestFor(searchQuery)
