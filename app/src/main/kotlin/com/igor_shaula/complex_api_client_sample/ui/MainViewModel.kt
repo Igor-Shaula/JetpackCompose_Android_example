@@ -13,10 +13,9 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class MainViewModel @Inject constructor() : ViewModel() {
-
-    @Inject
-    lateinit var repository: VehiclesRepository
+class MainViewModel @Inject constructor(
+    private val vehiclesRepository: VehiclesRepository
+) : ViewModel() {
 
     var uiState: TheUiState by mutableStateOf(TheUiState.FreshStart)
         private set
@@ -30,7 +29,7 @@ class MainViewModel @Inject constructor() : ViewModel() {
 
     init {
         viewModelScope.launch {
-            repository.errorData.collect {
+            vehiclesRepository.errorData.collect {
                 if (it.explanation != null) {
                     uiState = TheUiState.Error(it.explanation)
                 }
@@ -65,7 +64,7 @@ class MainViewModel @Inject constructor() : ViewModel() {
         getVehiclesJob?.cancel()
         getVehiclesJob = viewModelScope.launch {
             uiState = TheUiState.Loading
-            val resultList = repository.launchSearchRequestFor(searchQuery)
+            val resultList = vehiclesRepository.launchSearchRequestFor(searchQuery)
             println("updateSearchRequest: resultList = $resultList")
             val vehiclesList = resultList.toVehicleModels()
             uiState = if (vehiclesList.isEmpty()) {

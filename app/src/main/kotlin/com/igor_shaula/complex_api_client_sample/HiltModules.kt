@@ -15,13 +15,21 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 @Module
 @InstallIn(ViewModelComponent::class)
-abstract class VehiclesRepositoryModule {
+interface VehiclesRepositoryModule {
 
     @ViewModelScoped
     @Binds
-    abstract fun bindVehicleRepository(
+    fun bindVehicleRepository(
         vehiclesRepositoryImpl: VehiclesRepositoryImpl
     ): VehiclesRepository
+
+    // this variant also works but i decided to rely on binding as it's simpler & allows "interface"
+//    @ViewModelScoped
+//    @Provides // no need - as creation of VehiclesRepositoryImpl instance is described in its constructor
+//    fun provideVehicleRepository( // this would require to convert this class into interface
+//        networkDataSource: NetworkDataSource,
+//        fakeDataSource: FakeDataSource
+//    ): VehiclesRepository = VehiclesRepositoryImpl(networkDataSource, fakeDataSource)
 }
 
 @Module
