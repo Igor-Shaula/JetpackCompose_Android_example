@@ -1,5 +1,6 @@
 package com.igor_shaula.complex_api_client_sample.ui
 
+import androidx.annotation.VisibleForTesting
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -24,13 +25,30 @@ class MainViewModel @Inject constructor(
     var searchQueryForUI by mutableStateOf("")
         private set
 
+    @VisibleForTesting
     // actual data for the network request - clean from blank symbols - may be different from searchQueryForUI
-    private var searchQuery = ""
+    internal var searchQuery = ""
 
     // we need this reference because the job can be still running when a new request is needed to start
     private var getVehiclesJob: Job? = null
 
     init {
+        setupForCatchingAnyErrorInfo()
+    }
+
+    override fun onCleared() {
+        // decided this thing to stay here - at least before the test coverage is counted
+        getVehiclesJob?.cancel()
+        getVehiclesJob = null
+        super.onCleared()
+    }
+
+    // this method is used only to handle @VisibleForTesting warning without @Suppress on higher level
+    fun updateSearchRequest(newText: String, isForced: Boolean) =
+        updateSearchRequestTested(newText, isForced)
+
+    @VisibleForTesting
+    internal fun setupForCatchingAnyErrorInfo() {
         viewModelScope.launch {
             vehiclesRepository.errorData.collect {
                 if (it.explanation != null) {
@@ -41,13 +59,8 @@ class MainViewModel @Inject constructor(
         }
     }
 
-    override fun onCleared() {
-        getVehiclesJob?.cancel()
-        getVehiclesJob = null
-        super.onCleared()
-    }
-
-    fun updateSearchRequest(newText: String, isForced: Boolean) {
+    @VisibleForTesting
+    internal fun updateSearchRequestTested(newText: String, isForced: Boolean) {
         println("updateSearchRequest: newText = $newText")
 
         // before any logic is started - users have to see what they are typing at the moment
@@ -65,6 +78,12 @@ class MainViewModel @Inject constructor(
         }
 
         // now when the new query is really different - we have to stop possible previous request
+        getNewDataForNewSearchRequest()
+    }
+
+    // decided to have this thing separate because here the uiState is the result
+    @VisibleForTesting
+    internal fun getNewDataForNewSearchRequest() { // would be private but is needed for testing
         if (getVehiclesJob?.isActive == true) {
             getVehiclesJob?.cancel()
         }
