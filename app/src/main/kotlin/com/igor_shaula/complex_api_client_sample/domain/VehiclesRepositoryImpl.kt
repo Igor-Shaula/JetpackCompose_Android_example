@@ -1,5 +1,6 @@
 package com.igor_shaula.complex_api_client_sample.domain
 
+import androidx.annotation.VisibleForTesting
 import com.igor_shaula.complex_api_client_sample.data.entities.VehicleNetworkEntity
 import com.igor_shaula.complex_api_client_sample.data.local.FakeDataSource
 import com.igor_shaula.complex_api_client_sample.data.network.NetworkDataSource
@@ -25,48 +26,53 @@ class VehiclesRepositoryImpl @Inject constructor(
     override val errorData = _errorData.asStateFlow()
 
     override suspend fun launchSearchRequestFor(searchQuery: String): List<OneVehicleData> {
-        val result = networkDataSource.launchSearchRequestFor(searchQuery)
+        val entityResult = networkDataSource.launchSearchRequestFor(searchQuery)
 //        val result = fakeDataSource.launchSearchRequestFor(searchQuery)
-        return if (result.isFailure) {
-            val exception = result.exceptionOrNull() as NetworkGeneralFailure // by convention
+        return convertIntoListOfData(entityResult)
+    }
+
+    // be careful as this function contains side-effect with modification of "_errorData.value"
+    private fun convertIntoListOfData(entityResult: Result<VehicleNetworkEntity?>): List<OneVehicleData> =
+        if (entityResult.isFailure) {
+            val exception = entityResult.exceptionOrNull() as NetworkGeneralFailure
             println("readVehiclesList: exception = $exception")
             _errorData.value = GenericErrorForUI(exception.prepareExplanation())
             emptyList()
         } else {
             _errorData.value = GenericErrorForUI() // in fact this works to remove the error state
-            assembleFromNetworkEntityOptimized(result.getOrNull()) // in fact there will not ever be null here
+            assembleFromNetworkEntityOptimized(entityResult.getOrNull()) // in fact there will not ever be null here
         }
-    }
-
-    @Suppress("unused")
-    private fun assembleFromNetworkEntity3Loops(networkEntity: VehicleNetworkEntity?): List<OneVehicleData> {
-        println("response: vehicleRawList = $networkEntity")
-        val resultList = mutableListOf<OneVehicleData>()
-        networkEntity?.dataEntities?.forEach {
-            val imageType = it.relationships.primaryImage.imageData.imageType
-            val imageIdFromDataEntity = it.relationships.primaryImage.imageData.imageId
-            resultList.add(
-                OneVehicleData(
-                    imageId =
-                    if (imageType == VALID_IMAGE_TYPE && imageIdFromDataEntity.isNotBlank()) {
-                        imageIdFromDataEntity
-                    } else "",
-                    name = it.dataAttributesEntity.name
-                )
-            )
-        }
-        resultList.forEach { oneVehicleData ->
-            networkEntity?.includedEntities?.forEach { includedEntity ->
-                if (includedEntity.includedImageId == oneVehicleData.imageId) {
-                    oneVehicleData.imageUrl = includedEntity.includedAttributesEntity.imageUrl
-                }
-            }
-        }
-        return resultList
-    }
 }
 
-private fun assembleFromNetworkEntityOptimized(networkEntity: VehicleNetworkEntity?): List<OneVehicleData> {
+@Suppress("unused")
+private fun assembleFromNetworkEntity3Loops(networkEntity: VehicleNetworkEntity?): List<OneVehicleData> {
+    println("response: vehicleRawList = $networkEntity")
+    val resultList = mutableListOf<OneVehicleData>()
+    networkEntity?.dataEntities?.forEach {
+        val imageType = it.relationships.primaryImage.imageData.imageType
+        val imageIdFromDataEntity = it.relationships.primaryImage.imageData.imageId
+        resultList.add(
+            OneVehicleData(
+                imageId =
+                if (imageType == VALID_IMAGE_TYPE && imageIdFromDataEntity.isNotBlank()) {
+                    imageIdFromDataEntity
+                } else "",
+                name = it.dataAttributesEntity.name
+            )
+        )
+    }
+    resultList.forEach { oneVehicleData ->
+        networkEntity?.includedEntities?.forEach { includedEntity ->
+            if (includedEntity.includedImageId == oneVehicleData.imageId) {
+                oneVehicleData.imageUrl = includedEntity.includedAttributesEntity.imageUrl
+            }
+        }
+    }
+    return resultList
+}
+
+@VisibleForTesting
+internal fun assembleFromNetworkEntityOptimized(networkEntity: VehicleNetworkEntity?): List<OneVehicleData> {
     println("response: vehicleRawList = $networkEntity")
     val resultList = mutableListOf<OneVehicleData>()
 
