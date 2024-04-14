@@ -7,9 +7,9 @@ import com.igor_shaula.complex_api_client_sample.domain.assembleFromNetworkEntit
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 
-class FakeVehiclesRepository : VehiclesRepository {
-
-    private val fakeDataSource = FakeDataSource()
+class FakeVehiclesRepository(
+    private val fakeDataSource: FakeDataSource
+) : VehiclesRepository {
 
     override val errorData = MutableStateFlow(GenericErrorForUI()).asStateFlow()
 
