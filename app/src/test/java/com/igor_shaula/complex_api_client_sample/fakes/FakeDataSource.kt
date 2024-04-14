@@ -1,35 +1,18 @@
-package com.igor_shaula.complex_api_client_sample.data.local
+package com.igor_shaula.complex_api_client_sample.fakes
 
 import com.google.gson.Gson
 import com.igor_shaula.complex_api_client_sample.data.entities.VehicleNetworkEntity
-import com.igor_shaula.complex_api_client_sample.ui.models.VehicleModel
 import javax.inject.Inject
 
 class FakeDataSource @Inject constructor() {
 
-    suspend fun launchSearchRequestFor(searchQuery: String): Result<VehicleNetworkEntity?> {
+    fun launchSearchRequestFor(searchQuery: String): Result<VehicleNetworkEntity?> {
         println("launchSearchRequestFor in FakeDataSource: searchQuery = $searchQuery")
         val networkEntity = Gson().fromJson(mockResponse, VehicleNetworkEntity::class.java)
         return Result.success(networkEntity)
     }
 
-    companion object {
-
-        // temporary here - later the data will be moved on its own layer
-        val fakeVehiclesList = listOf(
-            VehicleModel("image-address-1", "name-1"),
-            VehicleModel("image-address-2", "name-2"),
-            VehicleModel("image-address-3", "name-3"),
-            VehicleModel("image-address-4", "name-4"),
-            VehicleModel("image-address-5", "name-5"),
-            VehicleModel("image-address-6", "name-6"),
-            VehicleModel("image-address-7", "name-7"),
-            VehicleModel("image-address-8", "name-8"),
-            VehicleModel("image-address-9", "name-9"),
-            VehicleModel("image-address-0", "name-0")
-        )
-
-        val mockResponse: String = """
+    private val mockResponse: String = """
 {
   "data": [
     {
@@ -4992,6 +4975,5 @@ class FakeDataSource @Inject constructor() {
   },
   "suggestions": null
 }    
-        """.trimIndent()
-    }
+    """.trimIndent()
 }

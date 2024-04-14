@@ -15,7 +15,6 @@ import androidx.compose.ui.input.nestedscroll.NestedScrollConnection
 import androidx.compose.ui.input.nestedscroll.NestedScrollSource
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.tooling.preview.Preview
-import com.igor_shaula.complex_api_client_sample.data.local.FakeDataSource
 import com.igor_shaula.complex_api_client_sample.ui.models.VehicleModel
 import com.igor_shaula.complex_api_client_sample.ui.theme.APP_BAR_HEIGHT
 import com.igor_shaula.complex_api_client_sample.ui.theme.DEFAULT_PADDING
@@ -29,7 +28,16 @@ fun TheAppUiPreview() {
             color = MaterialTheme.colorScheme.background,
             modifier = Modifier.fillMaxSize()
         ) {
-            PayloadScreen(FakeDataSource.fakeVehiclesList)
+//            val theList = mutableListOf<VehicleModel>()
+//            repeat(10) {
+//                theList.add(VehicleModel("", "vehicle item #$it"))
+//            }
+            val theListWithScopeFunction = mutableListOf<VehicleModel>().apply {
+                repeat(10) {
+                    add(VehicleModel("", "vehicle item #$it"))
+                }
+            }
+            PayloadScreen(theListWithScopeFunction)
         }
     }
 }

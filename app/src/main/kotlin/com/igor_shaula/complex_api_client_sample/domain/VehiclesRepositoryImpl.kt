@@ -2,7 +2,6 @@ package com.igor_shaula.complex_api_client_sample.domain
 
 import androidx.annotation.VisibleForTesting
 import com.igor_shaula.complex_api_client_sample.data.entities.VehicleNetworkEntity
-import com.igor_shaula.complex_api_client_sample.data.local.FakeDataSource
 import com.igor_shaula.complex_api_client_sample.data.network.NetworkDataSource
 import com.igor_shaula.complex_api_client_sample.data.network.NetworkGeneralFailure
 import com.igor_shaula.complex_api_client_sample.data.network.OneVehicleData
@@ -19,7 +18,6 @@ const val VALID_IMAGE_TYPE = "images"
 
 class VehiclesRepositoryImpl @Inject constructor(
     private val networkDataSource: NetworkDataSource,
-    private val fakeDataSource: FakeDataSource
 ) : VehiclesRepository {
 
     private val _errorData = MutableStateFlow(GenericErrorForUI())
@@ -27,7 +25,6 @@ class VehiclesRepositoryImpl @Inject constructor(
 
     override suspend fun launchSearchRequestFor(searchQuery: String): List<OneVehicleData> {
         val entityResult = networkDataSource.launchSearchRequestFor(searchQuery)
-//        val result = fakeDataSource.launchSearchRequestFor(searchQuery)
         return convertIntoListOfData(entityResult)
     }
 

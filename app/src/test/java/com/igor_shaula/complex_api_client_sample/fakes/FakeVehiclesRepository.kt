@@ -1,6 +1,5 @@
 package com.igor_shaula.complex_api_client_sample.fakes
 
-import com.igor_shaula.complex_api_client_sample.data.local.FakeDataSource
 import com.igor_shaula.complex_api_client_sample.data.network.OneVehicleData
 import com.igor_shaula.complex_api_client_sample.domain.GenericErrorForUI
 import com.igor_shaula.complex_api_client_sample.domain.VehiclesRepository
