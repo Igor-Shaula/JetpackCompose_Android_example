@@ -90,7 +90,7 @@ class MainViewModel @Inject constructor(
         getVehiclesJob = viewModelScope.launch {
             uiState = TheUiState.Loading
             val resultList = vehiclesRepository.launchSearchRequestFor(searchQuery)
-            println("updateSearchRequest: resultList = $resultList")
+            println("updateSearchRequest: resultList.size = ${resultList.size}")
             val vehiclesList = resultList.toVehicleModels()
             uiState = if (vehiclesList.isEmpty()) {
                 TheUiState.EmptyList

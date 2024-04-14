@@ -43,7 +43,7 @@ class VehiclesRepositoryImpl @Inject constructor(
 
 @Suppress("unused")
 private fun assembleFromNetworkEntity3Loops(networkEntity: VehicleNetworkEntity?): List<OneVehicleData> {
-    println("response: vehicleRawList = $networkEntity")
+//    println("response: vehicleRawList = $networkEntity")
     val resultList = mutableListOf<OneVehicleData>()
     networkEntity?.dataEntities?.forEach {
         val imageType = it.relationships.primaryImage.imageData.imageType
@@ -70,7 +70,7 @@ private fun assembleFromNetworkEntity3Loops(networkEntity: VehicleNetworkEntity?
 
 @VisibleForTesting
 internal fun assembleFromNetworkEntityOptimized(networkEntity: VehicleNetworkEntity?): List<OneVehicleData> {
-    println("response: vehicleRawList = $networkEntity")
+//    println("response: vehicleRawList = $networkEntity")
     val resultList = mutableListOf<OneVehicleData>()
 
     val dataEntitiesFlow = networkEntity?.dataEntities?.asFlow() // not a list but flow of instances

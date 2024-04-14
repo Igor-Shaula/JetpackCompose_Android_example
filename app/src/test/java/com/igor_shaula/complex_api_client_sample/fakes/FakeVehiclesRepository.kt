@@ -16,7 +16,7 @@ class FakeVehiclesRepository(
     override suspend fun launchSearchRequestFor(searchQuery: String): List<OneVehicleData> {
         println("launchSearchRequestFor: searchQuery = \"$searchQuery\"")
         val result = fakeDataSource.processMockResponse()
-        println("launchSearchRequestFor: result: \"$result\"")
+//        println("launchSearchRequestFor: result: \"$result\"")
         return assembleFromNetworkEntityOptimized(result.getOrNull())
     }
 }
