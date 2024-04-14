@@ -73,9 +73,7 @@ class MainViewModel @Inject constructor(
         }
 
         // now we can update the real query data and launch the real network job
-        if (!isForced) {
-            searchQuery = newText.trim()
-        }
+        searchQuery = newText.trim()
 
         // now when the new query is really different - we have to stop possible previous request
         getNewDataForNewSearchRequest()
