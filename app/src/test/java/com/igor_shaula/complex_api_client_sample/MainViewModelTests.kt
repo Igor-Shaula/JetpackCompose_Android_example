@@ -50,7 +50,7 @@ class MainViewModelTests {
 
 // 3 - getNewDataForNewSearchRequest()
 
-    // isForced = false & newQuery = " " -> request should not be sent - default case
+    // isForced = false & newQuery = " " -> request should not be sent - empty typing case
     @Test
     fun updateSearchRequestTested_searchEmptyQuery_requestIsNotSent() {
         val viewModel = MainViewModel(
@@ -62,7 +62,7 @@ class MainViewModelTests {
         Assert.assertEquals(TheUiState.FreshStart, viewModel.uiState)
     }
 
-    // isForced = true & newQuery = "" -> request should be sent
+    // isForced = true & newQuery = " " -> request should be sent - checking connection case
     @Test
     fun updateSearchRequestTested_searchForcedClickAndEmptyQuery_requestIsSent() {
         val viewModel = MainViewModel(
@@ -85,11 +85,14 @@ class MainViewModelTests {
             Assert.assertEquals("good", viewModel.searchQuery)
             val expectedList =
                 fakeRepository.launchSearchRequestFor("good").toVehicleModels()
-            Assert.assertEquals(TheUiState.Success(expectedList), viewModel.uiState)
+            Assert.assertEquals(expectedList, (viewModel.uiState as TheUiState.Success).theList)
+            Assert.assertEquals(
+                TheUiState.Success(expectedList).javaClass, viewModel.uiState.javaClass
+            )
         }
     }
 
-    // isForced = true & newQuery = "good" -> request should be sent - normal case
+    // isForced = true & newQuery = "good" -> request should be sent - forced repetition case
     @Test
     fun updateSearchRequestTested_searchValidQuery_requestForcedClickAndIsSent() {
         runTest {
@@ -97,10 +100,13 @@ class MainViewModelTests {
             val viewModel = MainViewModel(fakeRepository)
             viewModel.updateSearchRequestTested(newText = "good", isForced = true)
             Assert.assertEquals("good", viewModel.searchQueryForUI)
-            Assert.assertEquals("good", viewModel.searchQuery)
+            Assert.assertEquals("", viewModel.searchQuery) // as a previous value
             val expectedList =
                 fakeRepository.launchSearchRequestFor("good").toVehicleModels()
-            Assert.assertEquals(TheUiState.Success(expectedList), viewModel.uiState)
+            Assert.assertEquals(expectedList, (viewModel.uiState as TheUiState.Success).theList)
+            Assert.assertEquals(
+                TheUiState.Success(expectedList).javaClass, viewModel.uiState.javaClass
+            )
         }
     }
 
