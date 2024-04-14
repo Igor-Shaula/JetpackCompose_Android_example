@@ -7,8 +7,7 @@ import javax.inject.Inject
 class FakeDataSource @Inject constructor(
     private val mockResponse: String
 ) {
-    fun launchSearchRequestFor(searchQuery: String): Result<VehicleNetworkEntity?> {
-        println("launchSearchRequestFor in FakeDataSource: searchQuery = $searchQuery")
+    fun processMockResponse(): Result<VehicleNetworkEntity?> {
         val networkEntity = Gson().fromJson(mockResponse, VehicleNetworkEntity::class.java)
         return Result.success(networkEntity)
     }

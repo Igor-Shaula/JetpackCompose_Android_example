@@ -14,7 +14,9 @@ class FakeVehiclesRepository(
     override val errorData = MutableStateFlow(GenericErrorForUI()).asStateFlow()
 
     override suspend fun launchSearchRequestFor(searchQuery: String): List<OneVehicleData> {
-        val result = fakeDataSource.launchSearchRequestFor(searchQuery)
+        println("launchSearchRequestFor: searchQuery = \"$searchQuery\"")
+        val result = fakeDataSource.processMockResponse()
+        println("launchSearchRequestFor: result: \"$result\"")
         return assembleFromNetworkEntityOptimized(result.getOrNull())
     }
 }
