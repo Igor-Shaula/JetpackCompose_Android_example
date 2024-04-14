@@ -7,7 +7,8 @@
 ### Initial requirements:
 
 + Develop a single-page app that provides the ability to search Outdoorsy listings
-  (very simple data about Recreational Vehicles available in the region of your IP) - by a search query.
+  (very simple data about Recreational Vehicles available in the region of your IP)
+  \- by a search query.
 + Users have to be able to type keywords in a text field.
 + Typing in the text field should cause search results to appear automatically.
 + The search results should display an image of the vehicle and the vehicle’s name.
@@ -23,7 +24,7 @@
 
 [The most recent original readme](https://github.com/outdoorsy/interview-challenge-android/blob/main/README.md)
 
-## The Solution!
+## The Solution
 
 All given requirements were met. And much more - according to the ___list of additions___.
 The project is intended to be developed further, so it will stay alive.
@@ -53,7 +54,7 @@ If you like the solution - please give this repository a star on GitHub.
 - [ ] add a menu with the ability to change pagination limit & offset.
 - [ ] add statistics for showing the number of downloaded vehicles.
 - [ ] add a mechanism for checking Network status to have real-time info about offline.
-- [ ] add **unit tests** for ViewModel and other logic-related code.
+- [x] add **unit tests** for ViewModel layer.
 - [ ] add **UI tests** for all composables.
 - [ ] add an option to remember search queries (at least for a session).
 - [ ] add **Room** as the mechanism for storing search queries.

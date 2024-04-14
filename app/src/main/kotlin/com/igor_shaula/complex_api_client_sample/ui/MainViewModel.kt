@@ -45,7 +45,7 @@ class MainViewModel @Inject constructor(
 
     // this method is used only to handle @VisibleForTesting warning without @Suppress on higher level
     fun updateSearchRequest(newText: String, isForced: Boolean) =
-        updateSearchRequestTested(newText, isForced)
+        updateSearchRequestTested(newText, isForced) // this line should not be counted in coverage
 
     @VisibleForTesting
     internal fun setupForCatchingAnyErrorInfo() {
