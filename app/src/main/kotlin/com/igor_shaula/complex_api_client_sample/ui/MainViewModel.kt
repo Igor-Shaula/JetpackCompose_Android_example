@@ -47,8 +47,7 @@ class MainViewModel @Inject constructor(
     fun updateSearchRequest(newText: String, isForced: Boolean) =
         updateSearchRequestTested(newText, isForced) // this line should not be counted in coverage
 
-    @VisibleForTesting
-    internal fun setupForCatchingAnyErrorInfo() {
+    private fun setupForCatchingAnyErrorInfo() {
         viewModelScope.launch {
             vehiclesRepository.errorData.collect {
                 if (it.explanation != null) {
@@ -76,15 +75,11 @@ class MainViewModel @Inject constructor(
         searchQuery = newText.trim()
 
         // now when the new query is really different - we have to stop possible previous request
-        getNewDataForNewSearchRequest()
-    }
-
-    // decided to have this thing separate because here the uiState is the result
-    @VisibleForTesting
-    internal fun getNewDataForNewSearchRequest() { // would be private but is needed for testing
         if (getVehiclesJob?.isActive == true) {
             getVehiclesJob?.cancel()
         }
+
+        // and finally - the data request from the repository inside the VM coroutine scope (for here)
         getVehiclesJob = viewModelScope.launch {
             uiState = TheUiState.Loading
             val resultList = vehiclesRepository.launchSearchRequestFor(searchQuery)

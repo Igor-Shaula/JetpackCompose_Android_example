@@ -136,8 +136,4 @@ class MainViewModelTests {
             TheUiState.Success(expectedList).javaClass, viewModel.uiState.javaClass
         )
     }
-
-// 3 - getNewDataForNewSearchRequest()
-
-
 }
