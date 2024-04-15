@@ -1,4 +1,4 @@
-package com.igor_shaula.complex_api_client_sample.domain
+package com.igor_shaula.complex_api_client_sample.data
 
 import android.content.Context
 import android.net.ConnectivityManager

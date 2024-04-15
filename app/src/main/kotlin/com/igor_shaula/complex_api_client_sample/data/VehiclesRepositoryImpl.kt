@@ -1,4 +1,4 @@
-package com.igor_shaula.complex_api_client_sample.domain
+package com.igor_shaula.complex_api_client_sample.data
 
 import androidx.annotation.VisibleForTesting
 import com.igor_shaula.complex_api_client_sample.data.entities.VehicleNetworkEntity

@@ -1,6 +1,6 @@
 package com.igor_shaula.complex_api_client_sample
 
-import com.igor_shaula.complex_api_client_sample.domain.GenericErrorForUI
+import com.igor_shaula.complex_api_client_sample.data.GenericErrorForUI
 import com.igor_shaula.complex_api_client_sample.fakes.FakeDataSource
 import com.igor_shaula.complex_api_client_sample.fakes.FakeVehiclesRepository
 import com.igor_shaula.complex_api_client_sample.fakes.mockResponseWithEmptyData
