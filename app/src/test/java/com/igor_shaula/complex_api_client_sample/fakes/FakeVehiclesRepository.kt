@@ -8,15 +8,16 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 
 class FakeVehiclesRepository(
-    private val fakeDataSource: FakeDataSource
+    private val fakeDataSource: FakeDataSource? = null
 ) : VehiclesRepository {
 
-    override val errorData = MutableStateFlow(GenericErrorForUI()).asStateFlow()
+    var errorDataForTest = MutableStateFlow(GenericErrorForUI())
+    override val errorData = errorDataForTest.asStateFlow()
 
     override suspend fun launchSearchRequestFor(searchQuery: String): List<OneVehicleData> {
         println("launchSearchRequestFor: searchQuery = \"$searchQuery\"")
-        val result = fakeDataSource.processMockResponse()
+        val result = fakeDataSource?.processMockResponse()
 //        println("launchSearchRequestFor: result: \"$result\"")
-        return assembleFromNetworkEntityOptimized(result.getOrNull())
+        return assembleFromNetworkEntityOptimized(result?.getOrNull())
     }
 }
