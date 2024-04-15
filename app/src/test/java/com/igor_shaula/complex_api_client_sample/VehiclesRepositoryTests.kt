@@ -14,9 +14,10 @@ import org.junit.Test
 class VehiclesRepositoryTests {
 
     @Test
-    fun launchSearchRequestFor_verifyVehiclesListWithFilledList() = runTest {
-        val fakeNetworkApiService = FakeNetworkApiService(fakeVehicleNetworkEntityWithFullData)
-        val fakeNetworkDataSource = NetworkDataSource(fakeNetworkApiService)
+    fun launchSearchRequestFor_verifyFilledVehiclesList() = runTest {
+        val fakeNetworkApiServiceWithFullData =
+            FakeNetworkApiService(fakeVehicleNetworkEntityWithFullData, shouldBeError = false)
+        val fakeNetworkDataSource = NetworkDataSource(fakeNetworkApiServiceWithFullData)
         val repository = VehiclesRepositoryImpl(fakeNetworkDataSource)
         Assert.assertEquals(
             assembleFromNetworkEntityOptimized(fakeVehicleNetworkEntityWithFullData),
@@ -25,9 +26,10 @@ class VehiclesRepositoryTests {
     }
 
     @Test
-    fun launchSearchRequestFor_verifyVehiclesListWithEmptyList() = runTest {
-        val fakeNetworkApiService = FakeNetworkApiService(fakeVehicleNetworkEntityWithEmptyData)
-        val fakeNetworkDataSource = NetworkDataSource(fakeNetworkApiService)
+    fun launchSearchRequestFor_verifyEmptyVehiclesList() = runTest {
+        val fakeNetworkApiServiceWithEmptyData =
+            FakeNetworkApiService(fakeVehicleNetworkEntityWithEmptyData, shouldBeError = false)
+        val fakeNetworkDataSource = NetworkDataSource(fakeNetworkApiServiceWithEmptyData)
         val repository = VehiclesRepositoryImpl(fakeNetworkDataSource)
         Assert.assertEquals(
             emptyList<OneVehicleData>(),

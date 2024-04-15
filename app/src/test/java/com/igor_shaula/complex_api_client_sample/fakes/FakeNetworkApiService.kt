@@ -5,11 +5,16 @@ import com.igor_shaula.complex_api_client_sample.data.network.retrofit.VehicleRe
 import retrofit2.Response
 
 class FakeNetworkApiService(
-    private val vehicleNetworkEntity: VehicleNetworkEntity?
+    private val vehicleNetworkEntity: VehicleNetworkEntity? = null,
+    private val shouldBeError: Boolean
 ) : VehicleRetrofitNetworkService {
 
-    // these arguments are required by the interface and do not matter here as we use fakeVehicleNetworkEntity
     override suspend fun getVehiclesList(
         searchQuery: String, pageLimit: Int, pageOffset: Int
-    ): Response<VehicleNetworkEntity> = Response.success(vehicleNetworkEntity)
+        // these arguments are required by the interface and do not matter here as we use fakeVehicleNetworkEntity
+    ): Response<VehicleNetworkEntity> = if (shouldBeError) {
+        Response.error(42, null) // todo: remake this to use Result.failure() somehow
+    } else {
+        Response.success(vehicleNetworkEntity)
+    }
 }
