@@ -36,4 +36,18 @@ class VehiclesRepositoryTests {
             repository.launchSearchRequestFor("noDataRequest")
         )
     }
+
+    @Test
+    fun launchSearchRequestFor_verifyEmptyVehiclesListFromErrorResult() = runTest {
+        val fakeNetworkApiServiceWithEmptyData = FakeNetworkApiService(shouldBeError = true)
+        val fakeNetworkDataSource = NetworkDataSource(fakeNetworkApiServiceWithEmptyData)
+        val repository = VehiclesRepositoryImpl(fakeNetworkDataSource)
+        Assert.assertEquals(
+            emptyList<OneVehicleData>(),
+            repository.launchSearchRequestFor("noDataRequest")
+        )
+//        Assert.assertEquals(
+//            42, repository.errorData.value
+//        )
+    }
 }
