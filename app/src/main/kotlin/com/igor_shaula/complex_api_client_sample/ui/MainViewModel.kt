@@ -36,13 +36,6 @@ class MainViewModel @Inject constructor(
         setupForCatchingAnyErrorInfo()
     }
 
-    override fun onCleared() {
-        // decided this thing to stay here - at least before the test coverage is counted
-        getVehiclesJob?.cancel()
-        getVehiclesJob = null
-        super.onCleared()
-    }
-
     // this method is used only to handle @VisibleForTesting warning without @Suppress on higher level
     fun updateSearchRequest(newText: String, isForced: Boolean) =
         updateSearchRequestTested(newText, isForced) // this line should not be counted in coverage
