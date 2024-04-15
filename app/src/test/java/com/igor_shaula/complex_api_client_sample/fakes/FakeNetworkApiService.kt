@@ -4,13 +4,12 @@ import com.igor_shaula.complex_api_client_sample.data.entities.VehicleNetworkEnt
 import com.igor_shaula.complex_api_client_sample.data.network.retrofit.VehicleRetrofitNetworkService
 import retrofit2.Response
 
-class FakeNetworkApiService : VehicleRetrofitNetworkService {
+class FakeNetworkApiService(
+    private val vehicleNetworkEntity: VehicleNetworkEntity?
+) : VehicleRetrofitNetworkService {
 
     // these arguments are required by the interface and do not matter here as we use fakeVehicleNetworkEntity
     override suspend fun getVehiclesList(
         searchQuery: String, pageLimit: Int, pageOffset: Int
-    ): Response<VehicleNetworkEntity> = Response.success(fakeVehicleNetworkEntity)
+    ): Response<VehicleNetworkEntity> = Response.success(vehicleNetworkEntity)
 }
-
-val fakeVehicleNetworkEntity =
-    FakeDataSource(mockResponseWithFullData).processMockResponse().getOrNull()
