@@ -1,5 +1,6 @@
 package com.igor_shaula.complex_api_client_sample
 
+import com.igor_shaula.complex_api_client_sample.domain.GenericErrorForUI
 import com.igor_shaula.complex_api_client_sample.fakes.FakeDataSource
 import com.igor_shaula.complex_api_client_sample.fakes.FakeVehiclesRepository
 import com.igor_shaula.complex_api_client_sample.fakes.mockResponseWithEmptyData
@@ -8,6 +9,7 @@ import com.igor_shaula.complex_api_client_sample.rules.VMTestWatcher
 import com.igor_shaula.complex_api_client_sample.ui.MainViewModel
 import com.igor_shaula.complex_api_client_sample.ui.TheUiState
 import com.igor_shaula.complex_api_client_sample.ui.models.toVehicleModels
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert
 import org.junit.Rule
@@ -44,8 +46,36 @@ class MainViewModelTests {
     @get:Rule
     val textWatcher = VMTestWatcher()
 
-// 1 - setupForCatchingAnyErrorInfo()
-// 2 - updateSearchRequestTested()
+// 1 - testing initialization of the ViewModel
+
+    @Test
+    fun init_viewModelCreated_viewModelIsReady() {
+        val viewModel = MainViewModel(FakeVehiclesRepository())
+        Assert.assertEquals("", viewModel.searchQueryForUI)
+        Assert.assertEquals("", viewModel.searchQuery)
+        Assert.assertEquals(TheUiState.FreshStart, viewModel.uiState)
+    }
+
+// 2 - testing how error states are processed
+
+    @Test
+    fun setupForCatchingAnyErrorInfo_emitAnError_viewModelIsReady() = runTest {
+        val fakeRepository = FakeVehiclesRepository()
+        val viewModel = MainViewModel(fakeRepository)
+        fakeRepository.errorDataForTest.emit(GenericErrorForUI("errorInfo"))
+//        fakeRepository.errorDataForTest.value = GenericErrorForUI("errorInfo")
+        fakeRepository.errorData.collectLatest {
+//        fakeRepository.errorData.collect { // makes all following code unreachable
+//        fakeRepository.errorData.stateIn(this).collectLatest {
+//        fakeRepository.errorData.stateIn(this).collect {
+            println("collectLatest: ${it.explanation}")
+        }
+        Assert.assertEquals("", viewModel.searchQueryForUI)
+        Assert.assertEquals("", viewModel.searchQuery)
+        Assert.assertEquals(TheUiState.Error("errorInfo"), viewModel.uiState)
+    }
+
+// 2 - testing updateSearchRequestTested() with all possible arguments
 
     // isForced = false & newQuery = " " -> request should not be sent - empty typing case
     @Test
