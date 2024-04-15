@@ -3,8 +3,10 @@ package com.igor_shaula.complex_api_client_sample
 import com.igor_shaula.complex_api_client_sample.data.VehiclesRepositoryImpl
 import com.igor_shaula.complex_api_client_sample.data.assembleFromNetworkEntityOptimized
 import com.igor_shaula.complex_api_client_sample.data.network.NetworkDataSource
+import com.igor_shaula.complex_api_client_sample.data.network.OneVehicleData
 import com.igor_shaula.complex_api_client_sample.fakes.FakeNetworkApiService
-import com.igor_shaula.complex_api_client_sample.fakes.fakeVehicleNetworkEntity
+import com.igor_shaula.complex_api_client_sample.fakes.fakeVehicleNetworkEntityWithEmptyData
+import com.igor_shaula.complex_api_client_sample.fakes.fakeVehicleNetworkEntityWithFullData
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert
 import org.junit.Test
@@ -12,13 +14,24 @@ import org.junit.Test
 class VehiclesRepositoryTests {
 
     @Test
-    fun vehiclesRepositoryImpl_launchSearchRequestFor_verifyVehiclesList() = runTest {
-        val fakeNetworkApiService = FakeNetworkApiService()
+    fun launchSearchRequestFor_verifyVehiclesListWithFilledList() = runTest {
+        val fakeNetworkApiService = FakeNetworkApiService(fakeVehicleNetworkEntityWithFullData)
         val fakeNetworkDataSource = NetworkDataSource(fakeNetworkApiService)
         val repository = VehiclesRepositoryImpl(fakeNetworkDataSource)
         Assert.assertEquals(
-            assembleFromNetworkEntityOptimized(fakeVehicleNetworkEntity),
+            assembleFromNetworkEntityOptimized(fakeVehicleNetworkEntityWithFullData),
             repository.launchSearchRequestFor("goodRequest")
+        )
+    }
+
+    @Test
+    fun launchSearchRequestFor_verifyVehiclesListWithEmptyList() = runTest {
+        val fakeNetworkApiService = FakeNetworkApiService(fakeVehicleNetworkEntityWithEmptyData)
+        val fakeNetworkDataSource = NetworkDataSource(fakeNetworkApiService)
+        val repository = VehiclesRepositoryImpl(fakeNetworkDataSource)
+        Assert.assertEquals(
+            emptyList<OneVehicleData>(),
+            repository.launchSearchRequestFor("noDataRequest")
         )
     }
 }
