@@ -69,7 +69,7 @@ class MainViewModel @Inject constructor(
 
         // now when the new query is really different - we have to stop possible previous request
         if (getVehiclesJob?.isActive == true) {
-            getVehiclesJob?.cancel()
+            getVehiclesJob?.cancel() // this line will be tested after debounce technique is added
         }
 
         // and finally - the data request from the repository inside the VM coroutine scope (for here)

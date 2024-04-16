@@ -41,8 +41,9 @@ class VehiclesRepositoryImpl @Inject constructor(
         }
 }
 
-@Suppress("unused")
-private fun assembleFromNetworkEntity3Loops(networkEntity: VehicleNetworkEntity?): List<OneVehicleData> {
+// previous approach - not optimized & not used any more - let it stay here for comparison
+@VisibleForTesting
+internal fun assembleFromNetworkEntity3Loops(networkEntity: VehicleNetworkEntity?): List<OneVehicleData> {
 //    println("response: vehicleRawList = $networkEntity")
     val resultList = mutableListOf<OneVehicleData>()
     networkEntity?.dataEntities?.forEach {
