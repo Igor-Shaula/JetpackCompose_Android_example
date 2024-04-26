@@ -15,7 +15,7 @@ import androidx.compose.ui.input.nestedscroll.NestedScrollConnection
 import androidx.compose.ui.input.nestedscroll.NestedScrollSource
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.tooling.preview.Preview
-import com.igor_shaula.complex_api_client_sample.ui.models.VehicleModel
+import com.igor_shaula.complex_api_client_sample.ui.models.TheUiModel
 import com.igor_shaula.complex_api_client_sample.ui.theme.APP_BAR_HEIGHT
 import com.igor_shaula.complex_api_client_sample.ui.theme.DEFAULT_PADDING
 import com.igor_shaula.complex_api_client_sample.ui.theme.TheAppTheme
@@ -28,13 +28,13 @@ fun TheAppUiPreview() {
             color = MaterialTheme.colorScheme.background,
             modifier = Modifier.fillMaxSize()
         ) {
-//            val theList = mutableListOf<VehicleModel>()
+//            val theList = mutableListOf<TheUiModel>()
 //            repeat(10) {
-//                theList.add(VehicleModel("", "vehicle item #$it"))
+//                theList.add(TheUiModel("", "theUiModel item #$it"))
 //            }
-            val theListWithScopeFunction = mutableListOf<VehicleModel>().apply {
+            val theListWithScopeFunction = mutableListOf<TheUiModel>().apply {
                 repeat(10) {
-                    add(VehicleModel("", "vehicle item #$it"))
+                    add(TheUiModel("", "theUiModel item #$it"))
                 }
             }
             PayloadScreen(theListWithScopeFunction)
@@ -44,7 +44,7 @@ fun TheAppUiPreview() {
 
 @Composable
 fun PayloadScreen(
-    vehicleList: List<VehicleModel>,
+    theUiModelList: List<TheUiModel>,
     hideKeyboard: (() -> Unit)? = null // nullable for absence in preview invocations
 ) {
     val nestedScrollConnection = remember {
@@ -65,8 +65,8 @@ fun PayloadScreen(
             )
             .nestedScroll(nestedScrollConnection)
     ) {
-        items(vehicleList) { vehicle ->
-            VehicleCard(vehicle)
+        items(theUiModelList) { theUiModel ->
+            TheUiCard(theUiModel)
         }
     }
 }

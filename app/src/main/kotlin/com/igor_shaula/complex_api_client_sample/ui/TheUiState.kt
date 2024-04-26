@@ -1,6 +1,6 @@
 package com.igor_shaula.complex_api_client_sample.ui
 
-import com.igor_shaula.complex_api_client_sample.ui.models.VehicleModel
+import com.igor_shaula.complex_api_client_sample.ui.models.TheUiModel
 
 sealed interface TheUiState {
 
@@ -10,7 +10,7 @@ sealed interface TheUiState {
     // special UI state for the case if the request is successful but no objects are found in it
     data object EmptyList : TheUiState
 
-    class Success(val theList: List<VehicleModel>) : TheUiState
+    class Success(val theList: List<TheUiModel>) : TheUiState
 
     class Error(val errorInfo: String) : TheUiState
 

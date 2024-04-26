@@ -7,7 +7,7 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.igor_shaula.complex_api_client_sample.data.VehiclesRepository
-import com.igor_shaula.complex_api_client_sample.ui.models.toVehicleModels
+import com.igor_shaula.complex_api_client_sample.ui.models.toTheUiModels
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
@@ -30,7 +30,7 @@ class MainViewModel @Inject constructor(
     internal var searchQuery = ""
 
     // we need this reference because the job can be still running when a new request is needed to start
-    private var getVehiclesJob: Job? = null
+    private var getTheNewListJob: Job? = null
 
     init {
         setupForCatchingAnyErrorInfo()
@@ -68,16 +68,16 @@ class MainViewModel @Inject constructor(
         searchQuery = newText.trim()
 
         // now when the new query is really different - we have to stop possible previous request
-        if (getVehiclesJob?.isActive == true) {
-            getVehiclesJob?.cancel() // this line will be tested after debounce technique is added
+        if (getTheNewListJob?.isActive == true) {
+            getTheNewListJob?.cancel() // this line will be tested after debounce technique is added
         }
 
         // and finally - the data request from the repository inside the VM coroutine scope (for here)
-        getVehiclesJob = viewModelScope.launch {
+        getTheNewListJob = viewModelScope.launch {
             uiState = TheUiState.Loading
             val resultList = vehiclesRepository.launchSearchRequestFor(searchQuery)
             println("updateSearchRequest: resultList.size = ${resultList.size}")
-            val vehiclesList = resultList.toVehicleModels()
+            val vehiclesList = resultList.toTheUiModels()
             uiState = if (vehiclesList.isEmpty()) {
                 TheUiState.EmptyList
             } else {

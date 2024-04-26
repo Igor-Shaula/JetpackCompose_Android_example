@@ -24,7 +24,7 @@ import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import coil.compose.AsyncImage
 import com.igor_shaula.complex_api_client_sample.R
-import com.igor_shaula.complex_api_client_sample.ui.models.VehicleModel
+import com.igor_shaula.complex_api_client_sample.ui.models.TheUiModel
 import com.igor_shaula.complex_api_client_sample.ui.theme.DEFAULT_FONT_SIZE
 import com.igor_shaula.complex_api_client_sample.ui.theme.DEFAULT_PADDING
 import com.igor_shaula.complex_api_client_sample.ui.theme.DEFAULT_RADIUS
@@ -36,7 +36,7 @@ import com.igor_shaula.complex_api_client_sample.ui.theme.TINY_ELEVATION
 import com.igor_shaula.complex_api_client_sample.ui.theme.TINY_PADDING
 
 @Composable
-fun VehicleCard(vehicle: VehicleModel) {
+fun TheUiCard(theUiModel: TheUiModel) {
     Card(
         elevation = CardDefaults.cardElevation(defaultElevation = SMALL_ELEVATION),
         shape = RoundedCornerShape(size = DEFAULT_RADIUS),
@@ -47,7 +47,7 @@ fun VehicleCard(vehicle: VehicleModel) {
             modifier = Modifier.fillMaxWidth()
         ) {
             AsyncImage(
-                model = vehicle.vehicleImage,
+                model = theUiModel.image,
                 placeholder = rememberVectorPainter(image = Icons.Rounded.Done), // replace by proper SVG placeholder
                 contentDescription = stringResource(id = R.string.vehicleImageDescription),
                 contentScale = ContentScale.Crop,
@@ -58,7 +58,7 @@ fun VehicleCard(vehicle: VehicleModel) {
                     .shadow(shape = RoundedCornerShape(SMALL_RADIUS), elevation = TINY_ELEVATION)
             )
             Text(
-                text = vehicle.vehicleName,
+                text = theUiModel.name,
                 color = Color.DarkGray,
                 fontSize = DEFAULT_FONT_SIZE,
                 fontStyle = FontStyle.Normal,

@@ -8,7 +8,7 @@ import com.igor_shaula.complex_api_client_sample.fakes.mockResponseWithFullData
 import com.igor_shaula.complex_api_client_sample.rules.VMTestWatcher
 import com.igor_shaula.complex_api_client_sample.ui.MainViewModel
 import com.igor_shaula.complex_api_client_sample.ui.TheUiState
-import com.igor_shaula.complex_api_client_sample.ui.models.toVehicleModels
+import com.igor_shaula.complex_api_client_sample.ui.models.toTheUiModels
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert
 import org.junit.Rule
@@ -109,7 +109,7 @@ class MainViewModelTests {
         Assert.assertEquals("good", viewModel.searchQueryForUI)
         Assert.assertEquals("good", viewModel.searchQuery)
         val expectedList =
-            fakeRepository.launchSearchRequestFor("good").toVehicleModels()
+            fakeRepository.launchSearchRequestFor("good").toTheUiModels()
         Assert.assertEquals(expectedList, (viewModel.uiState as TheUiState.Success).theList)
         Assert.assertEquals(
             TheUiState.Success(expectedList).javaClass, viewModel.uiState.javaClass
@@ -125,7 +125,7 @@ class MainViewModelTests {
         Assert.assertEquals("good", viewModel.searchQueryForUI)
         Assert.assertEquals("good", viewModel.searchQuery) // as a previous value
         val expectedList =
-            fakeRepository.launchSearchRequestFor("good").toVehicleModels()
+            fakeRepository.launchSearchRequestFor("good").toTheUiModels()
         Assert.assertEquals(expectedList, (viewModel.uiState as TheUiState.Success).theList)
         Assert.assertEquals(
             TheUiState.Success(expectedList).javaClass, viewModel.uiState.javaClass
@@ -142,7 +142,7 @@ class MainViewModelTests {
         Assert.assertEquals(" good ", viewModel.searchQueryForUI)
         Assert.assertEquals("good", viewModel.searchQuery)
         val expectedList =
-            fakeRepository.launchSearchRequestFor("good").toVehicleModels()
+            fakeRepository.launchSearchRequestFor("good").toTheUiModels()
         Assert.assertEquals(expectedList, (viewModel.uiState as TheUiState.Success).theList)
         Assert.assertEquals(
             TheUiState.Success(expectedList).javaClass, viewModel.uiState.javaClass
@@ -159,7 +159,7 @@ class MainViewModelTests {
         Assert.assertEquals(" good ", viewModel.searchQueryForUI)
         Assert.assertEquals("good", viewModel.searchQuery)
         val expectedList =
-            fakeRepository.launchSearchRequestFor("good").toVehicleModels()
+            fakeRepository.launchSearchRequestFor("good").toTheUiModels()
         Assert.assertEquals(expectedList, (viewModel.uiState as TheUiState.Success).theList)
         Assert.assertEquals(
             TheUiState.Success(expectedList).javaClass, viewModel.uiState.javaClass
