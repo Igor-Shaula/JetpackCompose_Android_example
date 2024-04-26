@@ -28,16 +28,13 @@ fun TheAppUiPreview() {
             color = MaterialTheme.colorScheme.background,
             modifier = Modifier.fillMaxSize()
         ) {
-//            val theList = mutableListOf<TheUiModel>()
-//            repeat(10) {
-//                theList.add(TheUiModel("", "theUiModel item #$it"))
-//            }
-            val theListWithScopeFunction = mutableListOf<TheUiModel>().apply {
+            mutableListOf<TheUiModel>().apply {
                 repeat(10) {
-                    add(TheUiModel("", "theUiModel item #$it"))
+                    add(TheUiModel("", "item #$it"))
                 }
+            }.also {
+                PayloadScreen(it)
             }
-            PayloadScreen(theListWithScopeFunction)
         }
     }
 }
