@@ -10,6 +10,8 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Done
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -22,6 +24,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import coil.compose.AsyncImage
 import com.igor_shaula.complex_api_client_sample.R
 import com.igor_shaula.complex_api_client_sample.ui.models.TheUiModel
@@ -34,6 +37,7 @@ import com.igor_shaula.complex_api_client_sample.ui.theme.SMALL_ELEVATION
 import com.igor_shaula.complex_api_client_sample.ui.theme.SMALL_RADIUS
 import com.igor_shaula.complex_api_client_sample.ui.theme.TINY_ELEVATION
 import com.igor_shaula.complex_api_client_sample.ui.theme.TINY_PADDING
+import com.igor_shaula.complex_api_client_sample.ui.theme.TheAppTheme
 
 @Composable
 fun TheUiCard(theUiModel: TheUiModel) {
@@ -67,6 +71,19 @@ fun TheUiCard(theUiModel: TheUiModel) {
                 maxLines = 3,
                 modifier = Modifier.padding(start = DEFAULT_PADDING, end = DEFAULT_PADDING)
             )
+        }
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun TheUiCardPreview() {
+    TheAppTheme {
+        Surface(
+            color = MaterialTheme.colorScheme.background,
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            TheUiCard(theUiModel = TheUiModel("image", "name"))
         }
     }
 }

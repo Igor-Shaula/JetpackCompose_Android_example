@@ -1,5 +1,6 @@
 package com.igor_shaula.complex_api_client_sample.ui.elements
 
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -20,25 +21,6 @@ import com.igor_shaula.complex_api_client_sample.ui.models.TheUiModel
 import com.igor_shaula.complex_api_client_sample.ui.theme.APP_BAR_HEIGHT
 import com.igor_shaula.complex_api_client_sample.ui.theme.DEFAULT_PADDING
 import com.igor_shaula.complex_api_client_sample.ui.theme.TheAppTheme
-
-@Preview(showBackground = true)
-@Composable
-fun TheAppUiPreview() {
-    TheAppTheme {
-        Surface(
-            color = MaterialTheme.colorScheme.background,
-            modifier = Modifier.fillMaxSize()
-        ) {
-            mutableListOf<TheUiModel>().apply {
-                repeat(10) {
-                    add(TheUiModel("", "item #$it"))
-                }
-            }.also {
-                PayloadScreen(it)
-            }
-        }
-    }
-}
 
 @Composable
 fun PayloadScreen(
@@ -66,6 +48,28 @@ fun PayloadScreen(
     ) {
         items(theUiModelList) { theUiModel ->
             TheUiCard(theUiModel)
+        }
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun PayloadScreenPreview() {
+    TheAppTheme {
+        Surface(
+            color = MaterialTheme.colorScheme.background,
+            modifier = Modifier.fillMaxSize()
+        ) {
+            mutableListOf<TheUiModel>().apply {
+                repeat(10) {
+                    add(TheUiModel("", "item #$it"))
+                }
+            }.also {
+                PayloadScreen(
+                    paddingTop = PaddingValues(top = APP_BAR_HEIGHT).calculateTopPadding(),
+                    theUiModelList = it
+                )
+            }
         }
     }
 }
