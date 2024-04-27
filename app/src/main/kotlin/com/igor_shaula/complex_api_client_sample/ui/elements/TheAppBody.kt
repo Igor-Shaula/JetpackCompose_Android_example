@@ -10,23 +10,28 @@ import com.igor_shaula.complex_api_client_sample.ui.TheUiState
 fun TheAppBody(
     uiState: TheUiState, hideKeyboard: () -> Unit, paddingValues: PaddingValues
 ) {
-    println("paddingValues = $paddingValues") // later decide where to use it appropriately
-
     when (uiState) {
 
         TheUiState.FreshStart -> ExplanationScreen(
+            paddingTop = paddingValues.calculateTopPadding(),
             theText = stringResource(R.string.firstLaunchExplanation)
         )
 
         TheUiState.Loading -> LoadingScreen()
 
         TheUiState.EmptyList -> ExplanationScreen(
+            paddingTop = paddingValues.calculateTopPadding(),
             theText = stringResource(R.string.emptyListExplanation)
         )
 
-        is TheUiState.Success -> PayloadScreen(uiState.theList, hideKeyboard)
+        is TheUiState.Success -> PayloadScreen(
+            paddingTop = paddingValues.calculateTopPadding(),
+            theUiModelList = uiState.theList,
+            hideKeyboard = hideKeyboard
+        )
 
         is TheUiState.Error -> ExplanationScreen(
+            paddingTop = paddingValues.calculateTopPadding(),
             theText = stringResource(id = R.string.errorStateInfo) + uiState.errorInfo
         )
     }

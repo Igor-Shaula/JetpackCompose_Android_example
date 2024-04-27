@@ -15,6 +15,7 @@ import androidx.compose.ui.input.nestedscroll.NestedScrollConnection
 import androidx.compose.ui.input.nestedscroll.NestedScrollSource
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.Dp
 import com.igor_shaula.complex_api_client_sample.ui.models.TheUiModel
 import com.igor_shaula.complex_api_client_sample.ui.theme.APP_BAR_HEIGHT
 import com.igor_shaula.complex_api_client_sample.ui.theme.DEFAULT_PADDING
@@ -41,6 +42,7 @@ fun TheAppUiPreview() {
 
 @Composable
 fun PayloadScreen(
+    paddingTop: Dp,
     theUiModelList: List<TheUiModel>,
     hideKeyboard: (() -> Unit)? = null // nullable for absence in preview invocations
 ) {
@@ -57,7 +59,7 @@ fun PayloadScreen(
         modifier = Modifier
             .fillMaxWidth() // this does not work properly -> modifying Card item
             .padding(
-                top = APP_BAR_HEIGHT + DEFAULT_PADDING,
+                top = paddingTop + DEFAULT_PADDING,
                 start = DEFAULT_PADDING, end = DEFAULT_PADDING
             )
             .nestedScroll(nestedScrollConnection)

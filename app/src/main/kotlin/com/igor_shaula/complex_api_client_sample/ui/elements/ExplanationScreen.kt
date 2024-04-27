@@ -9,12 +9,14 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.Dp
 import com.igor_shaula.complex_api_client_sample.ui.theme.APP_BAR_HEIGHT
 import com.igor_shaula.complex_api_client_sample.ui.theme.BIG_FONT_SIZE
 import com.igor_shaula.complex_api_client_sample.ui.theme.DEFAULT_PADDING
 
 @Composable
-fun ExplanationScreen(theText: String) = Text(
+fun ExplanationScreen(paddingTop: Dp, theText: String) = Text(
     text = theText,
     textAlign = TextAlign.Center,
     fontFamily = FontFamily.Cursive,
@@ -24,7 +26,7 @@ fun ExplanationScreen(theText: String) = Text(
     modifier = Modifier
         .fillMaxSize()
         .padding(
-            top = APP_BAR_HEIGHT + DEFAULT_PADDING,
+            top = paddingTop + DEFAULT_PADDING,
             start = DEFAULT_PADDING, end = DEFAULT_PADDING
         )
 )
