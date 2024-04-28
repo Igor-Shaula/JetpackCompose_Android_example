@@ -1,9 +1,7 @@
 package com.igor_shaula.complex_api_client_sample.ui.previews
 
 import android.content.res.Configuration
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -26,11 +24,7 @@ annotation class Previews // to have both color schemes in one annotation
 @Composable
 fun ThemeWithSurface(content: @Composable () -> Unit) {
     TheAppTheme {
-        Surface(
-            color = MaterialTheme.colorScheme.background,
-            tonalElevation = 4.dp,
-            modifier = Modifier.fillMaxSize()
-        ) {
+        Surface(tonalElevation = 4.dp) {
             content()
         }
     }
@@ -40,7 +34,6 @@ fun ThemeWithSurface(content: @Composable () -> Unit) {
 fun ThemeWithSurfaceElement(content: @Composable () -> Unit) {
     TheAppTheme {
         Surface(
-            color = MaterialTheme.colorScheme.background,
             tonalElevation = 4.dp,
             modifier = Modifier.fillMaxWidth() // the only difference - needed only for previews
         ) {
