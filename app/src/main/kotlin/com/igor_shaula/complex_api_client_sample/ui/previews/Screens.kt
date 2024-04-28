@@ -7,6 +7,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import com.igor_shaula.complex_api_client_sample.ui.elements.ExplanationScreen
 import com.igor_shaula.complex_api_client_sample.ui.elements.LoadingScreen
 import com.igor_shaula.complex_api_client_sample.ui.elements.PayloadScreen
@@ -20,6 +21,7 @@ fun ExplanationScreenPreview() {
     TheAppTheme {
         Surface(
             color = MaterialTheme.colorScheme.background,
+            tonalElevation = 4.dp,
             modifier = Modifier.fillMaxSize()
         ) {
             ExplanationScreen(APP_BAR_HEIGHT, "explanation text")
@@ -33,6 +35,7 @@ fun LoadingScreenPreview() {
     TheAppTheme {
         Surface(
             color = MaterialTheme.colorScheme.background,
+            tonalElevation = 4.dp,
             modifier = Modifier.fillMaxSize()
         ) {
             LoadingScreen()
@@ -46,6 +49,7 @@ fun PayloadScreenPreview() {
     TheAppTheme {
         Surface(
             color = MaterialTheme.colorScheme.background,
+            tonalElevation = 4.dp,
             modifier = Modifier.fillMaxSize()
         ) {
             mutableListOf<TheUiModel>().apply {

@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import com.igor_shaula.complex_api_client_sample.ui.elements.TheAppScreen
 import com.igor_shaula.complex_api_client_sample.ui.theme.TheAppTheme
 import dagger.hilt.android.AndroidEntryPoint
@@ -29,11 +30,12 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
 //        enableEdgeToEdge() // no need to enable this - but let it stay here as an option for the future
         setContent {
-            Surface(
-                color = MaterialTheme.colorScheme.background,
-                modifier = Modifier.fillMaxSize()
-            ) {
-                TheAppTheme {
+            TheAppTheme {
+                Surface(
+                    color = MaterialTheme.colorScheme.background,
+                    tonalElevation = 4.dp,
+                    modifier = Modifier.fillMaxSize()
+                ) {
                     TheAppScreen(::hideKeyboard)
                 }
             }
