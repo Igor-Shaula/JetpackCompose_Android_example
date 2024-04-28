@@ -1,13 +1,9 @@
 package com.igor_shaula.complex_api_client_sample.ui.elements
 
-import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
@@ -15,12 +11,9 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.input.nestedscroll.NestedScrollConnection
 import androidx.compose.ui.input.nestedscroll.NestedScrollSource
 import androidx.compose.ui.input.nestedscroll.nestedScroll
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import com.igor_shaula.complex_api_client_sample.ui.models.TheUiModel
-import com.igor_shaula.complex_api_client_sample.ui.theme.APP_BAR_HEIGHT
 import com.igor_shaula.complex_api_client_sample.ui.theme.DEFAULT_PADDING
-import com.igor_shaula.complex_api_client_sample.ui.theme.TheAppTheme
 
 @Composable
 fun PayloadScreen(
@@ -48,28 +41,6 @@ fun PayloadScreen(
     ) {
         items(theUiModelList) { theUiModel ->
             TheUiCard(theUiModel)
-        }
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun PayloadScreenPreview() {
-    TheAppTheme {
-        Surface(
-            color = MaterialTheme.colorScheme.background,
-            modifier = Modifier.fillMaxSize()
-        ) {
-            mutableListOf<TheUiModel>().apply {
-                repeat(10) {
-                    add(TheUiModel("", "item #$it"))
-                }
-            }.also {
-                PayloadScreen(
-                    paddingTop = PaddingValues(top = APP_BAR_HEIGHT).calculateTopPadding(),
-                    theUiModelList = it
-                )
-            }
         }
     }
 }
