@@ -88,7 +88,7 @@ fun CustomizedSearchBarAlternative(
     modifier = Modifier
         .padding(end = DEFAULT_PADDING)
         .background(color = Color.White)
-        .fillMaxSize()
+        .fillMaxWidth()
 ) {
     Icon(
         imageVector = Icons.Rounded.Search,
