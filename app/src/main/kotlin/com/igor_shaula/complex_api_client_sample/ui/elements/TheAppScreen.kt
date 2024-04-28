@@ -5,12 +5,12 @@ import androidx.compose.runtime.Composable
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.igor_shaula.complex_api_client_sample.ui.MainViewModel
 
+// top-level composable is the right place to get the viewModel as it's needed in the topBar as well
 @Composable
-fun TheAppScreen(hideKeyboard: () -> Unit) {
-
-    // top-level composable is the right place of referencing the viewModel as it's needed in topBar as well
-    val viewModel: MainViewModel = viewModel()
-
+fun TheAppScreen(
+    hideKeyboard: () -> Unit = {},
+    viewModel: MainViewModel = viewModel() // it's here for enabling a preview of this composable
+) {
     Scaffold(
         topBar = {
             TheAppTopBar(viewModel.searchQueryForUI) { query, isForced ->
