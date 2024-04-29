@@ -297,7 +297,9 @@ fun TheAppTheme(
     if (!view.isInEditMode) {
         SideEffect {
             val window = (view.context as Activity).window
-            window.statusBarColor = colorScheme.primary.toArgb()
+            window.statusBarColor =
+                colorScheme.onTertiaryContainer.toArgb() // best fits the sample UI
+//                colorScheme.primary.toArgb() // this is the default case
             WindowCompat.getInsetsController(window, view).isAppearanceLightStatusBars = darkTheme
             // here we add primary status bar color from chosen color scheme
         }
