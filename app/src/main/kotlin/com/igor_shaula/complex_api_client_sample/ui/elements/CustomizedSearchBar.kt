@@ -1,10 +1,7 @@
 package com.igor_shaula.complex_api_client_sample.ui.elements
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -16,6 +13,7 @@ import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.rounded.Search
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.SearchBar
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
@@ -25,15 +23,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.text.font.FontStyle
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.text.style.TextAlign
 import com.igor_shaula.complex_api_client_sample.R
-import com.igor_shaula.complex_api_client_sample.ui.theme.DEFAULT_FONT_SIZE
 import com.igor_shaula.complex_api_client_sample.ui.theme.DEFAULT_PADDING
 import com.igor_shaula.complex_api_client_sample.ui.theme.DEFAULT_RADIUS
 import com.igor_shaula.complex_api_client_sample.ui.theme.SMALL_PADDING
@@ -82,56 +75,64 @@ fun CustomizedSearchBar(
 @Composable
 fun CustomizedSearchBarAlternative(
     searchQuery: String, handleSearchQuery: (String, Boolean) -> Unit
-) = Row(
-    verticalAlignment = Alignment.CenterVertically,
-    horizontalArrangement = Arrangement.Start,
+) = Box(
+    contentAlignment = Alignment.Center,
     modifier = Modifier
-        .padding(end = DEFAULT_PADDING)
-        .background(color = Color.White)
         .fillMaxWidth()
+        .padding(top = DEFAULT_PADDING, end = DEFAULT_PADDING, bottom = DEFAULT_PADDING)
+        .background(
+            color = MaterialTheme.colorScheme.background,
+            shape = MaterialTheme.shapes.extraSmall
+        )
 ) {
-    Icon(
-        imageVector = Icons.Rounded.Search,
-        contentDescription = stringResource(id = R.string.leadingSearchIconDescription),
-        modifier = Modifier
-            .padding(start = DEFAULT_PADDING + TINY_PADDING)
-            .fillMaxHeight()
-    )
     TextField(
         placeholder = { CustomizedSearchBarPlaceholderText() },
-        shape = RoundedCornerShape(DEFAULT_RADIUS),
         singleLine = true,
         value = searchQuery,
-        onValueChange = { handleSearchQuery(it, false) }, // optimization logic will handle spaces
+        onValueChange = {
+            handleSearchQuery(it, false) // optimization logic will handle spaces and other blanks
+        },
         keyboardActions = KeyboardActions(
-            onSearch = { handleSearchQuery(searchQuery, true) }), // -> forcibly updateSearchRequest
+            onSearch = {
+                handleSearchQuery(searchQuery, true) // -> forcibly updateSearchRequest
+            }),
         keyboardOptions = KeyboardOptions(
             autoCorrect = false,
             capitalization = KeyboardCapitalization.None,
             keyboardType = KeyboardType.Text,
             imeAction = ImeAction.Search
         ),
+        textStyle = MaterialTheme.typography.bodyLarge,
         colors = TextFieldDefaults.colors(
-            disabledTextColor = Color.Transparent,
             focusedIndicatorColor = Color.Transparent,
             unfocusedIndicatorColor = Color.Transparent,
             disabledIndicatorColor = Color.Transparent,
+            focusedContainerColor = Color.Transparent,
+            unfocusedContainerColor = Color.Transparent,
             errorIndicatorColor = Color.Red // we are not supposed to see the error state, but let it stay here to be visible
         ),
+        leadingIcon = {
+            Icon(
+                imageVector = Icons.Rounded.Search,
+                contentDescription = stringResource(id = R.string.leadingSearchIconDescription),
+//                modifier = Modifier.padding(start = TINY_PADDING) // outer padding is better here
+            )
+        },
+//        trailingIcon = {
+//            Icon(
+//                imageVector = Icons.Rounded.FavoriteBorder,
+//                contentDescription = stringResource(id = R.string.trailingSearchIconDescription)
+//            )
+//        },
         modifier = Modifier
             .fillMaxWidth()
-//                .paddingFromBaseline(top = 0.dp, bottom = 0.dp)
+            .padding(start = TINY_PADDING) // to perfectly position the leadingIcon
     )
 }
 
 @Composable
 private fun CustomizedSearchBarPlaceholderText() = Text(
     text = stringResource(id = R.string.searchFieldHint),
-    textAlign = TextAlign.Start,
-    maxLines = 1,
-    fontSize = DEFAULT_FONT_SIZE,
-    fontStyle = FontStyle.Normal,
-    fontWeight = FontWeight.Black,
-    fontFamily = FontFamily.SansSerif,
-    color = Color.DarkGray
+//    maxLines = 1, // this in fact doesn't influence on Search field
+    style = MaterialTheme.typography.bodyLarge,
 )
