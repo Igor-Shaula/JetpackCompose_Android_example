@@ -1,5 +1,6 @@
 package com.igor_shaula.complex_api_client_sample.ui.elements
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
@@ -15,6 +16,7 @@ fun ExplanationScreen(paddingTop: Dp, theText: String) = Text(
     style = MaterialTheme.typography.headlineSmall,
     modifier = Modifier
         .fillMaxSize()
+        .background(color = MaterialTheme.colorScheme.background)
         .padding(
             top = paddingTop + DEFAULT_PADDING,
             start = DEFAULT_PADDING, end = DEFAULT_PADDING

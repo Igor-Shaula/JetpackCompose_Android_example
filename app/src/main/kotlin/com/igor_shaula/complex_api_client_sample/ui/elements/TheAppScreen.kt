@@ -17,7 +17,7 @@ fun TheAppScreen(
                 viewModel.updateSearchRequest(query, isForced)
             }
         }
-    ) { // use this thing somehow - because warning emerges if it's not used
-        TheAppBody(viewModel.uiState, hideKeyboard, it)
+    ) { paddingValues ->
+        TheAppBody(viewModel.uiState, hideKeyboard, paddingValues)
     }
 }

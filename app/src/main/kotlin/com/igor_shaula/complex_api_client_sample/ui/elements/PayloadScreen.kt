@@ -1,9 +1,11 @@
 package com.igor_shaula.complex_api_client_sample.ui.elements
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
@@ -33,11 +35,12 @@ fun PayloadScreen(
     LazyColumn(
         modifier = Modifier
             .fillMaxWidth() // this does not work properly -> modifying Card item
+            .nestedScroll(nestedScrollConnection)
+            .background(color = MaterialTheme.colorScheme.background)
             .padding(
                 top = paddingTop + DEFAULT_PADDING,
                 start = DEFAULT_PADDING, end = DEFAULT_PADDING
             )
-            .nestedScroll(nestedScrollConnection)
     ) {
         items(theUiModelList) { theUiModel ->
             TheUiCard(theUiModel)
