@@ -1,13 +1,12 @@
 package com.igor_shaula.complex_api_client_sample.ui.elements
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Warning
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
@@ -16,8 +15,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
-import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import coil.compose.AsyncImage
 import com.igor_shaula.complex_api_client_sample.R
@@ -46,11 +45,19 @@ fun TheUiCard(theUiModel: TheUiModel) {
         ) {
             AsyncImage(
                 model = theUiModel.image,
-                placeholder = rememberVectorPainter(
-                    image = Icons.Outlined.Warning.apply { // make it smaller somehow
-//                        defaultWidth = 24.dp,
-//                        defaultHeight = 24.dp
-                    } // replace by proper SVG placeholder
+                placeholder = painterResource(
+                    id = if (isSystemInDarkTheme()) {
+                        R.drawable.placeholder_loading_dark
+                    } else {
+                        R.drawable.placeholder_loading
+                    }
+                ),
+                error = painterResource(
+                    id = if (isSystemInDarkTheme()) {
+                        R.drawable.placeholder_no_picture_dark
+                    } else {
+                        R.drawable.placeholder_no_picture
+                    }
                 ),
                 contentDescription = stringResource(id = R.string.vehicleImageDescription),
                 contentScale = ContentScale.Crop,
