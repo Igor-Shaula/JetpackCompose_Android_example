@@ -10,7 +10,6 @@ import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalView
@@ -248,34 +247,6 @@ private val highContrastDarkColorScheme = darkColorScheme(
 
 // endregion ColorSchemes
 
-private val GivenColorScheme = lightColorScheme(
-    primary = DarkGreen,
-    onPrimary = Color.DarkGray,
-    secondary = Color.White,
-    onSecondary = Color.DarkGray,
-    tertiary = Color.White,
-    onTertiary = Color.DarkGray,
-    background = Color.White,
-    onBackground = Color.DarkGray,
-    surface = Green,
-    onSurface = Color.DarkGray,
-    surfaceTint = Color.White,
-    surfaceVariant = Color.White,
-    onSurfaceVariant = Color.DarkGray,
-    inverseSurface = Color.White,
-    inverseOnSurface = Color.DarkGray,
-    onPrimaryContainer = Color.DarkGray,
-    onSecondaryContainer = Color.DarkGray,
-    onTertiaryContainer = Color.DarkGray,
-    primaryContainer = Color.White,
-    secondaryContainer = Color.White,
-    tertiaryContainer = Color.White,
-    inversePrimary = Color.White,
-    outline = Color.Cyan,
-    outlineVariant = Color.Blue,
-    scrim = Color.Red
-)
-
 @Composable
 fun TheAppTheme(
 //    darkTheme: Boolean = false, // because in the task's preview there is only one screen - in LIGHT THEME
@@ -297,9 +268,9 @@ fun TheAppTheme(
     if (!view.isInEditMode) {
         SideEffect {
             val window = (view.context as Activity).window
-            window.statusBarColor =
-                colorScheme.onTertiaryContainer.toArgb() // best fits the sample UI
-//                colorScheme.primary.toArgb() // this is the default case
+            val barsColor = colorScheme.onTertiaryContainer.toArgb() // best fits the sample UI
+            window.statusBarColor = barsColor
+            window.navigationBarColor = barsColor // to have some visual symmetry at the bottom
             WindowCompat.getInsetsController(window, view).isAppearanceLightStatusBars = darkTheme
             // here we add primary status bar color from chosen color scheme
         }

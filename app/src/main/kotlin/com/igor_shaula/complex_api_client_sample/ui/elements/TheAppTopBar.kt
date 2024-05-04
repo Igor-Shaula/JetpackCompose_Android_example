@@ -22,7 +22,7 @@ fun TheAppTopBar(
     },
     scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior(),
     colors = TopAppBarColors(
-        containerColor = MaterialTheme.colorScheme.tertiary,
+        containerColor = MaterialTheme.colorScheme.tertiaryContainer,
         scrolledContainerColor = MaterialTheme.colorScheme.tertiary,
         navigationIconContentColor = MaterialTheme.colorScheme.onTertiary,
         titleContentColor = MaterialTheme.colorScheme.onTertiary,

@@ -2,6 +2,10 @@ package com.igor_shaula.complex_api_client_sample.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
+// these two colors were taken from screen which was given as a reference in the task's repository
+val DarkGreen = Color(red = 53, green = 94, blue = 33)
+val Green = Color(red = 74, green = 134, blue = 29)
+
 val primaryLight = Color(0xFF805610)
 val onPrimaryLight = Color(0xFFFFFFFF)
 val primaryContainerLight = Color(0xFFFFDDB3)
@@ -12,8 +16,10 @@ val secondaryContainerLight = Color(0xFFFBDEBC)
 val onSecondaryContainerLight = Color(0xFF271904)
 val tertiaryLight = Color(0xFF51643F)
 val onTertiaryLight = Color(0xFFFFFFFF)
-val tertiaryContainerLight = Color(0xFFD4EABB)
-val onTertiaryContainerLight = Color(0xFF102004)
+val tertiaryContainerLight = Green
+//val tertiaryContainerLight = Color(0xFFD4EABB)
+val onTertiaryContainerLight = DarkGreen
+//val onTertiaryContainerLight = Color(0xFF102004)
 val errorLight = Color(0xFFBA1A1A)
 val onErrorLight = Color(0xFFFFFFFF)
 val errorContainerLight = Color(0xFFFFDAD6)
@@ -217,7 +223,3 @@ val surfaceContainerLowDarkHighContrast = Color(0xFF201B13)
 val surfaceContainerDarkHighContrast = Color(0xFF251F17)
 val surfaceContainerHighDarkHighContrast = Color(0xFF2F2921)
 val surfaceContainerHighestDarkHighContrast = Color(0xFF3B342B)
-
-// these two colors were taken from screen which was given as a reference in the task's repository
-val DarkGreen = Color(red = 53, green = 94, blue = 33)
-val Green = Color(red = 74, green = 134, blue = 29)
