@@ -41,7 +41,9 @@ fun TheAppBodyPreview() {
 @Composable
 fun ExplanationScreenPreview() {
     ThemeWithSurface {
-        ExplanationScreen(APP_BAR_HEIGHT, "explanation text")
+        ExplanationScreen(
+            APP_BAR_HEIGHT, theTitle = "explanation TITLE", theText = "explanation text"
+        )
     }
 }
 

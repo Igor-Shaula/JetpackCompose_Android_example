@@ -23,6 +23,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.KeyboardType
@@ -102,7 +103,7 @@ fun CustomizedSearchBarAlternative(
             keyboardType = KeyboardType.Text,
             imeAction = ImeAction.Search
         ),
-        textStyle = MaterialTheme.typography.bodyLarge,
+        textStyle = MaterialTheme.typography.headlineSmall,
         colors = TextFieldDefaults.colors(
             focusedIndicatorColor = Color.Transparent,
             unfocusedIndicatorColor = Color.Transparent,
@@ -134,5 +135,5 @@ fun CustomizedSearchBarAlternative(
 private fun CustomizedSearchBarPlaceholderText() = Text(
     text = stringResource(id = R.string.searchFieldHint),
 //    maxLines = 1, // this in fact doesn't influence on Search field
-    style = MaterialTheme.typography.bodyLarge,
+    style = MaterialTheme.typography.headlineSmall.copy(fontWeight = FontWeight.W300)
 )

@@ -18,6 +18,3 @@ val TINY_PADDING = 4.dp
 
 val DEFAULT_RADIUS = 8.dp
 val SMALL_RADIUS = 4.dp
-
-val DEFAULT_FONT_SIZE = 16.sp
-val BIG_FONT_SIZE = 24.sp

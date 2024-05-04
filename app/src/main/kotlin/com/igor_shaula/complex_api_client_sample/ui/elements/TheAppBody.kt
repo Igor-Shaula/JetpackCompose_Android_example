@@ -14,14 +14,16 @@ fun TheAppBody(
 
         TheUiState.FreshStart -> ExplanationScreen(
             paddingTop = paddingValues.calculateTopPadding(),
-            theText = stringResource(R.string.firstLaunchExplanation)
+            theTitle = stringResource(id = R.string.firstLaunchExplanationTitle),
+            theText = stringResource(R.string.firstLaunchExplanationText)
         )
 
         TheUiState.Loading -> LoadingScreen()
 
         TheUiState.EmptyList -> ExplanationScreen(
             paddingTop = paddingValues.calculateTopPadding(),
-            theText = stringResource(R.string.emptyListExplanation)
+            theTitle = stringResource(id = R.string.emptyListExplanationTitle),
+            theText = stringResource(R.string.emptyListExplanationText)
         )
 
         is TheUiState.Success -> PayloadScreen(
@@ -32,7 +34,8 @@ fun TheAppBody(
 
         is TheUiState.Error -> ExplanationScreen(
             paddingTop = paddingValues.calculateTopPadding(),
-            theText = stringResource(id = R.string.errorStateInfo) + uiState.errorInfo
+            theTitle = stringResource(id = R.string.errorStateInfoTitle),
+            theText = uiState.errorInfo
         )
     }
 }
