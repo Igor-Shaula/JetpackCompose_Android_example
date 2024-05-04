@@ -50,10 +50,11 @@ If you like the solution - please give this repository a star on GitHub.
 - [x] eliminate hardcoded values from composables by making order with sizes and colors.
 - [x] optimize NetworkEntity processing with flows (now there are three loops).
 - [x] add **Hilt** as dependency injection mechanism.
-- [ ] would be nice to add pagination for network response.
+- [ ] add a mechanism for checking Network status to have real-time info about offline.
+- [ ] add customizable pagination for network requests.
 - [ ] add a menu with the ability to change pagination limit & offset.
 - [ ] add statistics for showing the number of downloaded vehicles.
-- [ ] add a mechanism for checking Network status to have real-time info about offline.
+- [ ] add adaptive layouts for good UX on smartphone/foldable/tablet in both vertical & horizontal orientations.
 - [x] add **unit tests** for ViewModel layer.
 - [ ] add **UI tests** for all composables.
 - [ ] add an option to remember search queries (at least for a session).
