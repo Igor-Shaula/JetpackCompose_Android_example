@@ -2,11 +2,15 @@ package com.igor_shaula.complex_api_client_sample.ui.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.sp
+import com.igor_shaula.complex_api_client_sample.R
+
+val SourceSans3Regular = FontFamily(Font(R.font.source_sans3_regular))
 
 // Set of Material 3 typography styles to start with
 val typography = Typography(
@@ -18,7 +22,7 @@ val typography = Typography(
         lineHeight = 24.sp,
         letterSpacing = 0.sp,
         fontStyle = FontStyle.Normal,
-        fontFamily = FontFamily.SansSerif,
+        fontFamily = SourceSans3Regular,
         textAlign = TextAlign.Start
     ),
 
@@ -29,7 +33,7 @@ val typography = Typography(
         lineHeight = 30.sp,
         letterSpacing = 0.sp,
         fontStyle = FontStyle.Normal,
-        fontFamily = FontFamily.SansSerif,
+        fontFamily = SourceSans3Regular,
         textAlign = TextAlign.Center
     ),
 
@@ -40,7 +44,7 @@ val typography = Typography(
         lineHeight = 24.sp,
         letterSpacing = 0.sp,
         fontStyle = FontStyle.Normal,
-        fontFamily = FontFamily.SansSerif,
+        fontFamily = SourceSans3Regular,
         textAlign = TextAlign.Center
     )
 )
