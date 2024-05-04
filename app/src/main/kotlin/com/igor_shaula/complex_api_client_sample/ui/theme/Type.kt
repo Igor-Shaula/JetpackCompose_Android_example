@@ -1,6 +1,7 @@
 package com.igor_shaula.complex_api_client_sample.ui.theme
 
 import androidx.compose.material3.Typography
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
@@ -50,7 +51,7 @@ val typography = Typography(
         textAlign = TextAlign.Center
     ),
 
-    // used in ExplanationScreen for its body
+    // used in ExplanationScreen for its body in case of error
     bodySmall = TextStyle(
         fontWeight = FontWeight.W500,
         fontSize = 14.sp,
@@ -58,6 +59,7 @@ val typography = Typography(
         letterSpacing = 0.sp,
         fontStyle = FontStyle.Normal,
         fontFamily = SourceCodeProMedium,
-        textAlign = TextAlign.Center
+        textAlign = TextAlign.Center,
+        color = Color.Red
     )
 )
