@@ -44,18 +44,20 @@ If you like the solution - please give this repository a star on GitHub.
 ### What's next (list of additions):
 
 - [x] fix colors in SearchBar - probably by replacing it with other composables.
+- [x] fix precise styling for all texts in the app, especially on ExplanationScreen.
 - [x] use Kotlin's Result wrapper for delivering network outcomes.
+- [x] use sealed classes for enumerating all possible states of the UI.
 - [x] adding error state for UI - for beautiful handling of any network cases.
 - [x] fake-data preparation tract with its own DataSource for consuming mock JSON.
 - [x] eliminate hardcoded values from composables by making order with sizes and colors.
 - [x] optimize NetworkEntity processing with flows (now there are three loops).
 - [x] add **Hilt** as dependency injection mechanism.
-- [ ] add a mechanism for checking Network status to have real-time info about offline.
+- [ ] add a mechanism for checking network status to have real-time info about offline.
 - [ ] add customizable pagination for network requests.
 - [ ] add a menu with the ability to change pagination limit & offset.
 - [ ] add statistics for showing the number of downloaded vehicles.
 - [ ] add adaptive layouts for good UX on smartphone/foldable/tablet in both vertical & horizontal orientations.
 - [x] add **unit tests** for ViewModel layer.
-- [ ] add **UI tests** for all composables.
+- [ ] add **UI tests** for all composables including their components.
 - [ ] add an option to remember search queries (at least for a session).
 - [ ] add **Room** as the mechanism for storing search queries.
