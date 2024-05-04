@@ -35,7 +35,8 @@ fun TheAppBody(
         is TheUiState.Error -> ExplanationScreen(
             paddingTop = paddingValues.calculateTopPadding(),
             theTitle = stringResource(id = R.string.errorStateInfoTitle),
-            theText = uiState.errorInfo
+            theText = uiState.errorInfo,
+            isError = true
         )
     }
 }

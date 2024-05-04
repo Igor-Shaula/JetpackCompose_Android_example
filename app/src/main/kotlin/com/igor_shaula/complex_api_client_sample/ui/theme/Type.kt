@@ -12,6 +12,8 @@ import com.igor_shaula.complex_api_client_sample.R
 
 val SourceSans3Regular = FontFamily(Font(R.font.source_sans3_regular))
 
+val SourceCodeProMedium = FontFamily(Font(R.font.source_code_pro_medium))
+
 // Set of Material 3 typography styles to start with
 val typography = Typography(
 
@@ -45,6 +47,17 @@ val typography = Typography(
         letterSpacing = 0.sp,
         fontStyle = FontStyle.Normal,
         fontFamily = SourceSans3Regular,
+        textAlign = TextAlign.Center
+    ),
+
+    // used in ExplanationScreen for its body
+    bodySmall = TextStyle(
+        fontWeight = FontWeight.W500,
+        fontSize = 14.sp,
+        lineHeight = 22.sp,
+        letterSpacing = 0.sp,
+        fontStyle = FontStyle.Normal,
+        fontFamily = SourceCodeProMedium,
         textAlign = TextAlign.Center
     )
 )

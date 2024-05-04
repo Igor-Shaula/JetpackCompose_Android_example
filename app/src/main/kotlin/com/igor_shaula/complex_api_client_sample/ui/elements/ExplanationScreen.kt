@@ -15,7 +15,9 @@ import androidx.compose.ui.unit.Dp
 import com.igor_shaula.complex_api_client_sample.ui.theme.DEFAULT_PADDING
 
 @Composable
-fun ExplanationScreen(paddingTop: Dp, theTitle: String, theText: String) = Column(
+fun ExplanationScreen(
+    paddingTop: Dp, theTitle: String, theText: String, isError: Boolean = false
+) = Column(
     modifier = Modifier
         .fillMaxSize()
         .background(color = MaterialTheme.colorScheme.background)
@@ -32,7 +34,7 @@ fun ExplanationScreen(paddingTop: Dp, theTitle: String, theText: String) = Colum
     Spacer(Modifier.height(DEFAULT_PADDING))
     Text(
         text = theText,
-        style = MaterialTheme.typography.bodyMedium,
+        style = if (isError) MaterialTheme.typography.bodySmall else MaterialTheme.typography.bodyMedium,
         modifier = Modifier.fillMaxWidth()
     )
 }
