@@ -11,7 +11,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.igor_shaula.complex_api_client_sample.R
 import com.igor_shaula.complex_api_client_sample.ui.theme.DEFAULT_PADDING
@@ -28,7 +28,8 @@ fun NavDrawerPanel() {
     ) {
         Text(
             text = stringResource(id = R.string.nav_drawer_panel_header),
-            style = MaterialTheme.typography.headlineSmall.copy(textAlign = TextAlign.Center),
+            style = MaterialTheme.typography.titleMedium,
+            fontWeight = FontWeight.W900,
             color = MaterialTheme.colorScheme.onTertiary,
             modifier = Modifier
                 .fillMaxWidth()

@@ -30,7 +30,7 @@ fun ApiSelectionBlock() {
             .padding(top = DEFAULT_PADDING, bottom = DEFAULT_PADDING)
             .background(
                 color = MaterialTheme.colorScheme.primaryContainer,
-                shape = MaterialTheme.shapes.small
+                shape = MaterialTheme.shapes.medium
             )
     ) {
         Text(
