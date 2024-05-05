@@ -1,10 +1,13 @@
-package com.igor_shaula.complex_api_client_sample.ui.elements
+package com.igor_shaula.complex_api_client_sample.ui.elements.main_screen_content
 
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
 import com.igor_shaula.complex_api_client_sample.R
 import com.igor_shaula.complex_api_client_sample.ui.TheUiState
+import com.igor_shaula.complex_api_client_sample.ui.elements.main_screen_content.ExplanationScreen
+import com.igor_shaula.complex_api_client_sample.ui.elements.main_screen_content.LoadingScreen
+import com.igor_shaula.complex_api_client_sample.ui.elements.main_screen_content.PayloadScreen
 import com.igor_shaula.complex_api_client_sample.ui.utils.ContentType
 
 @Composable

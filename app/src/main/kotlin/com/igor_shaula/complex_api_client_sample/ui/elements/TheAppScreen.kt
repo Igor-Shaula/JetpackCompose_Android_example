@@ -6,6 +6,8 @@ import androidx.compose.material3.ModalNavigationDrawer
 import androidx.compose.material3.PermanentNavigationDrawer
 import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass
 import androidx.compose.runtime.Composable
+import com.igor_shaula.complex_api_client_sample.ui.elements.main_screen_content.TheAppScaffold
+import com.igor_shaula.complex_api_client_sample.ui.elements.nav_drawer_content.NavDrawerPanel
 import com.igor_shaula.complex_api_client_sample.ui.utils.ContentType
 import com.igor_shaula.complex_api_client_sample.ui.utils.NavigationType
 

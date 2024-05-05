@@ -1,4 +1,4 @@
-package com.igor_shaula.complex_api_client_sample.ui.elements
+package com.igor_shaula.complex_api_client_sample.ui.elements.main_screen_content
 
 import androidx.compose.foundation.layout.height
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -9,6 +9,7 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
+import com.igor_shaula.complex_api_client_sample.ui.elements.main_screen_content.CustomizedSearchBarAlternative
 import com.igor_shaula.complex_api_client_sample.ui.theme.APP_BAR_HEIGHT
 import com.igor_shaula.complex_api_client_sample.ui.theme.DEFAULT_ELEVATION
 

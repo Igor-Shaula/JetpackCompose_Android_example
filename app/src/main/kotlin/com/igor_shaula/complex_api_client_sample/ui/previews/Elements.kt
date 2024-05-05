@@ -3,10 +3,10 @@ package com.igor_shaula.complex_api_client_sample.ui.previews
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
 import com.igor_shaula.complex_api_client_sample.R
-import com.igor_shaula.complex_api_client_sample.ui.elements.CustomizedSearchBar
-import com.igor_shaula.complex_api_client_sample.ui.elements.CustomizedSearchBarAlternative
-import com.igor_shaula.complex_api_client_sample.ui.elements.TheAppTopBar
-import com.igor_shaula.complex_api_client_sample.ui.elements.TheUiCard
+import com.igor_shaula.complex_api_client_sample.ui.elements.main_screen_content.CustomizedSearchBar
+import com.igor_shaula.complex_api_client_sample.ui.elements.main_screen_content.CustomizedSearchBarAlternative
+import com.igor_shaula.complex_api_client_sample.ui.elements.main_screen_content.TheAppTopBar
+import com.igor_shaula.complex_api_client_sample.ui.elements.main_screen_content.TheUiCard
 import com.igor_shaula.complex_api_client_sample.ui.models.TheUiModel
 
 @DayNightPreviews

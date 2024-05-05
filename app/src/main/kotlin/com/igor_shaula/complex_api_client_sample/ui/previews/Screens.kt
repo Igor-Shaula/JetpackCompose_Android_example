@@ -6,10 +6,10 @@ import androidx.compose.runtime.Composable
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.igor_shaula.complex_api_client_sample.ui.MainViewModel
 import com.igor_shaula.complex_api_client_sample.ui.TheUiState
-import com.igor_shaula.complex_api_client_sample.ui.elements.ExplanationScreen
-import com.igor_shaula.complex_api_client_sample.ui.elements.LoadingScreen
-import com.igor_shaula.complex_api_client_sample.ui.elements.PayloadScreen
-import com.igor_shaula.complex_api_client_sample.ui.elements.TheAppBody
+import com.igor_shaula.complex_api_client_sample.ui.elements.main_screen_content.ExplanationScreen
+import com.igor_shaula.complex_api_client_sample.ui.elements.main_screen_content.LoadingScreen
+import com.igor_shaula.complex_api_client_sample.ui.elements.main_screen_content.PayloadScreen
+import com.igor_shaula.complex_api_client_sample.ui.elements.main_screen_content.TheAppBody
 import com.igor_shaula.complex_api_client_sample.ui.elements.TheAppScreen
 import com.igor_shaula.complex_api_client_sample.ui.models.TheUiModel
 import com.igor_shaula.complex_api_client_sample.ui.theme.APP_BAR_HEIGHT

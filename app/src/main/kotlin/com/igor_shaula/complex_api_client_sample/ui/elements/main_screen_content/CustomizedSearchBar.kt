@@ -1,4 +1,4 @@
-package com.igor_shaula.complex_api_client_sample.ui.elements
+package com.igor_shaula.complex_api_client_sample.ui.elements.main_screen_content
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
