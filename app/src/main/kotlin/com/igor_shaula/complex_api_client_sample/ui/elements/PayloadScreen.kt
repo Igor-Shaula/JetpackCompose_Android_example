@@ -4,6 +4,9 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
@@ -14,14 +17,17 @@ import androidx.compose.ui.input.nestedscroll.NestedScrollConnection
 import androidx.compose.ui.input.nestedscroll.NestedScrollSource
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.dp
 import com.igor_shaula.complex_api_client_sample.ui.models.TheUiModel
 import com.igor_shaula.complex_api_client_sample.ui.theme.DEFAULT_PADDING
+import com.igor_shaula.complex_api_client_sample.ui.utils.ContentType
 
 @Composable
 fun PayloadScreen(
     paddingTop: Dp,
     theUiModelList: List<TheUiModel>,
-    hideKeyboard: (() -> Unit)? = null // nullable for absence in preview invocations
+    hideKeyboard: (() -> Unit)? = null, // nullable for absence in preview invocations
+    contentType: ContentType
 ) {
     val nestedScrollConnection = remember {
         object : NestedScrollConnection {
@@ -32,18 +38,26 @@ fun PayloadScreen(
             }
         }
     }
-    LazyColumn(
-        modifier = Modifier
-            .fillMaxWidth() // this does not work properly -> modifying Card item
-            .nestedScroll(nestedScrollConnection)
-            .background(color = MaterialTheme.colorScheme.background)
-            .padding(
-                top = paddingTop + DEFAULT_PADDING,
-                start = DEFAULT_PADDING, end = DEFAULT_PADDING
-            )
-    ) {
-        items(theUiModelList) { theUiModel ->
-            TheUiCard(theUiModel)
+    if (contentType == ContentType.LIST) {
+        LazyColumn(
+            modifier = Modifier
+                .fillMaxWidth() // this does not work properly -> modifying Card item
+                .nestedScroll(nestedScrollConnection)
+                .background(color = MaterialTheme.colorScheme.background)
+                .padding(
+                    top = paddingTop + DEFAULT_PADDING,
+                    start = DEFAULT_PADDING, end = DEFAULT_PADDING
+                )
+        ) {
+            items(theUiModelList) { theUiModel ->
+                TheUiCard(theUiModel)
+            }
+        }
+    } else {
+        LazyVerticalGrid(columns = GridCells.Adaptive(minSize = 200.dp)) {
+            items(theUiModelList) { theUiModel ->
+                TheUiCard(theUiModel)
+            }
         }
     }
 }

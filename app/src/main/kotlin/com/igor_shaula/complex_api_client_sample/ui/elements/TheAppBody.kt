@@ -5,10 +5,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
 import com.igor_shaula.complex_api_client_sample.R
 import com.igor_shaula.complex_api_client_sample.ui.TheUiState
+import com.igor_shaula.complex_api_client_sample.ui.utils.ContentType
 
 @Composable
 fun TheAppBody(
-    uiState: TheUiState, hideKeyboard: () -> Unit, paddingValues: PaddingValues
+    uiState: TheUiState,
+    hideKeyboard: () -> Unit,
+    paddingValues: PaddingValues,
+    contentType: ContentType
 ) {
     when (uiState) {
 
@@ -29,7 +33,8 @@ fun TheAppBody(
         is TheUiState.Success -> PayloadScreen(
             paddingTop = paddingValues.calculateTopPadding(),
             theUiModelList = uiState.theList,
-            hideKeyboard = hideKeyboard
+            hideKeyboard = hideKeyboard,
+            contentType = contentType
         )
 
         is TheUiState.Error -> ExplanationScreen(

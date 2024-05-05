@@ -6,6 +6,8 @@ import android.view.View
 import android.view.inputmethod.InputMethodManager
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.material3.windowsizeclass.ExperimentalMaterial3WindowSizeClassApi
+import androidx.compose.material3.windowsizeclass.calculateWindowSizeClass
 import com.igor_shaula.complex_api_client_sample.ui.elements.TheAppScreen
 import com.igor_shaula.complex_api_client_sample.ui.previews.ThemeWithSurface
 import dagger.hilt.android.AndroidEntryPoint
@@ -21,12 +23,14 @@ class MainActivity : ComponentActivity() {
         // if setContent is invoked in this onCreate - the screen stays blank white and nothing more happens
     }
 
+    @OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 //        enableEdgeToEdge() // no need to enable this - but let it stay here as an option for the future
         setContent {
             ThemeWithSurface {
-                TheAppScreen(::hideKeyboard)
+                val windowsSize = calculateWindowSizeClass(this)
+                TheAppScreen(::hideKeyboard, windowsSize.widthSizeClass)
             }
         }
     }
