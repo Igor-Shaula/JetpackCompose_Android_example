@@ -9,6 +9,8 @@ import androidx.compose.foundation.layout.widthIn
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -19,6 +21,9 @@ import com.igor_shaula.complex_api_client_sample.ui.theme.NAV_DRAWER_WIDTH
 
 @Composable
 fun NavDrawerPanel() {
+
+    val apiName = remember { mutableStateOf("Outdoorsy") }
+
     Column(
         modifier = Modifier
             .widthIn(min = 0.dp, max = NAV_DRAWER_WIDTH)
@@ -35,6 +40,8 @@ fun NavDrawerPanel() {
                 .fillMaxWidth()
                 .padding(DEFAULT_PADDING)
         )
-        ApiSelectionBlock()
+        ApiSelectionBlock(
+            selectedApi = apiName.value, setSelected = { apiName.value = it }
+        )
     }
 }

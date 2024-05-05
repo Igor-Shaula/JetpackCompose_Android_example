@@ -20,7 +20,10 @@ import com.igor_shaula.complex_api_client_sample.ui.theme.DEFAULT_PADDING
 import com.igor_shaula.complex_api_client_sample.ui.theme.SMALL_PADDING
 
 @Composable
-fun ApiSelectionBlock() {
+fun ApiSelectionBlock(
+    selectedApi: String,
+    setSelected: (selected: String) -> Unit
+) {
     val apiNames: List<String> = listOf(
         stringResource(id = R.string.api_selection_block_outdoorsy),
         stringResource(id = R.string.api_selection_block_beer)
@@ -55,7 +58,7 @@ fun ApiSelectionBlock() {
                     color = MaterialTheme.colorScheme.onPrimaryContainer,
                     modifier = Modifier.weight(1f)
                 )
-                RadioButton(selected = true, onClick = { })
+                RadioButton(selected = selectedApi == apiName, onClick = { setSelected(apiName) })
             }
         }
         Spacer(modifier = Modifier.height(DEFAULT_PADDING))
