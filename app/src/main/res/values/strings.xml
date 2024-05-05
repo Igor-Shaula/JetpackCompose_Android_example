@@ -9,4 +9,8 @@
     <string name="vehicleImageDescription">vehicle image</string>
     <string name="leadingSearchIconDescription">search icon</string>
     <string name="trailingSearchIconDescription">favourites icon</string>
+    <string name="nav_drawer_panel_header">This is the settings panel</string>
+    <string name="api_selection_block_header">Select the remote API</string>
+    <string name="api_selection_block_outdoorsy">Outdoorsy</string>
+    <string name="api_selection_block_beer">Beer</string>
 </resources>

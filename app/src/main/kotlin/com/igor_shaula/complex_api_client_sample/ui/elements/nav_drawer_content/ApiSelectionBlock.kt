@@ -13,12 +13,18 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
+import com.igor_shaula.complex_api_client_sample.R
 import com.igor_shaula.complex_api_client_sample.ui.theme.DEFAULT_PADDING
 import com.igor_shaula.complex_api_client_sample.ui.theme.SMALL_PADDING
 
 @Composable
-fun ApiSelectionBlock(apiNames: List<String> = listOf("Outdoorsy", "Beer")) {
+fun ApiSelectionBlock() {
+    val apiNames: List<String> = listOf(
+        stringResource(id = R.string.api_selection_block_outdoorsy),
+        stringResource(id = R.string.api_selection_block_beer)
+    )
     Column(
         modifier = Modifier
             .padding(top = DEFAULT_PADDING, bottom = DEFAULT_PADDING)
@@ -28,7 +34,7 @@ fun ApiSelectionBlock(apiNames: List<String> = listOf("Outdoorsy", "Beer")) {
             )
     ) {
         Text(
-            text = "select the remote API",
+            text = stringResource(id = R.string.api_selection_block_header),
             style = MaterialTheme.typography.headlineSmall.copy(textAlign = TextAlign.Center),
             color = MaterialTheme.colorScheme.onPrimaryContainer,
             modifier = Modifier
@@ -52,6 +58,6 @@ fun ApiSelectionBlock(apiNames: List<String> = listOf("Outdoorsy", "Beer")) {
                 RadioButton(selected = true, onClick = { })
             }
         }
-        Spacer(modifier = Modifier.height(SMALL_PADDING))
+        Spacer(modifier = Modifier.height(DEFAULT_PADDING))
     }
 }

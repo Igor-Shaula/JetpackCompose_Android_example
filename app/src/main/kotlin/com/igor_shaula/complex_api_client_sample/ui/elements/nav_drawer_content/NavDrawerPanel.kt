@@ -3,31 +3,37 @@ package com.igor_shaula.complex_api_client_sample.ui.elements.nav_drawer_content
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.widthIn
-import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import com.igor_shaula.complex_api_client_sample.R
 import com.igor_shaula.complex_api_client_sample.ui.theme.DEFAULT_PADDING
 import com.igor_shaula.complex_api_client_sample.ui.theme.NAV_DRAWER_WIDTH
 
 @Composable
-fun NavDrawerPanel(topPaddingDp: Dp = 0.dp) {
+fun NavDrawerPanel() {
     Column(
         modifier = Modifier
             .widthIn(min = 0.dp, max = NAV_DRAWER_WIDTH)
             .fillMaxHeight()
             .background(MaterialTheme.colorScheme.tertiary)
-            .padding(
-                top = topPaddingDp + DEFAULT_PADDING,
-                start = DEFAULT_PADDING, end = DEFAULT_PADDING, bottom = DEFAULT_PADDING
-            )
+            .padding(DEFAULT_PADDING)
     ) {
-        HorizontalDivider(thickness = 2.dp, color = MaterialTheme.colorScheme.onTertiary)
-//        ApiSelectionBlock()
-        HorizontalDivider(thickness = 2.dp, color = MaterialTheme.colorScheme.onTertiary)
+        Text(
+            text = stringResource(id = R.string.nav_drawer_panel_header),
+            style = MaterialTheme.typography.headlineSmall.copy(textAlign = TextAlign.Center),
+            color = MaterialTheme.colorScheme.onTertiary,
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(DEFAULT_PADDING)
+        )
+        ApiSelectionBlock()
     }
 }
