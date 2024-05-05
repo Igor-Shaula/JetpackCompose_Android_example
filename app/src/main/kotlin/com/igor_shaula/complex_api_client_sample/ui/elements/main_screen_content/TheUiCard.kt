@@ -33,9 +33,9 @@ fun TheUiCard(theUiModel: TheUiModel) {
     Card(
         elevation = CardDefaults.cardElevation(defaultElevation = SMALL_ELEVATION),
         shape = MaterialTheme.shapes.small,
-        modifier = Modifier.padding(
-            bottom = DEFAULT_PADDING // 2dp - for top shadow, white on white!
-        )
+//        modifier = Modifier.padding(
+//            bottom = DEFAULT_PADDING // 2dp - for top shadow, white on white!
+//        )
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,

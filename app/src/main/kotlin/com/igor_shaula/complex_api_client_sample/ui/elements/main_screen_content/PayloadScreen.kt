@@ -1,6 +1,7 @@
 package com.igor_shaula.complex_api_client_sample.ui.elements.main_screen_content
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
@@ -40,6 +41,7 @@ fun PayloadScreen(
     }
     if (contentType == ContentType.LIST) {
         LazyColumn(
+            verticalArrangement = Arrangement.spacedBy(DEFAULT_PADDING),
             modifier = Modifier
                 .fillMaxWidth() // this does not work properly -> modifying Card item
                 .nestedScroll(nestedScrollConnection)
@@ -54,7 +56,11 @@ fun PayloadScreen(
             }
         }
     } else {
-        LazyVerticalGrid(columns = GridCells.Adaptive(minSize = 200.dp)) {
+        LazyVerticalGrid(
+            columns = GridCells.Adaptive(minSize = 200.dp),
+            horizontalArrangement = Arrangement.spacedBy(DEFAULT_PADDING),
+            verticalArrangement = Arrangement.spacedBy(DEFAULT_PADDING)
+        ) {
             items(theUiModelList) { theUiModel ->
                 TheUiCard(theUiModel)
             }
