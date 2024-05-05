@@ -9,7 +9,7 @@ import com.igor_shaula.complex_api_client_sample.ui.elements.TheAppTopBar
 import com.igor_shaula.complex_api_client_sample.ui.elements.TheUiCard
 import com.igor_shaula.complex_api_client_sample.ui.models.TheUiModel
 
-@Previews
+@DayNightPreviews
 @Composable
 fun TheAppTopBarPreview() {
     ThemeWithSurfaceElement {
@@ -19,7 +19,7 @@ fun TheAppTopBarPreview() {
     }
 }
 
-@Previews
+@DayNightPreviews
 @Composable
 fun CustomizedSearchBarPreview() {
     ThemeWithSurfaceElement {
@@ -29,7 +29,7 @@ fun CustomizedSearchBarPreview() {
     }
 }
 
-@Previews
+@DayNightPreviews
 @Composable
 fun CustomizedSearchBarAlternativePreview() {
     ThemeWithSurfaceElement {
@@ -39,7 +39,7 @@ fun CustomizedSearchBarAlternativePreview() {
     }
 }
 
-@Previews
+@DayNightPreviews
 @Composable
 fun TheUiCardPreview() {
     ThemeWithSurfaceElement {

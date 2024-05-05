@@ -19,7 +19,13 @@ import com.igor_shaula.complex_api_client_sample.ui.theme.TheAppTheme
     backgroundColor = 0L,
     showBackground = true
 )
-annotation class Previews // to have both color schemes in one annotation
+annotation class DayNightPreviews // to have both color schemes in one annotation
+
+// these annotations are applicable to screens with data
+@Preview(widthDp = 300, backgroundColor = 127L, showBackground = true)
+@Preview(widthDp = 600, backgroundColor = 127L, showBackground = true)
+@Preview(widthDp = 900, backgroundColor = 127L, showBackground = true)
+annotation class OrientationPreviews
 
 @Composable
 fun ThemeWithSurface(content: @Composable () -> Unit) {

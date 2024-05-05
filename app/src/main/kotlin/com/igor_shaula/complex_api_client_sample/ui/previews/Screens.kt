@@ -15,7 +15,7 @@ import com.igor_shaula.complex_api_client_sample.ui.models.TheUiModel
 import com.igor_shaula.complex_api_client_sample.ui.theme.APP_BAR_HEIGHT
 import com.igor_shaula.complex_api_client_sample.ui.utils.ContentType
 
-@Previews
+@DayNightPreviews
 @Composable
 fun TheAppScreenPreview(
 //    viewModel: MainViewModel = viewModel() // doesn't help for rendering the previews
@@ -31,7 +31,7 @@ fun TheAppScreenPreview(
     }
 }
 
-@Previews
+@DayNightPreviews
 @Composable
 fun TheAppBodyPreviewList() {
     ThemeWithSurface {
@@ -44,7 +44,7 @@ fun TheAppBodyPreviewList() {
     }
 }
 
-@Previews
+@DayNightPreviews
 @Composable
 fun TheAppBodyPreviewGrid() {
     ThemeWithSurface {
@@ -57,7 +57,7 @@ fun TheAppBodyPreviewGrid() {
     }
 }
 
-@Previews
+@DayNightPreviews
 @Composable
 fun ExplanationScreenPreview() {
     ThemeWithSurface {
@@ -67,7 +67,7 @@ fun ExplanationScreenPreview() {
     }
 }
 
-@Previews
+@DayNightPreviews
 @Composable
 fun LoadingScreenPreview() {
     ThemeWithSurface {
@@ -75,7 +75,7 @@ fun LoadingScreenPreview() {
     }
 }
 
-@Previews
+@DayNightPreviews
 @Composable
 fun PayloadScreenPreviewList() {
     ThemeWithSurface {
@@ -93,7 +93,8 @@ fun PayloadScreenPreviewList() {
     }
 }
 
-@Previews
+@DayNightPreviews
+@OrientationPreviews
 @Composable
 fun PayloadScreenPreviewGrid() {
     ThemeWithSurface {
