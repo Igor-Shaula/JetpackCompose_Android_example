@@ -1,7 +1,6 @@
 package com.igor_shaula.complex_api_client_sample.ui.theme
 
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 
 val APP_BAR_HEIGHT = 88.dp
 
@@ -18,3 +17,5 @@ val TINY_PADDING = 4.dp
 
 val DEFAULT_RADIUS = 8.dp
 val SMALL_RADIUS = 4.dp
+
+val NAV_DRAWER_WIDTH = 320.dp

@@ -1,11 +1,11 @@
 package com.igor_shaula.complex_api_client_sample.ui.elements
 
-import androidx.compose.material3.Scaffold
+import androidx.compose.material3.DrawerState
+import androidx.compose.material3.DrawerValue
+import androidx.compose.material3.ModalNavigationDrawer
+import androidx.compose.material3.PermanentNavigationDrawer
 import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass
 import androidx.compose.runtime.Composable
-import androidx.lifecycle.viewmodel.compose.viewModel
-import com.igor_shaula.complex_api_client_sample.ui.MainViewModel
-import com.igor_shaula.complex_api_client_sample.ui.theme.DEFAULT_PADDING
 import com.igor_shaula.complex_api_client_sample.ui.utils.ContentType
 import com.igor_shaula.complex_api_client_sample.ui.utils.NavigationType
 
@@ -13,8 +13,7 @@ import com.igor_shaula.complex_api_client_sample.ui.utils.NavigationType
 @Composable
 fun TheAppScreen(
     hideKeyboard: () -> Unit = {},
-    windowWidthSizeClass: WindowWidthSizeClass,
-    viewModel: MainViewModel = viewModel() // it's here for enabling a preview of this composable
+    windowWidthSizeClass: WindowWidthSizeClass
 ) {
     val contentType: ContentType
     val navigationType: NavigationType = when (windowWidthSizeClass) {
@@ -35,13 +34,14 @@ fun TheAppScreen(
             NavigationType.HIDDEN_NAVIGATION_DRAWER
         }
     }
-    Scaffold(
-        topBar = {
-            TheAppTopBar(viewModel.searchQueryForUI) { query, isForced ->
-                viewModel.updateSearchRequest(query, isForced)
-            }
-        }
-    ) { paddingValues ->
-        TheAppBody(viewModel.uiState, hideKeyboard, paddingValues, contentType)
+    if (navigationType == NavigationType.HIDDEN_NAVIGATION_DRAWER) {
+        ModalNavigationDrawer(
+            drawerContent = { NavDrawerPanel() },
+            drawerState = DrawerState(initialValue = DrawerValue.Closed)
+        ) { TheAppScaffold(contentType, hideKeyboard) }
+    } else {
+        PermanentNavigationDrawer(
+            drawerContent = { NavDrawerPanel() }
+        ) { TheAppScaffold(contentType, hideKeyboard) }
     }
 }
