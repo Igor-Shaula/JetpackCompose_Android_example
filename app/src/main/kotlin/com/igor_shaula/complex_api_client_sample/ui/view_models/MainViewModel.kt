@@ -1,4 +1,4 @@
-package com.igor_shaula.complex_api_client_sample.ui
+package com.igor_shaula.complex_api_client_sample.ui.view_models
 
 import androidx.annotation.VisibleForTesting
 import androidx.compose.runtime.getValue
@@ -18,7 +18,7 @@ class MainViewModel @Inject constructor(
     private val vehiclesRepository: VehiclesRepository
 ) : ViewModel() {
 
-    var uiState: TheUiState by mutableStateOf(TheUiState.FreshStart)
+    var uiState: MainUiState by mutableStateOf(MainUiState.FreshStart)
         private set
 
     // used only in TopBar UI and is needed to make uiState much simpler then if it was a part of uiState
@@ -44,7 +44,7 @@ class MainViewModel @Inject constructor(
         viewModelScope.launch {
             vehiclesRepository.errorData.collect {
                 if (it.explanation != null) {
-                    uiState = TheUiState.Error(it.explanation)
+                    uiState = MainUiState.Error(it.explanation)
                 }
                 println("repository.errorData.collect: ${it.explanation}")
             }
@@ -74,14 +74,14 @@ class MainViewModel @Inject constructor(
 
         // and finally - the data request from the repository inside the VM coroutine scope (for here)
         getTheNewListJob = viewModelScope.launch {
-            uiState = TheUiState.Loading
+            uiState = MainUiState.Loading
             val resultList = vehiclesRepository.launchSearchRequestFor(searchQuery)
             println("updateSearchRequest: resultList.size = ${resultList.size}")
             val vehiclesList = resultList.toTheUiModels()
             uiState = if (vehiclesList.isEmpty()) {
-                TheUiState.EmptyList
+                MainUiState.EmptyList
             } else {
-                TheUiState.Success(vehiclesList)
+                MainUiState.Success(vehiclesList)
             }
         }
     }

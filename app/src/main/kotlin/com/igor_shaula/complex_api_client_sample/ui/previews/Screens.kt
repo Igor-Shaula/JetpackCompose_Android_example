@@ -3,7 +3,7 @@ package com.igor_shaula.complex_api_client_sample.ui.previews
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass
 import androidx.compose.runtime.Composable
-import com.igor_shaula.complex_api_client_sample.ui.TheUiState
+import com.igor_shaula.complex_api_client_sample.ui.view_models.MainUiState
 import com.igor_shaula.complex_api_client_sample.ui.elements.TheAppScreen
 import com.igor_shaula.complex_api_client_sample.ui.elements.main_screen_content.ExplanationScreen
 import com.igor_shaula.complex_api_client_sample.ui.elements.main_screen_content.LoadingScreen
@@ -29,7 +29,7 @@ fun TheAppScreenPreview() {
 fun TheAppBodyStartPreview() {
     ThemeWithSurface {
         TheAppBody(
-            uiState = TheUiState.FreshStart,
+            uiState = MainUiState.FreshStart,
             hideKeyboard = { },
             paddingValues = PaddingValues(top = APP_BAR_HEIGHT),
             contentType = ContentType.LIST

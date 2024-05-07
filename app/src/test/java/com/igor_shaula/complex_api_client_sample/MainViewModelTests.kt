@@ -6,8 +6,8 @@ import com.igor_shaula.complex_api_client_sample.fakes.FakeVehiclesRepository
 import com.igor_shaula.complex_api_client_sample.fakes.mockResponseWithEmptyData
 import com.igor_shaula.complex_api_client_sample.fakes.mockResponseWithFullData
 import com.igor_shaula.complex_api_client_sample.rules.VMTestWatcher
-import com.igor_shaula.complex_api_client_sample.ui.MainViewModel
-import com.igor_shaula.complex_api_client_sample.ui.TheUiState
+import com.igor_shaula.complex_api_client_sample.ui.view_models.MainViewModel
+import com.igor_shaula.complex_api_client_sample.ui.view_models.MainUiState
 import com.igor_shaula.complex_api_client_sample.ui.models.toTheUiModels
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert
@@ -52,7 +52,7 @@ class MainViewModelTests {
         val viewModel = MainViewModel(FakeVehiclesRepository())
         Assert.assertEquals("", viewModel.searchQueryForUI)
         Assert.assertEquals("", viewModel.searchQuery)
-        Assert.assertEquals(TheUiState.FreshStart, viewModel.uiState)
+        Assert.assertEquals(MainUiState.FreshStart, viewModel.uiState)
     }
 
 // 2 - testing how error states are processed
@@ -66,11 +66,11 @@ class MainViewModelTests {
         Assert.assertEquals("", viewModel.searchQueryForUI)
         Assert.assertEquals("", viewModel.searchQuery)
         Assert.assertEquals(
-            TheUiState.Error("errorInfo").errorInfo,
-            (viewModel.uiState as TheUiState.Error).errorInfo
+            MainUiState.Error("errorInfo").errorInfo,
+            (viewModel.uiState as MainUiState.Error).errorInfo
         )
         Assert.assertEquals(
-            TheUiState.Error("").javaClass, viewModel.uiState.javaClass
+            MainUiState.Error("").javaClass, viewModel.uiState.javaClass
         )
     }
 
@@ -85,7 +85,7 @@ class MainViewModelTests {
         viewModel.updateSearchRequestTested(newText = " ", isForced = false)
         Assert.assertEquals(" ", viewModel.searchQueryForUI) // only UI has to be updated
         Assert.assertEquals("", viewModel.searchQuery) // remains empty for all blank symbols
-        Assert.assertEquals(TheUiState.FreshStart, viewModel.uiState)
+        Assert.assertEquals(MainUiState.FreshStart, viewModel.uiState)
     }
 
     // isForced = true & newQuery = " " -> request should be sent - checking connection case
@@ -97,7 +97,7 @@ class MainViewModelTests {
         viewModel.updateSearchRequestTested(newText = " ", isForced = true)
         Assert.assertEquals(" ", viewModel.searchQueryForUI)
         Assert.assertEquals("", viewModel.searchQuery)
-        Assert.assertEquals(TheUiState.EmptyList, viewModel.uiState)
+        Assert.assertEquals(MainUiState.EmptyList, viewModel.uiState)
     }
 
     // isForced = false & newQuery = "good" -> request should be sent - normal case
@@ -110,9 +110,9 @@ class MainViewModelTests {
         Assert.assertEquals("good", viewModel.searchQuery)
         val expectedList =
             fakeRepository.launchSearchRequestFor("good").toTheUiModels()
-        Assert.assertEquals(expectedList, (viewModel.uiState as TheUiState.Success).theList)
+        Assert.assertEquals(expectedList, (viewModel.uiState as MainUiState.Success).theList)
         Assert.assertEquals(
-            TheUiState.Success(expectedList).javaClass, viewModel.uiState.javaClass
+            MainUiState.Success(expectedList).javaClass, viewModel.uiState.javaClass
         )
     }
 
@@ -126,9 +126,9 @@ class MainViewModelTests {
         Assert.assertEquals("good", viewModel.searchQuery) // as a previous value
         val expectedList =
             fakeRepository.launchSearchRequestFor("good").toTheUiModels()
-        Assert.assertEquals(expectedList, (viewModel.uiState as TheUiState.Success).theList)
+        Assert.assertEquals(expectedList, (viewModel.uiState as MainUiState.Success).theList)
         Assert.assertEquals(
-            TheUiState.Success(expectedList).javaClass, viewModel.uiState.javaClass
+            MainUiState.Success(expectedList).javaClass, viewModel.uiState.javaClass
         )
     }
 
@@ -143,9 +143,9 @@ class MainViewModelTests {
         Assert.assertEquals("good", viewModel.searchQuery)
         val expectedList =
             fakeRepository.launchSearchRequestFor("good").toTheUiModels()
-        Assert.assertEquals(expectedList, (viewModel.uiState as TheUiState.Success).theList)
+        Assert.assertEquals(expectedList, (viewModel.uiState as MainUiState.Success).theList)
         Assert.assertEquals(
-            TheUiState.Success(expectedList).javaClass, viewModel.uiState.javaClass
+            MainUiState.Success(expectedList).javaClass, viewModel.uiState.javaClass
         )
     }
 
@@ -160,9 +160,9 @@ class MainViewModelTests {
         Assert.assertEquals("good", viewModel.searchQuery)
         val expectedList =
             fakeRepository.launchSearchRequestFor("good").toTheUiModels()
-        Assert.assertEquals(expectedList, (viewModel.uiState as TheUiState.Success).theList)
+        Assert.assertEquals(expectedList, (viewModel.uiState as MainUiState.Success).theList)
         Assert.assertEquals(
-            TheUiState.Success(expectedList).javaClass, viewModel.uiState.javaClass
+            MainUiState.Success(expectedList).javaClass, viewModel.uiState.javaClass
         )
     }
 }

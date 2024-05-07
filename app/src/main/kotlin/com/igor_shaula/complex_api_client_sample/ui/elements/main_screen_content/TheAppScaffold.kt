@@ -3,7 +3,7 @@ package com.igor_shaula.complex_api_client_sample.ui.elements.main_screen_conten
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.igor_shaula.complex_api_client_sample.ui.MainViewModel
+import com.igor_shaula.complex_api_client_sample.ui.view_models.MainViewModel
 import com.igor_shaula.complex_api_client_sample.ui.utils.ContentType
 
 @Composable
