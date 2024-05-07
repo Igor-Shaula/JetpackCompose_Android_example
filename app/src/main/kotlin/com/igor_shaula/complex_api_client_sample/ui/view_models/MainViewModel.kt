@@ -6,7 +6,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.igor_shaula.complex_api_client_sample.data.VehiclesRepository
+import com.igor_shaula.complex_api_client_sample.data.repositories.VehiclesRepository
 import com.igor_shaula.complex_api_client_sample.ui.models.toTheUiModels
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job

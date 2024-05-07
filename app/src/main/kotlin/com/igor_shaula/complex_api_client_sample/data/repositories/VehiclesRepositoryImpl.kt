@@ -1,6 +1,7 @@
-package com.igor_shaula.complex_api_client_sample.data
+package com.igor_shaula.complex_api_client_sample.data.repositories
 
 import androidx.annotation.VisibleForTesting
+import com.igor_shaula.complex_api_client_sample.data.GenericErrorForUI
 import com.igor_shaula.complex_api_client_sample.data.entities.VehicleNetworkEntity
 import com.igor_shaula.complex_api_client_sample.data.network.NetworkDataSource
 import com.igor_shaula.complex_api_client_sample.data.network.NetworkGeneralFailure

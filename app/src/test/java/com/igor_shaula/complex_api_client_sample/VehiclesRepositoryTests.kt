@@ -1,8 +1,8 @@
 package com.igor_shaula.complex_api_client_sample
 
-import com.igor_shaula.complex_api_client_sample.data.VehiclesRepositoryImpl
-import com.igor_shaula.complex_api_client_sample.data.assembleFromNetworkEntity3Loops
-import com.igor_shaula.complex_api_client_sample.data.assembleFromNetworkEntityOptimized
+import com.igor_shaula.complex_api_client_sample.data.repositories.VehiclesRepositoryImpl
+import com.igor_shaula.complex_api_client_sample.data.repositories.assembleFromNetworkEntity3Loops
+import com.igor_shaula.complex_api_client_sample.data.repositories.assembleFromNetworkEntityOptimized
 import com.igor_shaula.complex_api_client_sample.data.network.NetworkDataSource
 import com.igor_shaula.complex_api_client_sample.data.network.OneVehicleData
 import com.igor_shaula.complex_api_client_sample.fakes.FakeNetworkApiService
