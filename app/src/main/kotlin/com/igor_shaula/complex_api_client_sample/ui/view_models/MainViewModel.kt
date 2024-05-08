@@ -6,6 +6,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.igor_shaula.complex_api_client_sample.data.repositories.SettingsRepository
 import com.igor_shaula.complex_api_client_sample.data.repositories.VehiclesRepository
 import com.igor_shaula.complex_api_client_sample.ui.models.toTheUiModels
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -15,7 +16,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
-    private val vehiclesRepository: VehiclesRepository
+    private val vehiclesRepository: VehiclesRepository,
+    private val settingsRepository: SettingsRepository
 ) : ViewModel() {
 
     var uiState: MainUiState by mutableStateOf(MainUiState.FreshStart)
@@ -34,6 +36,7 @@ class MainViewModel @Inject constructor(
 
     init {
         setupForCatchingAnyErrorInfo()
+        setupForChangingActiveApi()
     }
 
     // this method is used only to handle @VisibleForTesting warning without @Suppress on higher level
@@ -47,6 +50,17 @@ class MainViewModel @Inject constructor(
                     uiState = MainUiState.Error(it.explanation)
                 }
                 println("repository.errorData.collect: ${it.explanation}")
+            }
+        }
+    }
+
+    private fun setupForChangingActiveApi() {
+        viewModelScope.launch {
+            settingsRepository.activeApiFlow.collect { activeApi ->
+//            settingsRepository.activeApiFlow.collectLatest { activeApi -> // the same as collect
+                println("setupForChangingActiveApi: " + activeApi.name)
+                // change API -> result from previous API is no more needed
+                uiState = MainUiState.FreshStart(activeApi)
             }
         }
     }
