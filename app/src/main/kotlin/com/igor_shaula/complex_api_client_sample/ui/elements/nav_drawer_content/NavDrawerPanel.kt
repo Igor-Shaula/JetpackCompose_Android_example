@@ -9,21 +9,19 @@ import androidx.compose.foundation.layout.widthIn
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.igor_shaula.complex_api_client_sample.R
 import com.igor_shaula.complex_api_client_sample.ui.theme.DEFAULT_PADDING
 import com.igor_shaula.complex_api_client_sample.ui.theme.NAV_DRAWER_WIDTH
+import com.igor_shaula.complex_api_client_sample.ui.view_models.DrawerViewModel
 
 @Composable
 fun NavDrawerPanel() {
-
-    val apiName = remember { mutableStateOf("Outdoorsy") }
-
+    val viewModel: DrawerViewModel = viewModel()
     Column(
         modifier = Modifier
             .widthIn(min = 0.dp, max = NAV_DRAWER_WIDTH)
@@ -41,7 +39,10 @@ fun NavDrawerPanel() {
                 .padding(DEFAULT_PADDING)
         )
         ApiSelectionBlock(
-            selectedApi = apiName.value, setSelected = { apiName.value = it }
+            selectedApi = viewModel.uiState.activeApi.uiName,
+            setSelected = { newApi ->
+                viewModel.onActiveApiChange(newApi)
+            }
         )
     }
 }
