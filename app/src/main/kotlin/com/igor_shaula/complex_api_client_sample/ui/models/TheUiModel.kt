@@ -1,5 +1,6 @@
 package com.igor_shaula.complex_api_client_sample.ui.models
 
+import com.igor_shaula.complex_api_client_sample.data.entities.BeerNetworkEntity
 import com.igor_shaula.complex_api_client_sample.data.network.OneVehicleData
 
 // container of UI-level data for list items on screen
@@ -8,6 +9,7 @@ data class TheUiModel(
     val name: String
 )
 
+// this function needs to be optimized with map-operator
 fun List<OneVehicleData>.toTheUiModels(): List<TheUiModel> {
     val result = mutableListOf<TheUiModel>()
     forEach {
@@ -15,3 +17,8 @@ fun List<OneVehicleData>.toTheUiModels(): List<TheUiModel> {
     }
     return result
 }
+
+fun List<BeerNetworkEntity>.fromBeersToTheUiModels(): List<TheUiModel> =
+    this.map {
+        TheUiModel(name = it.name, image = it.image)
+    }

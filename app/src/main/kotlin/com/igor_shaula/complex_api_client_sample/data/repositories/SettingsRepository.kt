@@ -26,7 +26,7 @@ interface SettingsRepository {
 
 class SettingsRepositoryImpl @Inject constructor() : SettingsRepository {
 
-    private val _activeApi = MutableStateFlow(ActiveApi.OUTDOORSY)
+    private val _activeApi = MutableStateFlow(ActiveApi.BEER)
     override val activeApiFlow: StateFlow<ActiveApi> = _activeApi.asStateFlow()
 
     override fun setActiveApi(newApi: ActiveApi) {
