@@ -6,8 +6,11 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.igor_shaula.complex_api_client_sample.data.repositories.ActiveApi
+import com.igor_shaula.complex_api_client_sample.data.repositories.BeersRepository
 import com.igor_shaula.complex_api_client_sample.data.repositories.SettingsRepository
 import com.igor_shaula.complex_api_client_sample.data.repositories.VehiclesRepository
+import com.igor_shaula.complex_api_client_sample.ui.models.fromBeersToTheUiModels
 import com.igor_shaula.complex_api_client_sample.ui.models.toTheUiModels
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
@@ -17,7 +20,8 @@ import javax.inject.Inject
 @HiltViewModel
 class MainViewModel @Inject constructor(
     private val vehiclesRepository: VehiclesRepository,
-    private val settingsRepository: SettingsRepository
+    private val settingsRepository: SettingsRepository,
+    private val beersRepository: BeersRepository
 ) : ViewModel() {
 
     var uiState: MainUiState by mutableStateOf(
@@ -92,13 +96,31 @@ class MainViewModel @Inject constructor(
         // and finally - the data request from the repository inside the VM coroutine scope (for here)
         getTheNewListJob = viewModelScope.launch {
             uiState = MainUiState.Loading
-            val resultList = vehiclesRepository.launchSearchRequestFor(searchQuery)
-            println("updateSearchRequest: resultList.size = ${resultList.size}")
-            val vehiclesList = resultList.toTheUiModels()
-            uiState = if (vehiclesList.isEmpty()) {
-                MainUiState.EmptyList(settingsRepository.activeApiFlow.value)
+            if (settingsRepository.activeApiFlow.value == ActiveApi.OUTDOORSY) {
+                val resultList = vehiclesRepository.launchSearchRequestFor(searchQuery)
+                println("updateSearchRequest: resultList.size = ${resultList.size}")
+                val vehiclesList = resultList.toTheUiModels()
+                uiState = if (vehiclesList.isEmpty()) {
+                    MainUiState.EmptyList(settingsRepository.activeApiFlow.value)
+                } else {
+                    MainUiState.Success(vehiclesList)
+                }
             } else {
-                MainUiState.Success(vehiclesList)
+                kotlin.runCatching {
+                    beersRepository.fetchBeers()
+                }.onSuccess { items ->
+                    val theUiModels = (items.fromBeersToTheUiModels())
+                    println("onSuccess: ${theUiModels.size}")
+                    uiState = if (theUiModels.isEmpty()) {
+                        MainUiState.EmptyList(settingsRepository.activeApiFlow.value)
+                    } else {
+                        MainUiState.Success(theUiModels)
+                    }
+                }.onFailure {
+                    uiState = MainUiState.Error(
+                        "" + it.localizedMessage, settingsRepository.activeApiFlow.value
+                    )
+                }
             }
         }
     }
