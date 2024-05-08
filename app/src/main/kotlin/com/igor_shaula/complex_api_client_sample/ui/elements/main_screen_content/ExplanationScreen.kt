@@ -16,7 +16,9 @@ import com.igor_shaula.complex_api_client_sample.ui.theme.DEFAULT_PADDING
 
 @Composable
 fun ExplanationScreen(
-    paddingTop: Dp, theTitle: String, theText: String, isError: Boolean = false
+    paddingTop: Dp,
+    theTitle: String, activeApiName: String, theText: String,
+    isError: Boolean = false
 ) = Column(
     modifier = Modifier
         .fillMaxSize()
@@ -29,6 +31,13 @@ fun ExplanationScreen(
     Text(
         text = theTitle,
         style = MaterialTheme.typography.titleMedium,
+        modifier = Modifier.fillMaxWidth()
+    )
+    Text(
+        text = activeApiName,
+        style = MaterialTheme.typography.titleMedium.copy(
+            color = MaterialTheme.colorScheme.onTertiaryContainer
+        ),
         modifier = Modifier.fillMaxWidth()
     )
     Spacer(Modifier.height(DEFAULT_PADDING))
