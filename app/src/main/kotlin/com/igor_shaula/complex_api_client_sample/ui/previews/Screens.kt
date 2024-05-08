@@ -3,7 +3,7 @@ package com.igor_shaula.complex_api_client_sample.ui.previews
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass
 import androidx.compose.runtime.Composable
-import com.igor_shaula.complex_api_client_sample.ui.view_models.MainUiState
+import com.igor_shaula.complex_api_client_sample.data.repositories.ActiveApi
 import com.igor_shaula.complex_api_client_sample.ui.elements.TheAppScreen
 import com.igor_shaula.complex_api_client_sample.ui.elements.main_screen_content.ExplanationScreen
 import com.igor_shaula.complex_api_client_sample.ui.elements.main_screen_content.LoadingScreen
@@ -12,6 +12,7 @@ import com.igor_shaula.complex_api_client_sample.ui.elements.main_screen_content
 import com.igor_shaula.complex_api_client_sample.ui.models.TheUiModel
 import com.igor_shaula.complex_api_client_sample.ui.theme.APP_BAR_HEIGHT
 import com.igor_shaula.complex_api_client_sample.ui.utils.ContentType
+import com.igor_shaula.complex_api_client_sample.ui.view_models.MainUiState
 
 @DayNightPreviews
 @Composable
@@ -29,7 +30,7 @@ fun TheAppScreenPreview() {
 fun TheAppBodyStartPreview() {
     ThemeWithSurface {
         TheAppBody(
-            uiState = MainUiState.FreshStart,
+            uiState = MainUiState.FreshStart(ActiveApi.OUTDOORSY),
             hideKeyboard = { },
             paddingValues = PaddingValues(top = APP_BAR_HEIGHT),
             contentType = ContentType.LIST
@@ -42,7 +43,9 @@ fun TheAppBodyStartPreview() {
 fun ExplanationScreenPreview() {
     ThemeWithSurface {
         ExplanationScreen(
-            APP_BAR_HEIGHT, theTitle = "explanation TITLE", theText = "explanation text"
+            APP_BAR_HEIGHT, theTitle = "explanation TITLE",
+            activeApiName = ActiveApi.OUTDOORSY.uiName,
+            theText = "explanation text"
         )
     }
 }

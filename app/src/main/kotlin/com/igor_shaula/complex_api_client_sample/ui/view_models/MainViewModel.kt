@@ -20,7 +20,9 @@ class MainViewModel @Inject constructor(
     private val settingsRepository: SettingsRepository
 ) : ViewModel() {
 
-    var uiState: MainUiState by mutableStateOf(MainUiState.FreshStart)
+    var uiState: MainUiState by mutableStateOf(
+        MainUiState.FreshStart(settingsRepository.activeApiFlow.value)
+    )
         private set
 
     // used only in TopBar UI and is needed to make uiState much simpler then if it was a part of uiState
@@ -47,7 +49,8 @@ class MainViewModel @Inject constructor(
         viewModelScope.launch {
             vehiclesRepository.errorData.collect {
                 if (it.explanation != null) {
-                    uiState = MainUiState.Error(it.explanation)
+                    uiState =
+                        MainUiState.Error(it.explanation, settingsRepository.activeApiFlow.value)
                 }
                 println("repository.errorData.collect: ${it.explanation}")
             }
@@ -93,7 +96,7 @@ class MainViewModel @Inject constructor(
             println("updateSearchRequest: resultList.size = ${resultList.size}")
             val vehiclesList = resultList.toTheUiModels()
             uiState = if (vehiclesList.isEmpty()) {
-                MainUiState.EmptyList
+                MainUiState.EmptyList(settingsRepository.activeApiFlow.value)
             } else {
                 MainUiState.Success(vehiclesList)
             }
