@@ -2,6 +2,8 @@ package com.igor_shaula.complex_api_client_sample
 
 import com.igor_shaula.complex_api_client_sample.data.network.URL
 import com.igor_shaula.complex_api_client_sample.data.network.retrofit.VehicleRetrofitNetworkService
+import com.igor_shaula.complex_api_client_sample.data.repositories.SettingsRepository
+import com.igor_shaula.complex_api_client_sample.data.repositories.SettingsRepositoryImpl
 import com.igor_shaula.complex_api_client_sample.data.repositories.VehiclesRepository
 import com.igor_shaula.complex_api_client_sample.data.repositories.VehiclesRepositoryImpl
 import dagger.Binds
@@ -15,7 +17,13 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 @Module
 @InstallIn(ViewModelComponent::class)
-interface VehiclesRepositoryModule {
+interface RepositoryModule {
+
+    @ViewModelScoped
+    @Binds
+    fun bindSettingsRepository(
+        settingsRepositoryImpl: SettingsRepositoryImpl
+    ): SettingsRepository
 
     @ViewModelScoped
     @Binds
