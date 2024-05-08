@@ -1,6 +1,6 @@
 package com.igor_shaula.complex_api_client_sample
 
-import com.igor_shaula.complex_api_client_sample.data.network.URL
+import com.igor_shaula.complex_api_client_sample.data.network.OUTDOORSY_BASE_URL
 import com.igor_shaula.complex_api_client_sample.data.network.retrofit.VehicleRetrofitNetworkService
 import com.igor_shaula.complex_api_client_sample.data.repositories.SettingsRepository
 import com.igor_shaula.complex_api_client_sample.data.repositories.SettingsRepositoryImpl
@@ -48,7 +48,7 @@ object RetrofitModule {
     @Provides
     fun provideVehicleRetrofitNetworkService(): VehicleRetrofitNetworkService =
         Retrofit.Builder()
-            .baseUrl(URL)
+            .baseUrl(OUTDOORSY_BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
             .create(VehicleRetrofitNetworkService::class.java)
