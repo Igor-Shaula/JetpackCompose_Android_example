@@ -16,6 +16,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import com.igor_shaula.complex_api_client_sample.R
+import com.igor_shaula.complex_api_client_sample.data.repositories.BEER_UI_NAME
+import com.igor_shaula.complex_api_client_sample.data.repositories.OUTDOORSY_UI_NAME
 import com.igor_shaula.complex_api_client_sample.ui.theme.DEFAULT_PADDING
 import com.igor_shaula.complex_api_client_sample.ui.theme.SMALL_PADDING
 
@@ -24,10 +26,6 @@ fun ApiSelectionBlock(
     selectedApi: String,
     setSelected: (selected: String) -> Unit
 ) {
-    val apiNames: List<String> = listOf(
-        stringResource(id = R.string.api_selection_block_outdoorsy),
-        stringResource(id = R.string.api_selection_block_beer)
-    )
     Column(
         modifier = Modifier
             .padding(top = DEFAULT_PADDING, bottom = DEFAULT_PADDING)
@@ -47,7 +45,9 @@ fun ApiSelectionBlock(
                     start = DEFAULT_PADDING, end = DEFAULT_PADDING
                 )
         )
-        apiNames.forEach { apiName ->
+        arrayOf(
+            OUTDOORSY_UI_NAME, BEER_UI_NAME
+        ).forEach { apiName ->
             Row(
                 verticalAlignment = Alignment.CenterVertically,
                 modifier = Modifier.padding(start = DEFAULT_PADDING, end = DEFAULT_PADDING)
