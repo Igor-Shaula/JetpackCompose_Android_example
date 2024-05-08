@@ -1,7 +1,11 @@
 package com.igor_shaula.complex_api_client_sample
 
+import com.igor_shaula.complex_api_client_sample.data.network.BEER_BASE_URL
 import com.igor_shaula.complex_api_client_sample.data.network.OUTDOORSY_BASE_URL
+import com.igor_shaula.complex_api_client_sample.data.network.retrofit.BeerRetrofitNetworkService
 import com.igor_shaula.complex_api_client_sample.data.network.retrofit.VehicleRetrofitNetworkService
+import com.igor_shaula.complex_api_client_sample.data.repositories.BeersRepository
+import com.igor_shaula.complex_api_client_sample.data.repositories.BeersRepositoryImpl
 import com.igor_shaula.complex_api_client_sample.data.repositories.SettingsRepository
 import com.igor_shaula.complex_api_client_sample.data.repositories.SettingsRepositoryImpl
 import com.igor_shaula.complex_api_client_sample.data.repositories.VehiclesRepository
@@ -24,6 +28,12 @@ interface RepositoryModule {
     fun bindSettingsRepository(
         settingsRepositoryImpl: SettingsRepositoryImpl
     ): SettingsRepository
+
+    @ViewModelScoped
+    @Binds
+    fun bindBeersRepository(
+        beersRepositoryImpl: BeersRepositoryImpl
+    ): BeersRepository
 
     @ViewModelScoped
     @Binds
@@ -52,4 +62,14 @@ object RetrofitModule {
             .addConverterFactory(GsonConverterFactory.create())
             .build()
             .create(VehicleRetrofitNetworkService::class.java)
+
+    @ViewModelScoped
+    @Provides
+    fun provideBeerRetrofitNetworkService(): BeerRetrofitNetworkService =
+        Retrofit.Builder()
+            .baseUrl(BEER_BASE_URL)
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+            .create(BeerRetrofitNetworkService::class.java)
+
 }
