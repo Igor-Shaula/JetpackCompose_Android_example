@@ -6,7 +6,7 @@ import retrofit2.Response
 import java.io.IOException
 import javax.inject.Inject
 
-class NetworkDataSource @Inject constructor(
+class NetworkVehicleDataSource @Inject constructor(
     private val vehicleNetworkService: VehicleRetrofitNetworkService
 ) {
 

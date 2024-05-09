@@ -3,7 +3,7 @@ package com.igor_shaula.complex_api_client_sample.data.repositories
 import androidx.annotation.VisibleForTesting
 import com.igor_shaula.complex_api_client_sample.data.GenericErrorForUI
 import com.igor_shaula.complex_api_client_sample.data.entities.VehicleNetworkEntity
-import com.igor_shaula.complex_api_client_sample.data.network.NetworkDataSource
+import com.igor_shaula.complex_api_client_sample.data.network.NetworkVehicleDataSource
 import com.igor_shaula.complex_api_client_sample.data.network.NetworkGeneralFailure
 import com.igor_shaula.complex_api_client_sample.data.network.OneVehicleData
 import kotlinx.coroutines.flow.Flow
@@ -26,14 +26,14 @@ interface VehiclesRepository {
 const val VALID_IMAGE_TYPE = "images"
 
 class VehiclesRepositoryImpl @Inject constructor(
-    private val networkDataSource: NetworkDataSource,
+    private val networkVehicleDataSource: NetworkVehicleDataSource,
 ) : VehiclesRepository {
 
     private val _errorData = MutableStateFlow(GenericErrorForUI())
     override val errorData = _errorData.asStateFlow()
 
     override suspend fun launchSearchRequestFor(searchQuery: String): List<OneVehicleData> {
-        val entityResult = networkDataSource.launchSearchRequestFor(searchQuery)
+        val entityResult = networkVehicleDataSource.launchSearchRequestFor(searchQuery)
         return convertIntoListOfData(entityResult)
     }
 
