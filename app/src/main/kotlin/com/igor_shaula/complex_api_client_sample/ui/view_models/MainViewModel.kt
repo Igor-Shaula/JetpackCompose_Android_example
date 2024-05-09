@@ -1,6 +1,7 @@
 package com.igor_shaula.complex_api_client_sample.ui.view_models
 
 import androidx.annotation.VisibleForTesting
+import androidx.compose.material3.DrawerState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -48,7 +49,6 @@ class MainViewModel @Inject constructor(
 //        listenActiveApiSharedFlow() // experiment
 //        listenActiveApiChannel() // also experiment
 //        listenActiveApiMLD()
-//        activeApi = settingsRepository.activeApiStateFlow.value
     }
 
     // this method is used only to handle @VisibleForTesting warning without @Suppress on higher level
@@ -158,5 +158,11 @@ class MainViewModel @Inject constructor(
                 }
             }
         }
+    }
+
+    // this function is left for the future for potential reaction for drawer state change
+    fun onDrawerStateChange(drawerState: DrawerState) {
+        println("onDrawerStateChange: isClosed = " + drawerState.isClosed)
+        // when the main content is hidden beneath the open drawer - we can pause its progress
     }
 }
