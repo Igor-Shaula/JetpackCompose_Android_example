@@ -14,6 +14,8 @@ import com.igor_shaula.complex_api_client_sample.ui.models.fromBeersToTheUiModel
 import com.igor_shaula.complex_api_client_sample.ui.models.toTheUiModels
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.consumeAsFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -25,7 +27,7 @@ class MainViewModel @Inject constructor(
 ) : ViewModel() {
 
     var uiState: MainUiState by mutableStateOf(
-        MainUiState.FreshStart(settingsRepository.activeApiFlow.value)
+        MainUiState.FreshStart(settingsRepository.activeApiStateFlow.value)
     )
         private set
 
@@ -42,7 +44,11 @@ class MainViewModel @Inject constructor(
 
     init {
         setupForCatchingAnyErrorInfo()
-        setupForChangingActiveApi()
+        listenActiveApiStateFlow()
+//        listenActiveApiSharedFlow() // experiment
+//        listenActiveApiChannel() // also experiment
+//        listenActiveApiMLD()
+//        activeApi = settingsRepository.activeApiStateFlow.value
     }
 
     // this method is used only to handle @VisibleForTesting warning without @Suppress on higher level
@@ -53,22 +59,51 @@ class MainViewModel @Inject constructor(
         viewModelScope.launch {
             vehiclesRepository.errorData.collect {
                 if (it.explanation != null) {
-                    uiState =
-                        MainUiState.Error(it.explanation, settingsRepository.activeApiFlow.value)
+                    uiState = MainUiState.Error(
+                        it.explanation, settingsRepository.activeApiStateFlow.value
+                    )
                 }
                 println("repository.errorData.collect: ${it.explanation}")
             }
         }
     }
 
-    private fun setupForChangingActiveApi() {
+    private fun listenActiveApiStateFlow() {
         viewModelScope.launch {
-            settingsRepository.activeApiFlow.collect { activeApi ->
-//            settingsRepository.activeApiFlow.collectLatest { activeApi -> // the same as collect
-                println("setupForChangingActiveApi: " + activeApi.name)
+            settingsRepository.activeApiStateFlow.collect { activeApi ->
+                println("listenActiveApiStateFlow: " + activeApi.name)
                 // change API -> result from previous API is no more needed
                 uiState = MainUiState.FreshStart(activeApi)
             }
+        }
+    }
+
+    private fun listenActiveApiSharedFlow() {
+        viewModelScope.launch {
+            settingsRepository.activeApiSharedFlow.collectLatest { activeApi ->
+                println("listenActiveApiSharedFlow: " + activeApi.name)
+                // change API -> result from previous API is no more needed
+                uiState = MainUiState.FreshStart(activeApi)
+            }
+        }
+    }
+
+    private fun listenActiveApiChannel() {
+        viewModelScope.launch {
+            settingsRepository.activeApiChannel.consumeAsFlow().collectLatest { activeApi ->
+//            settingsRepository.activeApiChannel.receiveAsFlow().collectLatest { activeApi ->
+                println("listenActiveApiChannel: " + activeApi.name)
+                // change API -> result from previous API is no more needed
+                uiState = MainUiState.FreshStart(activeApi)
+            }
+        }
+    }
+
+    private fun listenActiveApiMLD() {
+        settingsRepository.activeApiMLD.observeForever { activeApi ->
+            println("listenActiveApiChannel: " + activeApi.name)
+            // change API -> result from previous API is no more needed
+            uiState = MainUiState.FreshStart(activeApi)
         }
     }
 
@@ -96,12 +131,12 @@ class MainViewModel @Inject constructor(
         // and finally - the data request from the repository inside the VM coroutine scope (for here)
         getTheNewListJob = viewModelScope.launch {
             uiState = MainUiState.Loading
-            if (settingsRepository.activeApiFlow.value == ActiveApi.OUTDOORSY) {
+            if (settingsRepository.activeApiStateFlow.value == ActiveApi.OUTDOORSY) {
                 val resultList = vehiclesRepository.launchSearchRequestFor(searchQuery)
                 println("updateSearchRequest: resultList.size = ${resultList.size}")
                 val vehiclesList = resultList.toTheUiModels()
                 uiState = if (vehiclesList.isEmpty()) {
-                    MainUiState.EmptyList(settingsRepository.activeApiFlow.value)
+                    MainUiState.EmptyList(settingsRepository.activeApiStateFlow.value)
                 } else {
                     MainUiState.Success(vehiclesList)
                 }
@@ -112,13 +147,13 @@ class MainViewModel @Inject constructor(
                     val theUiModels = (items.fromBeersToTheUiModels())
                     println("onSuccess: ${theUiModels.size}")
                     uiState = if (theUiModels.isEmpty()) {
-                        MainUiState.EmptyList(settingsRepository.activeApiFlow.value)
+                        MainUiState.EmptyList(settingsRepository.activeApiStateFlow.value)
                     } else {
                         MainUiState.Success(theUiModels)
                     }
                 }.onFailure {
                     uiState = MainUiState.Error(
-                        "" + it.localizedMessage, settingsRepository.activeApiFlow.value
+                        "" + it.localizedMessage, settingsRepository.activeApiStateFlow.value
                     )
                 }
             }

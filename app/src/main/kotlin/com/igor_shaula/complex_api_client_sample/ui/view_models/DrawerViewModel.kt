@@ -26,11 +26,17 @@ class DrawerViewModel @Inject constructor(
     fun onActiveApiChange(newApi: String) {
         settingsRepository.setActiveApi(ActiveApi.fromName(newApi))
 //        uiState = DrawerUiState(settingsRepository.getChosenApi()) // -> setupForChangingActiveApi()
+
+        // the following is just a part of an experiment
+        viewModelScope.launch {
+            settingsRepository.activeApiChannel.send(ActiveApi.fromName(newApi))
+        }
+        println("onActiveApiChange: all worked for newApi: $newApi")
     }
 
     private fun setupForChangingActiveApi() {
         viewModelScope.launch {
-            settingsRepository.activeApiFlow.collect { activeApi ->
+            settingsRepository.activeApiStateFlow.collect { activeApi ->
                 uiState = DrawerUiState(activeApi)
             }
         }
