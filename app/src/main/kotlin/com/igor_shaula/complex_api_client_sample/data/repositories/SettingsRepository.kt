@@ -7,7 +7,6 @@ import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
-import javax.inject.Inject
 
 const val OUTDOORSY_UI_NAME = "Outdoorsy"
 const val BEER_UI_NAME = "Beer"
@@ -34,7 +33,8 @@ interface SettingsRepository {
     fun setActiveApi(newApi: ActiveApi)
 }
 
-class SettingsRepositoryImpl @Inject constructor() : SettingsRepository {
+// decided to have it as a singleton to avoid issues with different instances and scoped injections
+object SettingsRepositoryImpl : SettingsRepository {
 
     private val _activeApi = MutableStateFlow(ActiveApi.BEER)
     override val activeApiStateFlow: StateFlow<ActiveApi> = _activeApi.asStateFlow()

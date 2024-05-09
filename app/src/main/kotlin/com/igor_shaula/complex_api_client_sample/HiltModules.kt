@@ -21,13 +21,23 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 @Module
 @InstallIn(ViewModelComponent::class)
+class SharedRepositoryModule {
+
+    // @ViewModelScoped - this doesn't make a difference, by the way all other scopes will not build
+    @Provides // @Binds will not build for singleton - it was tried and proven: only @Provides works
+    fun provideSettingsRepository(): SettingsRepository = SettingsRepositoryImpl
+}
+
+@Module
+@InstallIn(ViewModelComponent::class)
 interface RepositoryModule {
 
-    @ViewModelScoped
-    @Binds
-    fun bindSettingsRepository(
-        settingsRepositoryImpl: SettingsRepositoryImpl
-    ): SettingsRepository
+    // this approach will not build & isn't good here - because the scopes would be different
+//    @ActivityRetainedScoped // because this repository has to be the same for all viewModels
+//    @Binds
+//    fun bindSettingsRepository(
+//        settingsRepositoryImpl: SettingsRepositoryImpl
+//    ): SettingsRepository
 
     @ViewModelScoped
     @Binds
