@@ -16,7 +16,7 @@ class DrawerViewModel @Inject constructor(
     private val settingsRepository: SettingsRepository
 ) : ViewModel() {
 
-    var uiState: DrawerUiState by mutableStateOf(DrawerUiState(ActiveApi.OUTDOORSY))
+    var uiState: DrawerUiState by mutableStateOf(DrawerUiState(ActiveApi.default()))
         private set
 
     init {

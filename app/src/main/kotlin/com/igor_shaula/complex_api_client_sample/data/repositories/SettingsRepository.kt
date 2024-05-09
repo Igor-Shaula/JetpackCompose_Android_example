@@ -17,7 +17,8 @@ enum class ActiveApi(val uiName: String) {
     OUTDOORSY(OUTDOORSY_UI_NAME), BEER(BEER_UI_NAME);
 
     companion object {
-        fun fromName(newApi: String) = requireNotNull(entries.find { it.uiName == newApi }) { BEER }
+        fun fromName(newApi: String) = requireNotNull(entries.find { it.uiName == newApi })
+        fun default() = BEER // the only place of real setting of preselected API
     }
 }
 
