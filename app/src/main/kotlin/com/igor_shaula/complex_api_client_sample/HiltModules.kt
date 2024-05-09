@@ -1,6 +1,6 @@
 package com.igor_shaula.complex_api_client_sample
 
-import com.igor_shaula.complex_api_client_sample.data.network.BEER_BASE_URL
+import com.igor_shaula.complex_api_client_sample.data.network.BEERS_BASE_URL
 import com.igor_shaula.complex_api_client_sample.data.network.OUTDOORSY_BASE_URL
 import com.igor_shaula.complex_api_client_sample.data.network.retrofit.BeerRetrofitNetworkService
 import com.igor_shaula.complex_api_client_sample.data.network.retrofit.VehicleRetrofitNetworkService
@@ -77,7 +77,7 @@ object RetrofitModule {
     @Provides
     fun provideBeerRetrofitNetworkService(): BeerRetrofitNetworkService =
         Retrofit.Builder()
-            .baseUrl(BEER_BASE_URL)
+            .baseUrl(BEERS_BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
             .create(BeerRetrofitNetworkService::class.java)

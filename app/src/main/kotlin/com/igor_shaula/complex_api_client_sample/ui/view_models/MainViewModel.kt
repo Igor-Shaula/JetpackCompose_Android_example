@@ -101,7 +101,7 @@ class MainViewModel @Inject constructor(
 
     private fun listenActiveApiMLD() {
         settingsRepository.activeApiMLD.observeForever { activeApi ->
-            println("listenActiveApiChannel: " + activeApi.name)
+            println("listenActiveApiMLD: " + activeApi.name)
             // change API -> result from previous API is no more needed
             uiState = MainUiState.FreshStart(activeApi)
         }
