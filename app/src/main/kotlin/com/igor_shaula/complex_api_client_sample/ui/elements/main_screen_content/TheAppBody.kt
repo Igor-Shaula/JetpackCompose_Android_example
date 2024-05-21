@@ -7,6 +7,9 @@ import com.igor_shaula.complex_api_client_sample.R
 import com.igor_shaula.complex_api_client_sample.ui.utils.ContentType
 import com.igor_shaula.complex_api_client_sample.ui.view_models.MainUiState
 
+private fun String.wrapForExplanationScreen(stringResource: String): String =
+    "($stringResource $this API)"
+
 @Composable
 fun TheAppBody(
     uiState: MainUiState,
@@ -19,18 +22,18 @@ fun TheAppBody(
         is MainUiState.FreshStart -> ExplanationScreen(
             paddingTop = paddingValues.calculateTopPadding(),
             theTitle = stringResource(id = R.string.firstLaunchExplanationTitle),
-            activeApiName =
-            "(" + stringResource(id = R.string.forJoint) + uiState.activeApi.uiName + " API)",
+            activeApiName = uiState.activeApi.uiName
+                .wrapForExplanationScreen(stringResource(id = R.string.forJoint)),
             theText = stringResource(R.string.firstLaunchExplanationText)
         )
 
-        MainUiState.Loading -> LoadingScreen()
+        MainUiState.Loading -> LoadingScreen() // "is" is not needed here as we use an object
 
         is MainUiState.EmptyList -> ExplanationScreen(
             paddingTop = paddingValues.calculateTopPadding(),
             theTitle = stringResource(id = R.string.emptyListExplanationTitle),
-            activeApiName =
-            "(" + stringResource(id = R.string.forJoint) + uiState.activeApi.uiName + " API)",
+            activeApiName = uiState.activeApi.uiName
+                .wrapForExplanationScreen(stringResource(id = R.string.forJoint)),
             theText = stringResource(R.string.emptyListExplanationText)
         )
 
@@ -44,8 +47,8 @@ fun TheAppBody(
         is MainUiState.Error -> ExplanationScreen(
             paddingTop = paddingValues.calculateTopPadding(),
             theTitle = stringResource(id = R.string.errorStateInfoTitle),
-            activeApiName =
-            "(" + stringResource(id = R.string.forJoint) + uiState.activeApi.uiName + " API)",
+            activeApiName = uiState.activeApi.uiName
+                .wrapForExplanationScreen(stringResource(id = R.string.forJoint)),
             theText = uiState.errorInfo,
             isError = true
         )
