@@ -1,6 +1,7 @@
 package com.igor_shaula.complex_api_client_sample.view_models
 
 import com.igor_shaula.complex_api_client_sample.data.GenericErrorForUI
+import com.igor_shaula.complex_api_client_sample.data.repositories.ActiveApi
 import com.igor_shaula.complex_api_client_sample.data_sources.FakeDataSource
 import com.igor_shaula.complex_api_client_sample.other_fakes_and_mocks.mockResponseWithEmptyData
 import com.igor_shaula.complex_api_client_sample.other_fakes_and_mocks.mockResponseWithFullData
@@ -57,7 +58,7 @@ class MainViewModelTests {
         )
         Assert.assertEquals("", viewModel.searchQueryForUI)
         Assert.assertEquals("", viewModel.searchQuery)
-        Assert.assertEquals(MainUiState.FreshStart, viewModel.uiState)
+        Assert.assertEquals(MainUiState.FreshStart(ActiveApi.default()), viewModel.uiState)
     }
 
 // 2 - testing how error states are processed
@@ -75,11 +76,11 @@ class MainViewModelTests {
         Assert.assertEquals("", viewModel.searchQueryForUI)
         Assert.assertEquals("", viewModel.searchQuery)
         Assert.assertEquals(
-            MainUiState.Error("errorInfo").errorInfo,
+            MainUiState.Error("errorInfo", ActiveApi.default()).errorInfo,
             (viewModel.uiState as MainUiState.Error).errorInfo
         )
         Assert.assertEquals(
-            MainUiState.Error("").javaClass, viewModel.uiState.javaClass
+            MainUiState.Error("", ActiveApi.default()).javaClass, viewModel.uiState.javaClass
         )
     }
 
@@ -98,7 +99,7 @@ class MainViewModelTests {
         viewModel.updateSearchRequestTested(newText = " ", isForced = false)
         Assert.assertEquals(" ", viewModel.searchQueryForUI) // only UI has to be updated
         Assert.assertEquals("", viewModel.searchQuery) // remains empty for all blank symbols
-        Assert.assertEquals(MainUiState.FreshStart, viewModel.uiState)
+        Assert.assertEquals(MainUiState.FreshStart(ActiveApi.default()), viewModel.uiState)
     }
 
     // isForced = true & newQuery = " " -> request should be sent - checking connection case
@@ -114,7 +115,7 @@ class MainViewModelTests {
         viewModel.updateSearchRequestTested(newText = " ", isForced = true)
         Assert.assertEquals(" ", viewModel.searchQueryForUI)
         Assert.assertEquals("", viewModel.searchQuery)
-        Assert.assertEquals(MainUiState.EmptyList, viewModel.uiState)
+        Assert.assertEquals(MainUiState.EmptyList(ActiveApi.default()), viewModel.uiState)
     }
 
     // isForced = false & newQuery = "good" -> request should be sent - normal case
