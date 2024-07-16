@@ -1,4 +1,4 @@
-package com.igor_shaula.complex_api_client_sample.vm_tests
+package com.igor_shaula.complex_api_client_sample.view_models
 
 import com.igor_shaula.complex_api_client_sample.data.GenericErrorForUI
 import com.igor_shaula.complex_api_client_sample.fakes.FakeDataSource

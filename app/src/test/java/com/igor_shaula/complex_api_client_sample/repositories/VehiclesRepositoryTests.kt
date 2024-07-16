@@ -1,4 +1,4 @@
-package com.igor_shaula.complex_api_client_sample.repo_tests
+package com.igor_shaula.complex_api_client_sample.repositories
 
 import com.igor_shaula.complex_api_client_sample.data.network.NetworkVehicleDataSource
 import com.igor_shaula.complex_api_client_sample.data.network.OneVehicleData
