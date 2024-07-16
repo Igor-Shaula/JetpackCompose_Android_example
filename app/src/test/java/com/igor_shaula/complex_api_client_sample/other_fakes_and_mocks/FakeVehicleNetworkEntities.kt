@@ -1,4 +1,4 @@
-package com.igor_shaula.complex_api_client_sample.fakes
+package com.igor_shaula.complex_api_client_sample.other_fakes_and_mocks
 
 import com.igor_shaula.complex_api_client_sample.data_sources.FakeDataSource
 
