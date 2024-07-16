@@ -1,8 +1,8 @@
 package com.igor_shaula.complex_api_client_sample.view_models
 
 import com.igor_shaula.complex_api_client_sample.data.GenericErrorForUI
-import com.igor_shaula.complex_api_client_sample.fakes.FakeDataSource
-import com.igor_shaula.complex_api_client_sample.fakes.FakeVehiclesRepository
+import com.igor_shaula.complex_api_client_sample.data_sources.FakeDataSource
+import com.igor_shaula.complex_api_client_sample.repositories.FakeVehiclesRepository
 import com.igor_shaula.complex_api_client_sample.fakes.mockResponseWithEmptyData
 import com.igor_shaula.complex_api_client_sample.fakes.mockResponseWithFullData
 import com.igor_shaula.complex_api_client_sample.rules.VMTestWatcher
