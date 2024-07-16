@@ -1,4 +1,4 @@
-package com.igor_shaula.complex_api_client_sample
+package com.igor_shaula.complex_api_client_sample.vm_tests
 
 import com.igor_shaula.complex_api_client_sample.data.GenericErrorForUI
 import com.igor_shaula.complex_api_client_sample.fakes.FakeDataSource
@@ -6,9 +6,9 @@ import com.igor_shaula.complex_api_client_sample.fakes.FakeVehiclesRepository
 import com.igor_shaula.complex_api_client_sample.fakes.mockResponseWithEmptyData
 import com.igor_shaula.complex_api_client_sample.fakes.mockResponseWithFullData
 import com.igor_shaula.complex_api_client_sample.rules.VMTestWatcher
-import com.igor_shaula.complex_api_client_sample.ui.view_models.MainViewModel
-import com.igor_shaula.complex_api_client_sample.ui.view_models.MainUiState
 import com.igor_shaula.complex_api_client_sample.ui.models.toTheUiModels
+import com.igor_shaula.complex_api_client_sample.ui.view_models.MainUiState
+import com.igor_shaula.complex_api_client_sample.ui.view_models.MainViewModel
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert
 import org.junit.Rule
