@@ -5,6 +5,6 @@ import com.igor_shaula.complex_api_client_sample.data.repositories.BeersReposito
 
 object FakeBeersRepository : BeersRepository {
     override suspend fun fetchBeers(): List<BeerNetworkEntity> {
-        TODO("Not yet implemented")
+        return emptyList()
     }
 }
