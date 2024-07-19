@@ -54,33 +54,34 @@ class MainViewModelTests {
         val viewModel = MainViewModel(
             vehiclesRepository = FakeVehiclesRepository(),
             beersRepository = FakeBeersRepository,
-            settingsRepository = FakeSettingsRepository
+            settingsRepository = FakeSettingsRepository()
         )
         Assert.assertEquals("", viewModel.searchQueryForUI)
         Assert.assertEquals("", viewModel.searchQuery)
-        Assert.assertEquals(MainUiState.FreshStart(ActiveApi.default()), viewModel.uiState)
+        Assert.assertEquals(MainUiState.FreshStart(ActiveApi.OUTDOORSY), viewModel.uiState)
     }
 
 // 2 - testing how error states are processed
 
+    // todo after architecture change - fix this test
     @Test
     fun setupForCatchingAnyErrorInfo_emitAnError_errorStateIsActive() = runTest {
-        val fakeRepository = FakeVehiclesRepository()
+        val fakeVehiclesRepository = FakeVehiclesRepository()
         val viewModel = MainViewModel(
             vehiclesRepository = FakeVehiclesRepository(),
             beersRepository = FakeBeersRepository,
-            settingsRepository = FakeSettingsRepository
+            settingsRepository = FakeSettingsRepository()
         )
-        fakeRepository.errorDataForTest.emit(GenericErrorForUI("errorInfo"))
+        fakeVehiclesRepository.errorDataForTest.emit(GenericErrorForUI("errorInfo"))
 //        fakeRepository.errorDataForTest.value = GenericErrorForUI("errorInfo") // also works
         Assert.assertEquals("", viewModel.searchQueryForUI)
         Assert.assertEquals("", viewModel.searchQuery)
         Assert.assertEquals(
-            MainUiState.Error("errorInfo", ActiveApi.default()).errorInfo,
+            MainUiState.Error("errorInfo", ActiveApi.OUTDOORSY).errorInfo,
             (viewModel.uiState as MainUiState.Error).errorInfo
         )
         Assert.assertEquals(
-            MainUiState.Error("", ActiveApi.default()).javaClass, viewModel.uiState.javaClass
+            MainUiState.Error("", ActiveApi.OUTDOORSY).javaClass, viewModel.uiState.javaClass
         )
     }
 
@@ -94,12 +95,12 @@ class MainViewModelTests {
         val viewModel = MainViewModel(
             vehiclesRepository = fakeVehiclesRepository,
             beersRepository = FakeBeersRepository,
-            settingsRepository = FakeSettingsRepository
+            settingsRepository = FakeSettingsRepository()
         )
         viewModel.updateSearchRequestTested(newText = " ", isForced = false)
         Assert.assertEquals(" ", viewModel.searchQueryForUI) // only UI has to be updated
         Assert.assertEquals("", viewModel.searchQuery) // remains empty for all blank symbols
-        Assert.assertEquals(MainUiState.FreshStart(ActiveApi.default()), viewModel.uiState)
+        Assert.assertEquals(MainUiState.FreshStart(ActiveApi.OUTDOORSY), viewModel.uiState)
     }
 
     // isForced = true & newQuery = " " -> request should be sent - checking connection case
@@ -110,12 +111,12 @@ class MainViewModelTests {
         val viewModel = MainViewModel(
             vehiclesRepository = fakeVehiclesRepository,
             beersRepository = FakeBeersRepository,
-            settingsRepository = FakeSettingsRepository
+            settingsRepository = FakeSettingsRepository()
         )
         viewModel.updateSearchRequestTested(newText = " ", isForced = true)
         Assert.assertEquals(" ", viewModel.searchQueryForUI)
         Assert.assertEquals("", viewModel.searchQuery)
-        Assert.assertEquals(MainUiState.EmptyList(ActiveApi.default()), viewModel.uiState)
+        Assert.assertEquals(MainUiState.EmptyList(ActiveApi.OUTDOORSY), viewModel.uiState)
     }
 
     // isForced = false & newQuery = "good" -> request should be sent - normal case
@@ -126,7 +127,7 @@ class MainViewModelTests {
         val viewModel = MainViewModel(
             vehiclesRepository = fakeVehiclesRepository,
             beersRepository = FakeBeersRepository,
-            settingsRepository = FakeSettingsRepository
+            settingsRepository = FakeSettingsRepository()
         )
         viewModel.updateSearchRequestTested(newText = "good", isForced = false)
         Assert.assertEquals("good", viewModel.searchQueryForUI)
@@ -147,7 +148,7 @@ class MainViewModelTests {
         val viewModel = MainViewModel(
             vehiclesRepository = fakeVehiclesRepository,
             beersRepository = FakeBeersRepository,
-            settingsRepository = FakeSettingsRepository
+            settingsRepository = FakeSettingsRepository()
         )
         viewModel.updateSearchRequestTested(newText = "good", isForced = true)
         Assert.assertEquals("good", viewModel.searchQueryForUI)
@@ -168,7 +169,7 @@ class MainViewModelTests {
         val viewModel = MainViewModel(
             vehiclesRepository = fakeVehiclesRepository,
             beersRepository = FakeBeersRepository,
-            settingsRepository = FakeSettingsRepository
+            settingsRepository = FakeSettingsRepository()
         )
         viewModel.updateSearchRequestTested(newText = "good", isForced = false)
         viewModel.updateSearchRequestTested(newText = " good ", isForced = false)
@@ -190,7 +191,7 @@ class MainViewModelTests {
         val viewModel = MainViewModel(
             vehiclesRepository = fakeVehiclesRepository,
             beersRepository = FakeBeersRepository,
-            settingsRepository = FakeSettingsRepository
+            settingsRepository = FakeSettingsRepository()
         )
         viewModel.updateSearchRequestTested(newText = "good", isForced = true)
         viewModel.updateSearchRequestTested(newText = " good ", isForced = true)
