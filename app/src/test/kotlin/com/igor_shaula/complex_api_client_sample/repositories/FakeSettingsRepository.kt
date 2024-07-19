@@ -10,16 +10,16 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 
-object FakeSettingsRepository : SettingsRepository {
+class FakeSettingsRepository(private val activeApi: ActiveApi = ActiveApi.OUTDOORSY) : SettingsRepository {
 
     override val activeApiStateFlow: StateFlow<ActiveApi>
-        get() = MutableStateFlow(ActiveApi.default()).asStateFlow()
+        get() = MutableStateFlow(activeApi).asStateFlow()
     override val activeApiSharedFlow: SharedFlow<ActiveApi>
-        get() = MutableStateFlow(ActiveApi.default()).asSharedFlow()
+        get() = MutableStateFlow(activeApi).asSharedFlow()
     override val activeApiChannel: Channel<ActiveApi>
         get() = Channel(capacity = 1)
     override val activeApiMLD: MediatorLiveData<ActiveApi>
-        get() = MediatorLiveData(ActiveApi.default())
+        get() = MediatorLiveData(activeApi)
 
     override fun setActiveApi(newApi: ActiveApi) {
         // nothing needed here for tests
