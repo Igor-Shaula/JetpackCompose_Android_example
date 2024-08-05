@@ -38,10 +38,7 @@ class MainActivity : ComponentActivity() {
     // to hide keyboard on scroll events
     private fun hideKeyboard() {
         val imm: InputMethodManager = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
-        var view = currentFocus
-        if (view == null) {
-            view = View(this)
-        }
-        imm.hideSoftInputFromWindow(view.windowToken, 0)
+        val viewWithCurrentFocus = currentFocus ?: View(this)
+        imm.hideSoftInputFromWindow(viewWithCurrentFocus.windowToken, 0)
     }
 }
