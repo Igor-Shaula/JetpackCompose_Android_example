@@ -17,6 +17,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import com.igor_shaula.complex_api_client_sample.R
 import com.igor_shaula.complex_api_client_sample.data.repositories.BEER_UI_NAME
+import com.igor_shaula.complex_api_client_sample.data.repositories.GOOGLE_BOOKS_V1_UI_NAME
 import com.igor_shaula.complex_api_client_sample.data.repositories.OUTDOORSY_UI_NAME
 import com.igor_shaula.complex_api_client_sample.ui.theme.DEFAULT_PADDING
 import com.igor_shaula.complex_api_client_sample.ui.theme.SMALL_PADDING
@@ -46,7 +47,7 @@ fun ApiSelectionBlock(
                 )
         )
         arrayOf(
-            OUTDOORSY_UI_NAME, BEER_UI_NAME
+            GOOGLE_BOOKS_V1_UI_NAME, OUTDOORSY_UI_NAME, BEER_UI_NAME
         ).forEach { apiName ->
             Row(
                 verticalAlignment = Alignment.CenterVertically,

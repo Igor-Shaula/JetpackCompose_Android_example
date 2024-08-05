@@ -8,12 +8,17 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 
+const val GOOGLE_BOOKS_V1_UI_NAME = "Google Books v1"
+
+// this API is initial but
 const val OUTDOORSY_UI_NAME = "Outdoorsy"
+
+// at the moment this case is not connected as it requires
 const val BEER_UI_NAME = "Beer"
 
 enum class ActiveApi(val uiName: String) {
 
-    OUTDOORSY(OUTDOORSY_UI_NAME), BEER(BEER_UI_NAME);
+    GOOGLE_BOOKS_V1(GOOGLE_BOOKS_V1_UI_NAME), OUTDOORSY(OUTDOORSY_UI_NAME), BEER(BEER_UI_NAME);
 
     companion object {
         fun fromName(newApi: String) = requireNotNull(entries.find { it.uiName == newApi })
