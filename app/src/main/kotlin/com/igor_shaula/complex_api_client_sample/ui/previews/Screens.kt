@@ -30,7 +30,7 @@ fun TheAppScreenPreview() {
 fun TheAppBodyStartPreview() {
     ThemeWithSurface {
         TheAppBody(
-            uiState = MainUiState.FreshStart(ActiveApi.OUTDOORSY),
+            uiState = MainUiState.FreshStart(ActiveApi.default()),
             hideKeyboard = { },
             paddingValues = PaddingValues(top = APP_BAR_HEIGHT),
             contentType = ContentType.LIST
@@ -44,7 +44,7 @@ fun ExplanationScreenPreview() {
     ThemeWithSurface {
         ExplanationScreen(
             APP_BAR_HEIGHT, theTitle = "explanation TITLE",
-            activeApiName = ActiveApi.OUTDOORSY.uiName,
+            activeApiName = ActiveApi.default().uiName,
             theText = "explanation text"
         )
     }

@@ -22,7 +22,7 @@ enum class ActiveApi(val uiName: String) {
 
     companion object {
         fun fromName(newApi: String) = requireNotNull(entries.find { it.uiName == newApi })
-        fun default() = BEER // the only place of real setting of preselected API
+        fun default() = GOOGLE_BOOKS_V1 // the only place of real setting of preselected API
     }
 }
 
@@ -41,12 +41,12 @@ interface SettingsRepository {
 // decided to have it as a singleton to avoid issues with different instances and scoped injections
 object SettingsRepositoryImpl : SettingsRepository {
 
-    private val _activeApi = MutableStateFlow(ActiveApi.BEER)
+    private val _activeApi = MutableStateFlow(ActiveApi.default())
     override val activeApiStateFlow: StateFlow<ActiveApi> = _activeApi.asStateFlow()
 
     override val activeApiSharedFlow: SharedFlow<ActiveApi> = _activeApi.asSharedFlow()
     override val activeApiChannel: Channel<ActiveApi> = Channel(capacity = 1)
-    override val activeApiMLD = MediatorLiveData(ActiveApi.BEER)
+    override val activeApiMLD = MediatorLiveData(ActiveApi.default())
 
     override fun setActiveApi(newApi: ActiveApi) {
         _activeApi.value = newApi // the only needed payload in fact - later i'll remove the rest
