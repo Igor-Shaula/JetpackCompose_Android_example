@@ -1,4 +1,4 @@
-package com.igor_shaula.complex_api_client_sample.rules
+package com.igor_shaula.complex_api_client_sample.view_models
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi

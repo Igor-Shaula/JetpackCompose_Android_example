@@ -1,13 +1,13 @@
-package com.igor_shaula.complex_api_client_sample
+package com.igor_shaula.complex_api_client_sample.repositories
 
+import com.igor_shaula.complex_api_client_sample.data.network.NetworkVehicleDataSource
+import com.igor_shaula.complex_api_client_sample.data.network.OneVehicleData
 import com.igor_shaula.complex_api_client_sample.data.repositories.VehiclesRepositoryImpl
 import com.igor_shaula.complex_api_client_sample.data.repositories.assembleFromNetworkEntity3Loops
 import com.igor_shaula.complex_api_client_sample.data.repositories.assembleFromNetworkEntityOptimized
-import com.igor_shaula.complex_api_client_sample.data.network.NetworkVehicleDataSource
-import com.igor_shaula.complex_api_client_sample.data.network.OneVehicleData
-import com.igor_shaula.complex_api_client_sample.fakes.FakeNetworkApiService
-import com.igor_shaula.complex_api_client_sample.fakes.fakeVehicleNetworkEntityWithEmptyData
-import com.igor_shaula.complex_api_client_sample.fakes.fakeVehicleNetworkEntityWithFullData
+import com.igor_shaula.complex_api_client_sample.other_fakes_and_mocks.FakeNetworkApiService
+import com.igor_shaula.complex_api_client_sample.other_fakes_and_mocks.fakeVehicleNetworkEntityWithEmptyData
+import com.igor_shaula.complex_api_client_sample.other_fakes_and_mocks.fakeVehicleNetworkEntityWithFullData
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert
 import org.junit.Test
@@ -18,7 +18,8 @@ class VehiclesRepositoryTests {
     fun launchSearchRequestFor_verifyFilledVehiclesList() = runTest {
         val fakeNetworkApiServiceWithFullData =
             FakeNetworkApiService(fakeVehicleNetworkEntityWithFullData, shouldBeError = false)
-        val fakeNetworkVehicleDataSource = NetworkVehicleDataSource(fakeNetworkApiServiceWithFullData)
+        val fakeNetworkVehicleDataSource =
+            NetworkVehicleDataSource(fakeNetworkApiServiceWithFullData)
         val repository = VehiclesRepositoryImpl(fakeNetworkVehicleDataSource)
         Assert.assertEquals(
             assembleFromNetworkEntityOptimized(fakeVehicleNetworkEntityWithFullData),
@@ -30,7 +31,8 @@ class VehiclesRepositoryTests {
     fun launchSearchRequestFor_verifyEmptyVehiclesList() = runTest {
         val fakeNetworkApiServiceWithEmptyData =
             FakeNetworkApiService(fakeVehicleNetworkEntityWithEmptyData, shouldBeError = false)
-        val fakeNetworkVehicleDataSource = NetworkVehicleDataSource(fakeNetworkApiServiceWithEmptyData)
+        val fakeNetworkVehicleDataSource =
+            NetworkVehicleDataSource(fakeNetworkApiServiceWithEmptyData)
         val repository = VehiclesRepositoryImpl(fakeNetworkVehicleDataSource)
         Assert.assertEquals(
             emptyList<OneVehicleData>(),
@@ -54,7 +56,8 @@ class VehiclesRepositoryTests {
     @Test
     fun launchSearchRequestFor_verifyEmptyVehiclesListFromErrorResult() = runTest {
         val fakeNetworkApiServiceWithEmptyData = FakeNetworkApiService(shouldBeError = true)
-        val fakeNetworkVehicleDataSource = NetworkVehicleDataSource(fakeNetworkApiServiceWithEmptyData)
+        val fakeNetworkVehicleDataSource =
+            NetworkVehicleDataSource(fakeNetworkApiServiceWithEmptyData)
         val repository = VehiclesRepositoryImpl(fakeNetworkVehicleDataSource)
         Assert.assertEquals(
             emptyList<OneVehicleData>(),
